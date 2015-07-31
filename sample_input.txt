@@ -1,0 +1,13 @@
+36590	Lec	A	4	KAY, D.	TuTh   8:00- 9:20	SSLH 100	Tue, Dec 8, 8:00-10:00am	350	43 / 49	n/a	235	331	N	Bookstore		NewOnly
+36595	Lec	B	4	KAY, D.	TuTh   11:00-12:20p	HSLH 100A	Tue, Dec 8, 10:30-12:30pm	340	138 / 183	n/a	402	324	N	Bookstore		NewOnly
+36601	Lab	1	0	STAFF	MWF   8:00- 9:50	ICS 183		44	10-Jun	n/a	17	43	N	Bookstore		NewOnly
+36602	Lab	2	0	STAFF	MWF   10:00-11:50	ICS 183		44	38 / 45	n/a	56	37	N	Bookstore		FULL
+36603	Lab	3	0	STAFF	MWF   12:00- 1:50p	ICS 183		44	38 / 44	n/a	61	36	N	Bookstore		FULL
+36604	Lab	4	0	STAFF	MWF   2:00- 3:50p	ICS 183		44	33 / 44	n/a	44	34	N	Bookstore		FULL
+44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore		OPEN
+44220	Dis	10	0	STAFF	TuTh   1:00- 1:50p	ET 202		59	14	0	17	30		Bookstore		OPEN
+44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M		45	2	0	1	23		Bookstore		OPEN
+44226	Dis	12	0	STAFF	TuTh   9:00- 9:50	RH 114		43	16	0	15	22		Bookstore		OPEN
+44227	Dis	13	0	STAFF	TuTh   5:00- 5:50p	SH 128		74	2	0	2	36		Bookstore		OPEN
+44230	Lec	B	4	STAFF	MWF   9:00- 9:50	DBH 1600	Sat, Dec 5, 1:30-3:30pm	110	110	0	145	55	A	Bookstore		Waitl
+44235	Dis	20	0	STAFF	TuTh   12:00-12:50p	MSTB 124		55	55	0	60	28		Bookstore		Waitl
