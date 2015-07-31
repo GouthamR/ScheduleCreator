@@ -17,11 +17,9 @@ class Time:
     def __le__(self, other):
         return (self == other #same hour and same minute
             or ((self.hour == other.hour) and (self.minute < other.minute)) #same hour, different minute
-            or self.hour < other.hour) #different hour and different minute
+            or self.hour < other.hour) #(different hour and same minute) OR (different hour and different minute)
     def __ge__(self, other):
-        return (self == other #same hour and same minute
-            or ((self.hour == other.hour) and (self.minute > other.minute)) #same hour, different minute
-            or self.hour > other.hour) #different hour and different minute
+        return not (self <= other)
 
 class Days:
     def __init__(self, rawData):
@@ -40,7 +38,10 @@ class ClassTime:
     def __str__(self):
         return "ClassTime: %s, %s" % (self.start, self.end)
     def overlapsWith(self, otherTime):
-        return self.start <= otherTime.end or self.end >= otherTime.start
+        return ((self.start >= otherTime.start and self.start <= otherTime.end) or #self begins during other
+                (self.end >= otherTime.start and self.end <= otherTime.end) or #self ends during other
+                (self.start <= otherTime.start and self.end >= otherTime.end)) #self begins before other and ends after other. i.e. encompassing other
+                #other encompassing self is included in first two cases above
 
 class Class:
     DATA_TIMINGS_INDEX = 5
