@@ -29,6 +29,8 @@ class ClassTime:
         self.end = Time(timeStrList[1])
     def __str__(self):
         return "ClassTime: %s, %s" % (self.start, self.end)
+    def overlapsWith(otherTime):
+        return self.start < otherTime.end or self.end > otherTime.start
 
 class Class:
     DATA_TIMINGS_INDEX = 5
