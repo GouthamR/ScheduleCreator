@@ -43,6 +43,11 @@ class Class:
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
 
+def unitTests():
+    classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
+    print("Class parse test: %s" % (str(Class(classRawStr)) == "Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50"))
+    print("End unit tests.")
+
 def main():
     classes = []
     currInput = "_flag_"
@@ -55,4 +60,5 @@ def main():
 
     print ("%s" % "\n".join(map(str, classes)))
 
+unitTests()
 main()
