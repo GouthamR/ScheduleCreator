@@ -111,9 +111,9 @@ def main():
     while currInput != "":
         currInput = input("Course -> ")
         if(currInput != ""):
-            courses.append(Course())
+            courses.append(Course(currInput))
             inputClasses(courses[0])
     print ("%s" % "\n".join(map(str, courses)))
 
 unitTests()
-#main()
+main()
