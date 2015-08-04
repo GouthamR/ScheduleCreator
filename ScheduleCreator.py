@@ -20,7 +20,7 @@ class Time:
             or self.hour < other.hour) #(different hour and same minute) OR (different hour and different minute)
     def __ge__(self, other):
         return ((self == other) or (not (self <= other)))
-    def isPM():
+    def isPM(self):
         return self.hour > 12
 
 class Days:
