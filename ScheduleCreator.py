@@ -58,9 +58,9 @@ class Course:
     def __init__(self):
         self.classes = []
     def addClass(self, newClass):
-        classes.append(newClass)
+        self.classes.append(newClass)
     def __str__(self):
-        return "Course: %s" % (self.classes)
+        return "[%s]" % (", ".join(map(str, self.classes)))
 
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     print("%s: %s" % (testName, testResults))
@@ -84,6 +84,11 @@ def unitTests():
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr4)),
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr5)))
     print("End unit tests.")
+    classRawStr2 = "44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M	 	45	2	0	1	23	 	Bookstore	 	OPEN"
+    course1 = Course()
+    course1.addClass(Class(classRawStr))
+    course1.addClass(Class(classRawStr2))
+    print(course1)
 
 def main():
     classes = []
