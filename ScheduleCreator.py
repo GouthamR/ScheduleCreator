@@ -71,7 +71,9 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
 
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
-    printUnitTest("Class parse test", str(Class(classRawStr)) == "Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50")
+    classRawStr2 = "44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M	 	45	2	0	1	23	 	Bookstore	 	OPEN"
+    printUnitTest("Class parse test", str(Class(classRawStr)) == "Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50",
+                                      str(Class(classRawStr2)) == "Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50")
     time1 = Time("8:00")
     time2 = Time("9:00")
     time3 = Time("9:00p")
@@ -87,12 +89,11 @@ def unitTests():
                   ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr3)),
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr4)),
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr5)))
-    print("End unit tests.")
-    classRawStr2 = "44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M	 	45	2	0	1	23	 	Bookstore	 	OPEN"
     course1 = Course()
     course1.addClass(Class(classRawStr))
     course1.addClass(Class(classRawStr2))
-    print(course1)
+    printUnitTest("Course unit test", str(course1) == "[Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
+    print("End unit tests.")
 
 def main():
     classes = []
