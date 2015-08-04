@@ -95,17 +95,24 @@ def unitTests():
     printUnitTest("Course unit test", str(course1) == "[Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
     print("End unit tests.")
 
-def main():
-    classes = []
-    currInput = "_flag_"
-
+def inputClasses(course):
     print ("Type in classes. Press enter when finished.")
+    currInput = "_flag_"
     while currInput != "":
-        currInput = input(" -> ")
+        currInput = input("Class -> ")
         if(currInput != ""):
-            classes.append(Class(currInput))
+            course.addClass(Class(currInput))
 
-    print ("%s" % "\n".join(map(str, classes)))
+def main():
+    courses = []
+    print ("Type in names of courses. Press enter when finished.")
+    currInput = "_flag_"
+    while currInput != "":
+        currInput = input("Course -> ")
+        if(currInput != ""):
+            courses.append(Course())
+            inputClasses(courses[0])
+    print ("%s" % "\n".join(map(str, courses)))
 
 unitTests()
 #main()
