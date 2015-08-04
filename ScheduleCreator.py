@@ -54,6 +54,14 @@ class Class:
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
 
+class Course:
+    def __init__(self):
+        self.classes = []
+    def addClass(self, newClass):
+        classes.append(newClass)
+    def __str__(self):
+        return "Course: %s" % (self.classes)
+
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     print("%s: %s" % (testName, testResults))
 
