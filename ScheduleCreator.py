@@ -59,12 +59,13 @@ class Class:
         return "Class: %s, %s" % (self.days, self.classTime)
 
 class Course:
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.classes = []
     def addClass(self, newClass):
         self.classes.append(newClass)
     def __str__(self):
-        return "[%s]" % (", ".join(map(str, self.classes)))
+        return "%s: [%s]" % (self.name, ", ".join(map(str, self.classes)))
 
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     print("%s: %s" % (testName, testResults))
@@ -89,10 +90,10 @@ def unitTests():
                   ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr3)),
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr4)),
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr5)))
-    course1 = Course()
+    course1 = Course("TestCourse 1A")
     course1.addClass(Class(classRawStr))
     course1.addClass(Class(classRawStr2))
-    printUnitTest("Course unit test", str(course1) == "[Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
+    printUnitTest("Course unit test", str(course1) == "TestCourse 1A: [Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
     print("End unit tests.")
 
 def inputClasses(course):
