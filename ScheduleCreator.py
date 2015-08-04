@@ -19,7 +19,7 @@ class Time:
             or ((self.hour == other.hour) and (self.minute < other.minute)) #same hour, different minute
             or self.hour < other.hour) #(different hour and same minute) OR (different hour and different minute)
     def __ge__(self, other):
-        return not (self <= other)
+        return ((self == other) or (not (self <= other)))
 
 class Days:
     def __init__(self, rawData):
@@ -60,10 +60,11 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
     printUnitTest("Class parse test", str(Class(classRawStr)) == "Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50")
-##    classTimeRawStr1 = "MWF   8:00- 8:50" #overlaps with self
-##    classTimeRawStr2 = "MWF   8:30- 9:00" #overlaps with 1
-##    classTimeRawStr3 = "MWF   7:30- 8:30" #does overlap with 1
-##    classTimeRawStr4 = "TuTh   7:30- 8:30" #does not overlap with 1
+    time1 = Time("8:00")
+    time2 = Time("9:00")
+    time3 = Time("9:00p")
+    time4 = Time("10:00p")
+    printUnitTest("Time comparison tests", time1 <= time2, time1 <= time3, time2 <= time3, time3 <= time4)
     classTimeRawStr1 = "8:00- 8:50" #overlaps with self
     classTimeRawStr2 = "8:30- 9:00" #overlaps with end of 1
     classTimeRawStr3 = "7:30- 8:30" #overlaps with beginning of 1
