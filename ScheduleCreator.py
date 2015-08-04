@@ -20,6 +20,8 @@ class Time:
             or self.hour < other.hour) #(different hour and same minute) OR (different hour and different minute)
     def __ge__(self, other):
         return ((self == other) or (not (self <= other)))
+    def isPM():
+        return self.hour > 12
 
 class Days:
     def __init__(self, rawData):
@@ -33,8 +35,10 @@ class Days:
 class ClassTime:
     def __init__(self, rawData):
         timeStrList = rawData.replace(" ", "").split("-") #remove spaces, then split
-        self.start = Time(timeStrList[0])
         self.end = Time(timeStrList[1])
+        if self.end.isPM():
+            timeStrList[0] += "p" #if the end time is pm, odds are high that the start time is pm.
+        self.start = Time(timeStrList[0])
     def __str__(self):
         return "ClassTime: %s, %s" % (self.start, self.end)
     def overlapsWith(self, otherTime):
