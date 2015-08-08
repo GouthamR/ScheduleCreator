@@ -75,6 +75,20 @@ class Schedule:
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
 
+def generatePossibleSchedules(courses):
+    schedules = []
+    generateAllPossibleSchedules(courses, 0, schedules, [])
+    schedules = [schedule for schedule in schedules if not schedule.hasOverlaps()] #remove schedules with overlaps
+    return schedules
+
+def generateAllPossibleSchedules(courses, currCourseIndex, schedules, currClasses):
+    if currCourseIndex < len(courses):
+        for currClass in courses[currCourseIndex].classes:
+            currClasses.append(currClass)
+            generateAllPossibleSchedules(courses, currCourseIndex+1, schedules, currClasses)
+    else:
+        schedules.append(Schedule(currClasses))
+
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     print("%s: %s" % (testName, testResults))
 
@@ -124,4 +138,4 @@ def main():
     print ("%s" % "\n".join(map(str, courses)))
 
 unitTests()
-main()
+#main()
