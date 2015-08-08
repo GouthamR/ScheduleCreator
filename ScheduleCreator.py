@@ -67,6 +67,14 @@ class Course:
     def __str__(self):
         return "%s: [%s]" % (self.name, ", ".join(map(str, self.classes)))
 
+class Schedule:
+    def __init__(self, classes):
+        self.classes = classes
+    def hasOverlaps(self):
+        return False;
+    def __str__(self):
+        return "[%s]" % (", ".join(map(str, self.classes)))
+
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     print("%s: %s" % (testName, testResults))
 
