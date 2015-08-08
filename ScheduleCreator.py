@@ -69,7 +69,7 @@ class Course:
 
 class Schedule:
     def __init__(self, classes):
-        self.classes = classes
+        self.classes = list(classes)
     def hasOverlaps(self):
         return False;
     def __str__(self):
@@ -88,6 +88,7 @@ def generateAllSchedulesHelper(courses, currCourseIndex, schedules, currClasses)
             generateAllSchedulesHelper(courses, currCourseIndex+1, schedules, currClasses)
     else:
         schedules.append(Schedule(currClasses))
+        currClasses.pop() #removes last element in preparation for next iteration
 
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     print("%s: %s" % (testName, testResults))
@@ -120,9 +121,8 @@ def unitTests():
     course2.addClass(Class("test	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test"))
     course3 = Course("TestCourse 3A")
     course3.addClass(Class("test	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
-    course3.addClass(Class("test	test	test	test	test	MWF   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
-    schedules = generatePossibleSchedules([course2, course3])
-    print("\n".join(map(str, schedules)))
+    course3.addClass(Class("test	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    printUnitTest("Generate schedule unit test", "\n".join(map(str, generatePossibleSchedules([course2, course3]))) == "[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [1, 3], ClassTime: Time: 7:0, Time: 8:0]\n[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [0, 2], ClassTime: Time: 7:0, Time: 8:0]")
     print("End unit tests.")
 
 def inputClasses(course):
