@@ -5,3 +5,6 @@
 36595	Lec	B	4	KAY, D.	TuTh   11:00-12:20p	HSLH 100A	Tue, Dec 8, 10:30-12:30pm	340	138 / 183	n/a	402	324	N	Bookstore	 	NewOnly
 36601	Lab	1	0	STAFF	MWF   8:00- 9:50	ICS 183	 	44	6 / 10	n/a	17	43	N	Bookstore	 	NewOnly
 36602	Lab	2	0	STAFF	MWF   10:00-11:50	ICS 183	 	44	38 / 45	n/a	56	37	N	Bookstore	 	FULL
+test	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test
+test	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test
+test	test	test	test	test	MWF   7:00- 8:00	testinga	test	test	test	test	test	test	test	test
