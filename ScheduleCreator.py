@@ -75,6 +75,11 @@ class Schedule:
         return False;
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
+    def getClassCodes(self):
+        codes = []
+        for currClass in self.classes:
+            codes.append(currClass.code)
+        return codes
 
 def generatePossibleSchedules(courses):
     schedules = []
@@ -120,11 +125,12 @@ def unitTests():
     course1.addClass(Class(classRawStr2))
     printUnitTest("Course unit test", str(course1) == "TestCourse 1A: [Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
     course2 = Course("TestCourse 2A")
-    course2.addClass(Class("12345	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test"))
+    course2.addClass(Class("21000	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test"))
     course3 = Course("TestCourse 3A")
-    course3.addClass(Class("12345	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
-    course3.addClass(Class("12345	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    course3.addClass(Class("31000	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    course3.addClass(Class("32000	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
     printUnitTest("Generate schedule unit test", "\n".join(map(str, generatePossibleSchedules([course2, course3]))) == "[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [1, 3], ClassTime: Time: 7:0, Time: 8:0]\n[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [0, 2], ClassTime: Time: 7:0, Time: 8:0]")
+    printUnitTest("Schedule class code unit test", Schedule([Class(classRawStr), Class(classRawStr2)]).getClassCodes() == [44215, 44225])
     print("End unit tests.")
 
 def inputClasses(course):
