@@ -99,6 +99,16 @@ def generateAllSchedulesHelper(courses, currCourseIndex, schedules, currClasses)
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     print("%s: %s" % (testName, testResults))
 
+def generateScheduleUnitTests():
+    course2 = Course("TestCourse 2A")
+    course2.addClass(Class("21000	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test"))
+    course3 = Course("TestCourse 3A")
+    course3.addClass(Class("31000	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    course3.addClass(Class("32000	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    schedules = generatePossibleSchedules([course2, course3])
+    printUnitTest("Generate schedule unit tests", "\n".join(map(str, schedules)) == "[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [1, 3], ClassTime: Time: 7:0, Time: 8:0]\n[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [0, 2], ClassTime: Time: 7:0, Time: 8:0]",
+                                                  schedules[0].getClassCodes() == [21000, 31000] and schedules[1].getClassCodes() == [21000, 32000])
+
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
     classRawStr2 = "44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M	 	45	2	0	1	23	 	Bookstore	 	OPEN"
@@ -125,14 +135,7 @@ def unitTests():
     course1.addClass(Class(classRawStr2))
     printUnitTest("Course unit test", str(course1) == "TestCourse 1A: [Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
     printUnitTest("Schedule class code unit test", Schedule([Class(classRawStr), Class(classRawStr2)]).getClassCodes() == [44215, 44225])
-    course2 = Course("TestCourse 2A")
-    course2.addClass(Class("21000	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test"))
-    course3 = Course("TestCourse 3A")
-    course3.addClass(Class("31000	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
-    course3.addClass(Class("32000	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
-    schedules = generatePossibleSchedules([course2, course3])
-    printUnitTest("Generate schedule unit test", "\n".join(map(str, schedules)) == "[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [1, 3], ClassTime: Time: 7:0, Time: 8:0]\n[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [0, 2], ClassTime: Time: 7:0, Time: 8:0]",
-                                                  schedules[0].getClassCodes() == [21000, 31000] and schedules[1].getClassCodes() == [21000, 32000])
+    generateScheduleUnitTests()
     print("End unit tests.")
 
 def inputClasses(course):
