@@ -52,6 +52,7 @@ class Class:
     def __init__(self, rawData):
         self.rawData = rawData
         rawSplit = rawData.split("\t")
+        self.code = int(rawSplit[0])
         timingsList = rawSplit[Class.DATA_TIMINGS_INDEX].split("   ")
         self.days = Days(timingsList[0])
         self.classTime = ClassTime(timingsList[1])
@@ -98,6 +99,7 @@ def unitTests():
     classRawStr2 = "44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M	 	45	2	0	1	23	 	Bookstore	 	OPEN"
     printUnitTest("Class parse test", str(Class(classRawStr)) == "Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50",
                                       str(Class(classRawStr2)) == "Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50")
+    printUnitTest("Class code test", Class(classRawStr).code == 44215)
     time1 = Time("8:00")
     time2 = Time("9:00")
     time3 = Time("9:00p")
@@ -118,10 +120,10 @@ def unitTests():
     course1.addClass(Class(classRawStr2))
     printUnitTest("Course unit test", str(course1) == "TestCourse 1A: [Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
     course2 = Course("TestCourse 2A")
-    course2.addClass(Class("test	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test"))
+    course2.addClass(Class("12345	test	test	test	test	MWF   4:00- 5:00	testinga	test	test	test	test	test	test	test	test"))
     course3 = Course("TestCourse 3A")
-    course3.addClass(Class("test	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
-    course3.addClass(Class("test	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    course3.addClass(Class("12345	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    course3.addClass(Class("12345	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
     printUnitTest("Generate schedule unit test", "\n".join(map(str, generatePossibleSchedules([course2, course3]))) == "[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [1, 3], ClassTime: Time: 7:0, Time: 8:0]\n[Class: Days: [0, 2, 4], ClassTime: Time: 4:0, Time: 5:0, Class: Days: [0, 2], ClassTime: Time: 7:0, Time: 8:0]")
     print("End unit tests.")
 
