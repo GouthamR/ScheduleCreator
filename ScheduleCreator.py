@@ -69,7 +69,7 @@ class Course:
 
 class Schedule:
     def __init__(self, classes):
-        self.classes = list(classes)
+        self.classes = classes
     def hasOverlaps(self):
         return False;
     def __str__(self):
@@ -87,7 +87,7 @@ def generateAllSchedulesHelper(courses, currCourseIndex, schedules, currClasses)
             currClasses.append(currClass)
             generateAllSchedulesHelper(courses, currCourseIndex+1, schedules, currClasses)
     else:
-        schedules.append(Schedule(currClasses))
+        schedules.append(Schedule(list(currClasses)))
         currClasses.pop() #removes last element in preparation for next iteration
 
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
