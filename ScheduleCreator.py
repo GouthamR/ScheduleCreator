@@ -97,7 +97,12 @@ def generateAllSchedulesHelper(courses, currCourseIndex, schedules, currClasses)
         currClasses.pop() #removes last element in preparation for next iteration
 
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
-    print("%s: %s" % (testName, testResults))
+    for i in testResults:
+        if i == False:
+            print("%s: %s" % (testName, testResults))
+            return
+    #if not returned before here, all tests pass:
+    print("%s: success!" % (testName))
 
 def generateScheduleUnitTests():
     course2 = Course("TestCourse 2A")
