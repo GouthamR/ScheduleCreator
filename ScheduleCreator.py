@@ -82,19 +82,20 @@ class Schedule:
         return codes
 
 def generatePossibleSchedules(courses):
-    schedules = []
-    generateAllSchedulesHelper(courses, 0, schedules, [])
+    schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
     schedules = [schedule for schedule in schedules if not schedule.hasOverlaps()] #remove schedules with overlaps
     return schedules
 
-def generateAllSchedulesHelper(courses, currCourseIndex, schedules, currClasses):
-    if currCourseIndex < len(courses):
-        for currClass in courses[currCourseIndex].classes:
-            currClasses.append(currClass)
-            generateAllSchedulesHelper(courses, currCourseIndex+1, schedules, currClasses)
-    else:
-        schedules.append(Schedule(list(currClasses)))
-        currClasses.pop() #removes last element in preparation for next iteration
+def generateAllSchedulesHelper(courses, index):
+    if index == len(courses): #if past last course
+        return ((), )
+    #else:
+    mainList = []
+    fnTuple = generateAllSchedulesHelper(courses, index + 1)
+    for currClass in courses[index].classes:
+        for subTuple in fnTuple:
+            mainList.append((currClass, ) + subTuple)
+    return tuple(mainList)
 
 def printUnitTest(testName, *testResults): #testResult = True is success, False is failure
     for i in testResults:
