@@ -169,7 +169,9 @@ def main():
         if(currInput != ""):
             courses.append(Course(currInput))
             inputClasses(courses[0])
-    print ("%s" % "\n".join(map(str, courses)))
+    #print ("%s" % "\n".join(map(str, courses)))
+    schedules = generatePossibleSchedules(courses)
+    print([schedule.getClassCodes() for schedule in schedules])
 
 unitTests()
-#main()
+main()
