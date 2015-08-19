@@ -102,7 +102,7 @@ def generatePossibleSchedules(courses):
         schedule = schedules[int(len(schedules)/2)]
         if(not schedule.hasOverlaps()):
             nonOverlappingSchedules.append(schedule)
-        print("Completed Percentage: %s" % ((i+1)/len(schedules)*100))
+        #print("Completed Percentage: %s" % ((i+1)/len(schedules)*100))
     end = time.clock()
     elapsed = end - start
     eta = elapsed/5 * len(schedules)
@@ -115,7 +115,7 @@ def generatePossibleSchedules(courses):
         schedule = schedules[i]
         if not schedule.hasOverlaps():
             nonOverlappingSchedules.append(schedule)
-        print("Completed Percentage: %s" % ((i+1)/len(schedules)*100))
+        #print("Completed Percentage: %s" % ((i+1)/len(schedules)*100))
     return nonOverlappingSchedules
 
 def generateAllSchedulesHelper(courses, index):
@@ -223,9 +223,10 @@ def fileInputCourses(fileName):
 
 def main():
     #courses = consoleInputCourses()
-    courses = fileInputCourses("actual_input_1.txt")
+    courses = fileInputCourses("actual_input_3.txt")
     schedules = generatePossibleSchedules(courses)
-    print([schedule.getClassCodes() for schedule in schedules])
+    #print([schedule.getClassCodes() for schedule in schedules])
+    print("Number of schedules = " + str(len(schedules)))
 
 unitTests()
 main()
