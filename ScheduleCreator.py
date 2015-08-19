@@ -88,8 +88,19 @@ class Schedule:
 def generatePossibleSchedules(courses):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
     print(str(len(schedules)) + " combinations")
-    schedules = [schedule for schedule in schedules if not schedule.hasOverlaps()] #remove schedules with overlaps
-    return schedules
+
+    #Compact version:
+    #schedules = [schedule for schedule in schedules if not schedule.hasOverlaps()] #remove schedules with overlaps
+    #return schedules
+
+    #Progress bar version:
+    nonOverlappingSchedules = []
+    for i in range(len(schedules)):
+        schedule = schedules[i]
+        if not schedule.hasOverlaps():
+            nonOverlappingSchedules.append(schedule)
+        print("Completed Percentage: %s" % ((i+1)/len(schedules)*100))
+    return nonOverlappingSchedules
 
 def generateAllSchedulesHelper(courses, index):
     if index == len(courses): #if past last course
