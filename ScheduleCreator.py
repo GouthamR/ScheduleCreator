@@ -89,11 +89,27 @@ def generatePossibleSchedules(courses):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
     print(str(len(schedules)) + " combinations")
 
-    #Compact version:
+    #Compact version of overlap removal:
     #schedules = [schedule for schedule in schedules if not schedule.hasOverlaps()] #remove schedules with overlaps
     #return schedules
 
-    #Progress bar version:
+    nonOverlappingSchedules = []
+    
+    #ETA check:
+    import time
+    start = time.clock()
+    for i in range(5):
+        schedule = schedules[int(len(schedules)/2)]
+        if(not schedule.hasOverlaps()):
+            nonOverlappingSchedules.append(schedule)
+        print("Completed Percentage: %s" % ((i+1)/len(schedules)*100))
+    end = time.clock()
+    elapsed = end - start
+    eta = elapsed/5 * len(schedules)
+    print("ETA = %s" % (eta))
+    input("Press enter to continue...")
+
+    #Progress bar version of overlap removal:
     nonOverlappingSchedules = []
     for i in range(len(schedules)):
         schedule = schedules[i]
@@ -207,7 +223,7 @@ def fileInputCourses(fileName):
 
 def main():
     #courses = consoleInputCourses()
-    courses = fileInputCourses("actual_input_2.txt")
+    courses = fileInputCourses("actual_input_1.txt")
     schedules = generatePossibleSchedules(courses)
     print([schedule.getClassCodes() for schedule in schedules])
 
