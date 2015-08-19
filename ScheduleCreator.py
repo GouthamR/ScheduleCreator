@@ -72,7 +72,11 @@ class Schedule:
     def __init__(self, classes):
         self.classes = classes
     def hasOverlaps(self):
-        return False;
+        for i in (range(len(self.classes) - 1)): # [0, second to last]
+            for j in (range(i + 1, len(self.classes))): # [next, last]
+                if(self.classes[i].classTime.overlapsWith(self.classes[j].classTime)):
+                    return True
+        return False
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
     def getClassCodes(self):
@@ -113,7 +117,7 @@ def generateScheduleUnitTests():
     course3.addClass(Class("31000	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
     course3.addClass(Class("32000	test	test	test	test	MW   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
     course4 = Course("TestCourse 4A")
-    course4.addClass(Class("41000	test	test	test	test	TuTh   7:00- 8:00	testinga	test	test	test	test	test	test	test	test"))
+    course4.addClass(Class("41000	test	test	test	test	TuTh   10:00- 11:00	testinga	test	test	test	test	test	test	test	test"))
     printUnitTest("Generate schedule unit tests", [i.getClassCodes() for i in generatePossibleSchedules([course2])] == [[21000], [22000]],
                   [i.getClassCodes() for i in generatePossibleSchedules([course2, course4])] == [[21000, 41000], [22000, 41000]],
                   [i.getClassCodes() for i in generatePossibleSchedules([course2, course3])] == [[21000, 31000], [21000, 32000], [22000, 31000], [22000, 32000]])
