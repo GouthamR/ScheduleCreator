@@ -87,6 +87,7 @@ class Schedule:
 
 def generatePossibleSchedules(courses):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
+    print(str(len(schedules)) + " combinations")
     schedules = [schedule for schedule in schedules if not schedule.hasOverlaps()] #remove schedules with overlaps
     return schedules
 
@@ -168,12 +169,34 @@ def consoleInputCourses():
         currInput = input("Course -> ")
         if(currInput != ""):
             courses.append(Course(currInput))
-            consoleInputClasses(courses[0])
+            consoleInputClasses(courses[-1])
+    return courses
+
+def fileInputClasses(file, course):
+    currInput = "_flag_"
+    while currInput != "":
+        currInput = file.readline()
+        if(currInput.endswith("\n")):
+            currInput = currInput[:-1] #remove newline
+        if(currInput != ""):
+            course.addClass(Class(currInput))
+
+def fileInputCourses(fileName):
+    courses = []
+    with open(fileName, 'r') as file:
+        currInput = "_flag_"
+        while currInput != "":
+            currInput = file.readline()
+            if(currInput.endswith("\n")):
+                currInput = currInput[:-1] #remove newline
+            if(currInput != ""):
+                courses.append(Course(currInput))
+                fileInputClasses(file, courses[-1])
     return courses
 
 def main():
-    courses = consoleInputCourses()
-    #print ("%s" % "\n".join(map(str, courses)))
+    #courses = consoleInputCourses()
+    courses = fileInputCourses("actual_input_2.txt")
     schedules = generatePossibleSchedules(courses)
     print([schedule.getClassCodes() for schedule in schedules])
 
