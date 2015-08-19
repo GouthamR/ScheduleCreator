@@ -152,7 +152,7 @@ def unitTests():
     generateScheduleUnitTests()
     print("End unit tests.")
 
-def inputClasses(course):
+def consoleInputClasses(course):
     print ("Type in classes. Press enter when finished.")
     currInput = "_flag_"
     while currInput != "":
@@ -160,7 +160,7 @@ def inputClasses(course):
         if(currInput != ""):
             course.addClass(Class(currInput))
 
-def main():
+def consoleInputCourses():
     courses = []
     print ("Type in names of courses. Press enter when finished.")
     currInput = "_flag_"
@@ -168,7 +168,11 @@ def main():
         currInput = input("Course -> ")
         if(currInput != ""):
             courses.append(Course(currInput))
-            inputClasses(courses[0])
+            consoleInputClasses(courses[0])
+    return courses
+
+def main():
+    courses = consoleInputCourses()
     #print ("%s" % "\n".join(map(str, courses)))
     schedules = generatePossibleSchedules(courses)
     print([schedule.getClassCodes() for schedule in schedules])
