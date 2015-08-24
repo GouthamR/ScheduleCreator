@@ -143,7 +143,10 @@ def connectedCourseInputUnitTests():
                   [i.code for i in courses[0].classes] == [52111],
                   [i.code for i in courses[1].classes] == [10010, 20010, 30010],
                   [i.code for i in courses[2].classes] == [11111, 11112, 21111, 21112, 21113, 31111],
-                  [i.code for i in courses[3].classes] == [42111])
+                  [i.code for i in courses[3].classes] == [42111],
+                  [i.code for i in connectedClassDict[10010]] == [11111, 11112],
+                  [i.code for i in connectedClassDict[20010]] == [21111, 21112, 21113],
+                  [i.code for i in connectedClassDict[30010]] == [31111])
 
 def generateScheduleUnitTests():
     course2 = Course("TestCourse 2A")
