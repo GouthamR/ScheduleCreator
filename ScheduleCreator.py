@@ -225,6 +225,9 @@ def readConnectedCourses(file, courses, connectedClassDict, firstLine):
                 labCourse.addClass(currClass)
                 connectedClassDict[key].append(currClass)
 
+    courses.append(lectureCourse)
+    courses.append(labCourse)
+
 def fileInputCourses(fileName):
     courses = []
     connectedClassDict = {}
