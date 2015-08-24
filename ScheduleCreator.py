@@ -190,6 +190,7 @@ def consoleInputClasses(course):
 
 def consoleInputCourses():
     courses = []
+    connectedClassDict = {}
     print ("Type in names of courses. Press enter when finished.")
     currInput = "_flag_"
     while currInput != "":
@@ -197,7 +198,7 @@ def consoleInputCourses():
         if(currInput != ""):
             courses.append(Course(currInput))
             consoleInputClasses(courses[-1])
-    return courses
+    return courses, connectedClassDict
 
 def fileInputClasses(file, course):
     currInput = "_flag_"
@@ -210,6 +211,7 @@ def fileInputClasses(file, course):
 
 def fileInputCourses(fileName):
     courses = []
+    connectedClassDict = {}
     with open(fileName, 'r') as file:
         currInput = "_flag_"
         while currInput != "":
@@ -219,11 +221,11 @@ def fileInputCourses(fileName):
             if(currInput != ""):
                 courses.append(Course(currInput))
                 fileInputClasses(file, courses[-1])
-    return courses
+    return courses, connectedClassDict
 
 def main():
-    #courses = consoleInputCourses()
-    courses = fileInputCourses("actual_input_3.txt")
+    #courses, connectedClassDict = consoleInputCourses()
+    courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
     schedules = generatePossibleSchedules(courses)
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
