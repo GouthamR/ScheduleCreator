@@ -139,7 +139,7 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
 
 def connectedCourseInputUnitTests():
     courses, connectedClassDict = fileInputCourses("sample_input_2.txt")
-    printUnitTest("Connected input unit tests",
+    printUnitTest("Connected course input unit tests",
                   [i.code for i in courses[0].classes] == [52111],
                   [i.code for i in courses[1].classes] == [10010, 20010, 30010],
                   [i.code for i in courses[2].classes] == [11111, 11112, 21111, 21112, 21113, 31111],
@@ -219,7 +219,7 @@ def readConnectedCourses(file, courses, connectedClassDict, firstLine):
     while(not done):
         line = readNextLine(file)
         if line == CONNECTED_COURSE_INDICATOR:
-            isCourse= True
+            isLecture = True
         elif line == CONNECTED_COURSE_END_INDICATOR:
             done = True
         else:
