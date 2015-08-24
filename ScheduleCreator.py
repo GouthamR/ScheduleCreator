@@ -137,6 +137,14 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
     #if not returned before here, all tests pass:
     print("%s: success!" % (testName))
 
+def connectedCourseInputUnitTests():
+    courses, connectedClassDict = fileInputCourses("sample_input_2.txt")
+    printUnitTest("Connected input unit tests",
+                  [i.code for i in courses[0].classes] == [52111],
+                  [i.code for i in courses[1].classes] == [10010, 20010, 30010],
+                  [i.code for i in courses[2].classes] == [11111, 11112, 21111, 21112, 21113, 31111],
+                  [i.code for i in courses[3].classes] == [42111])
+
 def generateScheduleUnitTests():
     course2 = Course("TestCourse 2A")
     course2.addClass(Class("21000	test	test	test	test	MWF   3:00- 3:50	testinga	test	test	test	test	test	test	test	test"))
@@ -177,6 +185,7 @@ def unitTests():
     printUnitTest("Course unit test", str(course1) == "TestCourse 1A: [Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50]")
     printUnitTest("Schedule class code unit test", Schedule([Class(classRawStr), Class(classRawStr2)]).getClassCodes() == [44215, 44225])
     generateScheduleUnitTests()
+    connectedCourseInputUnitTests()
     print("End unit tests.")
 
 #Returns next line, removing newline from end if necessary
