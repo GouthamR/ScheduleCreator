@@ -194,6 +194,9 @@ def fileInputClasses(file, course):
         if(currInput != ""):
             course.addClass(Class(currInput))
 
+CONNECTED_COURSE_INDICATOR = "_C_"
+CONNECTED_COURSE_END_INDICATOR = "_E_"
+
 def fileInputCourses(fileName):
     courses = []
     connectedClassDict = {}
@@ -202,8 +205,11 @@ def fileInputCourses(fileName):
         while currInput != "":
             currInput = readNextLine(file)
             if(currInput != ""):
-                courses.append(Course(currInput))
-                fileInputClasses(file, courses[-1])
+                if CONNECTED_COURSE_INDICATOR in currInput:
+                    readConnectedCourses(file, courses, connectedClassDict)
+                else:
+                    courses.append(Course(currInput))
+                    fileInputClasses(file, courses[-1])
     return courses, connectedClassDict
 
 def main():
