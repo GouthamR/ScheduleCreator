@@ -149,7 +149,6 @@ def generateScheduleUnitTests():
     printUnitTest("Generate schedule unit tests", [i.getClassCodes() for i in generatePossibleSchedules([course2])] == [[21000], [22000]],
                   [i.getClassCodes() for i in generatePossibleSchedules([course2, course4])] == [[21000, 41000], [22000, 41000]],
                   [i.getClassCodes() for i in generatePossibleSchedules([course2, course3])] == [[21000, 31000], [21000, 32000], [22000, 31000], [22000, 32000]])
-    
 
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
@@ -224,6 +223,8 @@ def readConnectedCourses(file, courses, connectedClassDict, firstLine):
             else:
                 labCourse.addClass(currClass)
                 connectedClassDict[key].append(currClass)
+
+    readNextLine(file) #skip the blank line after end of connected courses
 
     courses.append(lectureCourse)
     courses.append(labCourse)
