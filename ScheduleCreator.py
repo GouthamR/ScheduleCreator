@@ -180,26 +180,6 @@ def unitTests():
     generateScheduleUnitTests()
     print("End unit tests.")
 
-def consoleInputClasses(course):
-    print ("Type in classes. Press enter when finished.")
-    currInput = "_flag_"
-    while currInput != "":
-        currInput = input("Class -> ")
-        if(currInput != ""):
-            course.addClass(Class(currInput))
-
-def consoleInputCourses():
-    courses = []
-    connectedClassDict = {}
-    print ("Type in names of courses. Press enter when finished.")
-    currInput = "_flag_"
-    while currInput != "":
-        currInput = input("Course -> ")
-        if(currInput != ""):
-            courses.append(Course(currInput))
-            consoleInputClasses(courses[-1])
-    return courses, connectedClassDict
-
 def fileInputClasses(file, course):
     currInput = "_flag_"
     while currInput != "":
@@ -224,7 +204,6 @@ def fileInputCourses(fileName):
     return courses, connectedClassDict
 
 def main():
-    #courses, connectedClassDict = consoleInputCourses()
     courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
     schedules = generatePossibleSchedules(courses)
     #print([schedule.getClassCodes() for schedule in schedules])
