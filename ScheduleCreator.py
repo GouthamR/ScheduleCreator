@@ -201,6 +201,30 @@ def readStandardCourses(file, courses, currInput):
     courses.append(Course(currInput))
     fileInputClasses(file, courses[-1])
 
+def readConnectedCourses(file, courses, connectedClassDict, firstLine):
+    lectureCourse, labCourse = (Course(i) for i in firstLine.split(CONNECTED_COURSE_INDICATOR))
+
+    isLecture = True
+    done = False
+    key = None
+
+    while(not done):
+        line = readNextLine(file)
+        if line == CONNECTED_COURSE_INDICATOR:
+            isCourse= True
+        elif line == CONNECTED_COURSE_END_INDICATOR:
+            done = True
+        else:
+            currClass = Class(line)
+            if isLecture:
+                lectureCourse.addClass(currClass)
+                key = currClass.code
+                connectedClassDict[key] = []
+                isLecture = False
+            else:
+                labCourse.addClass(currClass)
+                connectedClassDict[key].append(currClass)
+
 def fileInputCourses(fileName):
     courses = []
     connectedClassDict = {}
@@ -210,7 +234,7 @@ def fileInputCourses(fileName):
             currInput = readNextLine(file)
             if(currInput != ""):
                 if CONNECTED_COURSE_INDICATOR in currInput:
-                    readConnectedCourses(file, courses, connectedClassDict)
+                    readConnectedCourses(file, courses, connectedClassDict, currInput)
                 else:
                     readStandardCourses(file, courses, currInput)
     return courses, connectedClassDict
