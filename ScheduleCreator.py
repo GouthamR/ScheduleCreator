@@ -180,12 +180,17 @@ def unitTests():
     generateScheduleUnitTests()
     print("End unit tests.")
 
+#Returns next line, removing newline from end if necessary
+def readNextLine(file):
+    currInput = file.readline()
+    if(currInput.endswith("\n")):
+        currInput = currInput[:-1] #remove newline
+    return currInput
+
 def fileInputClasses(file, course):
     currInput = "_flag_"
     while currInput != "":
-        currInput = file.readline()
-        if(currInput.endswith("\n")):
-            currInput = currInput[:-1] #remove newline
+        currInput = readNextLine(file)
         if(currInput != ""):
             course.addClass(Class(currInput))
 
@@ -195,9 +200,7 @@ def fileInputCourses(fileName):
     with open(fileName, 'r') as file:
         currInput = "_flag_"
         while currInput != "":
-            currInput = file.readline()
-            if(currInput.endswith("\n")):
-                currInput = currInput[:-1] #remove newline
+            currInput = readNextLine(file)
             if(currInput != ""):
                 courses.append(Course(currInput))
                 fileInputClasses(file, courses[-1])
