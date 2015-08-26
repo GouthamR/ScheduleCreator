@@ -286,4 +286,4 @@ def main():
     print("Number of schedules = " + str(len(schedules)))
 
 unitTests()
-#main()
+main()
