@@ -126,9 +126,9 @@ def progressBarOverlapRemoval(schedules):
 
 def generatePossibleSchedules(courses, connectedClassDict):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
-    print(str(len(schedules)) + " combinations")
+    #print(str(len(schedules)) + " combinations")
 
-    overlapRemovalETA(schedules)
+    #overlapRemovalETA(schedules)
     #progressBarOverlapRemoval(schedules)
 
     #Compact version of overlap removal:
@@ -175,10 +175,10 @@ def generateScheduleUnitTests():
     course4.addClass(Class("41000	test	test	test	test	TuTh   10:00- 11:00	testinga	test	test	test	test	test	test	test	test"))
     course5 = Course("TestCourse 5A")
     course5.addClass(Class("51000	test	test	test	test	TuTh   10:00- 10:50	testinga	test	test	test	test	test	test	test	test"))
-    printUnitTest("Generate schedule unit tests", [i.getClassCodes() for i in generatePossibleSchedules([course2])] == [[21000], [22000]],
-                  [i.getClassCodes() for i in generatePossibleSchedules([course2, course4])] == [[21000, 41000], [22000, 41000]],
-                  [i.getClassCodes() for i in generatePossibleSchedules([course2, course3])] == [[21000, 31000], [21000, 32000], [22000, 31000], [22000, 32000]],
-                  len(generatePossibleSchedules([course4, course5])) == 0)
+    printUnitTest("Generate schedule unit tests", [i.getClassCodes() for i in generatePossibleSchedules([course2], {})] == [[21000], [22000]],
+                  [i.getClassCodes() for i in generatePossibleSchedules([course2, course4], {})] == [[21000, 41000], [22000, 41000]],
+                  [i.getClassCodes() for i in generatePossibleSchedules([course2, course3], {})] == [[21000, 31000], [21000, 32000], [22000, 31000], [22000, 32000]],
+                  len(generatePossibleSchedules([course4, course5], {})) == 0)
 
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
