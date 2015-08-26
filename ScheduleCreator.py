@@ -163,6 +163,9 @@ def connectedCourseUnitTests():
                   [i.code for i in connectedClassDict[10010]] == [11111, 11112],
                   [i.code for i in connectedClassDict[20010]] == [21111, 21112, 21113],
                   [i.code for i in connectedClassDict[30010]] == [31111])
+    printUnitTest("Connected course validation unit tests",
+                  Schedule([courses[1].classes[0], courses[2].classes[0]]).hasValidConnections(connectedClassDict) == True,
+                  Schedule([courses[1].classes[0], courses[2].classes[2]]).hasValidConnections(connectedClassDict) == False)
 
 def generateScheduleUnitTests():
     course2 = Course("TestCourse 2A")
