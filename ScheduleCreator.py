@@ -77,6 +77,20 @@ class Schedule:
                 if(self.classes[i].classTime.overlapsWith(self.classes[j].classTime)):
                     return True
         return False
+    def hasValidConnections(self, connectedClassDict):
+        for currClass in self.classes:
+            if currClass in connectedClassDict:
+                validConnection = False
+                i = 0
+                currConnected = connectedClassDict[currClass]
+                while ((not validConnection) and (i < len(currConnected))):
+                    if currConnected[i] in self.classes:
+                        validConnection = True
+                    else:
+                        i += 1
+                if not validConnection:
+                    return False
+        return True
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
     def getClassCodes(self):
@@ -110,7 +124,7 @@ def progressBarOverlapRemoval(schedules):
         print("Completed Percentage: %s" % ((i+1)/len(schedules)*100))
     return nonOverlappingSchedules
 
-def generatePossibleSchedules(courses):
+def generatePossibleSchedules(courses, connectedClassDict):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
     print(str(len(schedules)) + " combinations")
 
@@ -118,7 +132,7 @@ def generatePossibleSchedules(courses):
     #progressBarOverlapRemoval(schedules)
 
     #Compact version of overlap removal:
-    return [schedule for schedule in schedules if not schedule.hasOverlaps()] #remove schedules with overlaps
+    return [schedule for schedule in schedules if (not schedule.hasOverlaps() and schedule.hasValidConnections(connectedClassDict))] #remove schedules with overlaps
 
 def generateAllSchedulesHelper(courses, index):
     if index == len(courses): #if past last course
@@ -262,7 +276,7 @@ def fileInputCourses(fileName):
 
 def main():
     courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
-    schedules = generatePossibleSchedules(courses)
+    schedules = generatePossibleSchedules(courses, connectedClassDict)
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
 
