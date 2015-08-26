@@ -79,10 +79,10 @@ class Schedule:
         return False
     def hasValidConnections(self, connectedClassDict):
         for currClass in self.classes:
-            if currClass in connectedClassDict:
+            if currClass.code in connectedClassDict:
                 validConnection = False
                 i = 0
-                currConnected = connectedClassDict[currClass]
+                currConnected = connectedClassDict[currClass.code]
                 while ((not validConnection) and (i < len(currConnected))):
                     if currConnected[i] in self.classes:
                         validConnection = True
@@ -284,4 +284,4 @@ def main():
     print("Number of schedules = " + str(len(schedules)))
 
 unitTests()
-main()
+#main()
