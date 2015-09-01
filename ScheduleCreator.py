@@ -4,11 +4,21 @@
 ##Generates schedules.
 
 class Time:
+    def getHourFromInput(rawHour, isPm):
+        rawHourInt = int(rawHour)
+        if isPm:
+            if rawHourInt == 12:
+                return 12
+            else:
+                return (rawHourInt + 12)
+        else:
+            if rawHourInt == 12:
+                return 0
+            else:
+                return rawHourInt
     def __init__(self, rawData):
         rawHour, rawMinute = rawData.split(":")
-        self.hour = int(rawHour)
-        if(rawMinute.endswith("p")):
-            self.hour += 12
+        self.hour = Time.getHourFromInput(rawHour, rawMinute.endswith("p"))
         self.minute = int(rawMinute[:2]) #cuts off p if necessary
     def __str__(self):
         return "Time: %s:%s" % (self.hour, self.minute)
