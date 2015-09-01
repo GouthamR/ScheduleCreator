@@ -191,6 +191,7 @@ def unitTests():
     printUnitTest("Class parse test", str(Class(classRawStr)) == "Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 8:50",
                                       str(Class(classRawStr2)) == "Class: Days: [1, 3], ClassTime: Time: 15:0, Time: 15:50")
     printUnitTest("Class code test", Class(classRawStr).code == 44215)
+    printUnitTest("Time hour construction tests", Time("11:00").hour == 11, Time("12:00p").hour == 12, Time("3:00p").hour == 15, Time("12:00").hour == 0)
     time1 = Time("8:00")
     time2 = Time("9:00")
     time3 = Time("9:00p")
