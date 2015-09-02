@@ -219,6 +219,11 @@ def unitTests():
                   ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr3)),
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr4)),
                   not ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr5)))
+    printUnitTest("ClassTime isWithin test",
+                  ClassTime("8:00- 8:50").isWithin(ClassTime("7:50- 9:00")),
+                  not ClassTime("8:00- 8:50").isWithin(ClassTime("8:10- 8:40")),
+                  not ClassTime("8:00- 8:50").isWithin(ClassTime("7:50- 8:40")),
+                  not ClassTime("8:00- 8:50").isWithin(ClassTime("8:10- 9:00")))
     course1 = Course("TestCourse 1A")
     course1.addClass(Class(classRawStr))
     course1.addClass(Class(classRawStr2))
