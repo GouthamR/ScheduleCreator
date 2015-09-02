@@ -114,6 +114,7 @@ class Schedule:
                     score -= 2
                 elif currClassTime.overlapsWith(redZone):
                     score -= 1
+        print(score)
         return score
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
@@ -333,9 +334,12 @@ def main():
     courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones("red_zones.txt")
-    print([str(i) for i in redZones])
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
+    print("\n".join([str(i.getClassCodes()) for i in schedules]))
+    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones))
+    print("done sorting")
+    print("\n".join([str(i.getClassCodes()) for i in schedules]))
 
 unitTests()
 main()
