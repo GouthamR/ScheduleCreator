@@ -153,7 +153,7 @@ def generatePossibleSchedules(courses, connectedClassDict):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
     #print(str(len(schedules)) + " combinations")
 
-    #overlapRemovalETA(schedules)
+    overlapRemovalETA(schedules)
     #progressBarOverlapRemoval(schedules)
 
     #Compact version of overlap removal:
@@ -336,15 +336,15 @@ def fileInputRedZones(fileName):
     return redZones
 
 def main():
-    courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
+    courses, connectedClassDict = fileInputCourses("actual_input_1.txt")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones("red_zones.txt")
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
-    print("\n".join([str(i.getClassCodes()) for i in schedules]))
+    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones)) for i in schedules]))
     schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones), reverse=True)
     print("done sorting")
-    print("\n".join([str(i.getClassCodes()) for i in schedules]))
+    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones)) for i in schedules]))
 
 unitTests()
 main()
