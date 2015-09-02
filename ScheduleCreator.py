@@ -104,7 +104,7 @@ class Schedule:
                     return False
         return True
     def calculatePreferenceScore(self, redZones):
-        return calculateRedZoneScore(redZones)
+        return self.calculateRedZoneScore(redZones)
     def calculateRedZoneScore(self, redZones):
         score = 0
         for currClass in self.classes:
