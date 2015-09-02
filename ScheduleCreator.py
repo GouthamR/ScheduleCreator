@@ -103,9 +103,9 @@ class Schedule:
                 if not validConnection:
                     return False
         return True
-    def calculatePreferenceScore(redZones):
+    def calculatePreferenceScore(self, redZones):
         return calculateRedZoneScore(redZones)
-    def calculateRedZoneScore(redZones):
+    def calculateRedZoneScore(self, redZones):
         score = 0
         for currClass in self.classes:
             currClassTime = currClass.classTime
