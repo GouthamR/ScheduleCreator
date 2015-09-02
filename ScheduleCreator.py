@@ -302,9 +302,18 @@ def fileInputCourses(fileName):
                     readStandardCourses(file, courses, currInput)
     return courses, connectedClassDict
 
+def fileInputRedZones(fileName):
+    redZones = []
+    with open(fileName, 'r') as file:
+        for line in file:
+            redZones.append(ClassTime(removeNewline(line)))
+    return redZones
+
 def main():
     courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
+    redZones = fileInputRedZones("red_zones.txt")
+    print([str(i) for i in redZones])
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
 
