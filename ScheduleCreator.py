@@ -56,6 +56,8 @@ class ClassTime:
                 (self.end >= otherTime.start and self.end <= otherTime.end) or #self ends during other
                 (self.start <= otherTime.start and self.end >= otherTime.end)) #self begins before other and ends after other. i.e. encompassing other
                 #other encompassing self is included in first two cases above
+    def isWithin(self, other):
+        return (self.start >= other.start and self.end <= other.end)
 
 class Class:
     DATA_TIMINGS_INDEX = 5
