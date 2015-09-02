@@ -103,6 +103,18 @@ class Schedule:
                 if not validConnection:
                     return False
         return True
+    def calculatePreferenceScore(redZones):
+        return calculateRedZoneScore(redZones)
+    def calculateRedZoneScore(redZones):
+        score = 0
+        for currClass in self.classes:
+            currClassTime = currClass.classTime
+            for redZone in redZones:
+                if currClassTime.isWithin(redZone):
+                    score -= 2
+                elif currClassTime.overlapsWith(redZone):
+                    score -= 1
+        return score
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
     def getClassCodes(self):
