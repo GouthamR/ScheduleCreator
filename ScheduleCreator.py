@@ -342,7 +342,7 @@ def main():
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
     print("\n".join([str(i.getClassCodes()) for i in schedules]))
-    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones))
+    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones), reverse=True)
     print("done sorting")
     print("\n".join([str(i.getClassCodes()) for i in schedules]))
 
