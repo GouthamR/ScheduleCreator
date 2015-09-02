@@ -180,10 +180,15 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
 
 def redZoneUnitTests():
     courses = fileInputCourses("sample_input_3.txt")[0]
-    schedule = Schedule([i for i in courses[0].classes])
+    schedule1 = Schedule(courses[0].classes)
+    schedule2 = Schedule(courses[1].classes)
+    schedules = [schedule1, schedule2]
     redZones = fileInputRedZones("sample_red_zones.txt")
+    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones), reverse=True)
     printUnitTest("Red zone unit tests",
-                  schedule.calculateRedZoneScore(redZones) == -6)
+                  schedule1.calculateRedZoneScore(redZones) == -6,
+                  schedule2.calculateRedZoneScore(redZones) == -4,
+                  schedules == [schedule2, schedule1])
 
 def connectedCourseUnitTests():
     courses, connectedClassDict = fileInputCourses("sample_input_2.txt")
