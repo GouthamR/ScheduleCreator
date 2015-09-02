@@ -177,6 +177,13 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
     #if not returned before here, all tests pass:
     print("%s: success!" % (testName))
 
+def redZoneUnitTests():
+    courses = fileInputCourses("sample_input_3.txt")[0]
+    schedule = Schedule([i for i in courses[0].classes])
+    redZones = fileInputRedZones("sample_red_zones.txt")
+    printUnitTest("Red zone unit tests",
+                  schedule.calculateRedZoneScore(redZones) == -6)
+
 def connectedCourseUnitTests():
     courses, connectedClassDict = fileInputCourses("sample_input_2.txt")
     printUnitTest("Connected course input unit tests",
@@ -243,6 +250,7 @@ def unitTests():
     printUnitTest("Schedule class code unit test", Schedule([Class(classRawStr), Class(classRawStr2)]).getClassCodes() == [44215, 44225])
     generateScheduleUnitTests()
     connectedCourseUnitTests()
+    redZoneUnitTests()
     print("End unit tests.")
 
 #Removes newline from end of inputStr if necessary and returns it.

@@ -1,0 +1,6 @@
+IsolatedLecMy1
+52111	RedIn	test	test	test	TuTh   6:10- 7:00	testinga	test	test	test	test	test	test	test	test
+10010	OK	test	test	test	MWF   9:10- 10:00	testinga	test	test	test	test	test	test	test	test
+11112	RedIn	test	test	test	MWF   3:10- 4:00p	testinga	test	test	test	test	test	test	test	test
+20010	RedOv	test	test	test	MWF   4:10- 5:10p	testinga	test	test	test	test	test	test	test	test
+42111	RedOv	test	test	test	TuTh   9:10- 10:30p	testinga	test	test	test	test	test	test	test	test
