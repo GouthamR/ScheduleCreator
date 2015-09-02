@@ -233,12 +233,17 @@ def unitTests():
     connectedCourseUnitTests()
     print("End unit tests.")
 
+#Removes newline from end of inputStr if necessary and returns it.
+#Does NOT modify inputStr
+def removeNewline(inputStr):
+    if inputStr.endswith("\n"):
+        return inputStr[:-1] #remove newline
+    #else:
+    return inputStr
+
 #Returns next line, removing newline from end if necessary
 def readNextLine(file):
-    currInput = file.readline()
-    if(currInput.endswith("\n")):
-        currInput = currInput[:-1] #remove newline
-    return currInput
+    return removeNewline(file.readline())
 
 def fileInputClasses(file, course):
     currInput = "_flag_"
