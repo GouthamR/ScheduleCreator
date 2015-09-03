@@ -185,7 +185,7 @@ def redZoneUnitTests():
     schedule2 = Schedule(courses[1].classes)
     schedules = [schedule1, schedule2]
     redZones = fileInputRedZones("sample_red_zones.txt")
-    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones, 0), reverse=True)
+    schedules.sort(key=lambda sched: sched.calculateRedZoneScore(redZones), reverse=True)
     printUnitTest("Red zone unit tests",
                   schedule1.calculateRedZoneScore(redZones) == -6,
                   schedule2.calculateRedZoneScore(redZones) == -4,
