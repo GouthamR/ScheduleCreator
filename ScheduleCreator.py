@@ -103,8 +103,8 @@ class Schedule:
                 if not validConnection:
                     return False
         return True
-    def calculatePreferenceScore(self, redZones):
-        return self.calculateRedZoneScore(redZones)
+    def calculatePreferenceScore(self, redZones, minutesBetweenClasses):
+        return (self.calculateRedZoneScore(redZones) + self.calculateBetweenClassScore(minutesBetweenClasses))
     def calculateRedZoneScore(self, redZones):
         score = 0
         for currClass in self.classes:
@@ -114,8 +114,9 @@ class Schedule:
                     score -= 2
                 elif currClassTime.overlapsWith(redZone):
                     score -= 1
-        print(score)
         return score
+    def calculateBetweenClassScore(self, minutesBetweenClasses):
+        return 0
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
     def getClassCodes(self):
@@ -184,7 +185,7 @@ def redZoneUnitTests():
     schedule2 = Schedule(courses[1].classes)
     schedules = [schedule1, schedule2]
     redZones = fileInputRedZones("sample_red_zones.txt")
-    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones), reverse=True)
+    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones, 0), reverse=True)
     printUnitTest("Red zone unit tests",
                   schedule1.calculateRedZoneScore(redZones) == -6,
                   schedule2.calculateRedZoneScore(redZones) == -4,
@@ -336,15 +337,16 @@ def fileInputRedZones(fileName):
     return redZones
 
 def main():
-    courses, connectedClassDict = fileInputCourses("actual_input_1.txt")
+    courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones("red_zones.txt")
+    minutesBetweenClasses = 10
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
-    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones)) for i in schedules]))
-    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones), reverse=True)
+    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones, minutesBetweenClasses)) for i in schedules]))
+    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones, minutesBetweenClasses), reverse=True)
     print("done sorting")
-    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones)) for i in schedules]))
+    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones, minutesBetweenClasses)) for i in schedules]))
 
 unitTests()
 main()
