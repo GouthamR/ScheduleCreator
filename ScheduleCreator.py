@@ -242,7 +242,9 @@ def unitTests():
     time2 = Time("9:00")
     time3 = Time("9:00p")
     time4 = Time("10:00p")
-    printUnitTest("Time comparison tests", time1 <= time2, time1 <= time3, time2 <= time3, time3 <= time4)
+    printUnitTest("Time comparison tests", time1 < time2, time1 < time3, time2 < time3, time3 < time4,
+                  time1 <= time1, time1 >= time1, time2 <= time3, time4 >= time3,
+                  time1 == time1)
     classTimeRawStr1 = "8:00- 8:50" #overlaps with self
     classTimeRawStr2 = "8:30- 9:00" #overlaps with end of 1
     classTimeRawStr3 = "7:30- 8:30" #overlaps with beginning of 1
