@@ -118,6 +118,11 @@ class Schedule:
                 elif currClassTime.overlapsWith(redZone):
                     score -= 1
         return score
+    #Prerequisite: second is after first. First and second are both Times.
+    def getMinutesDifference(first, second):
+        hourDiff = second.hour - first.hour
+        minDiff = second.minute - first.minute
+        return (hourDiff * 60 + minDiff)
     #Prerequisite: schedule has no overlaps
     def calculateBetweenClassScore(self, minutesBetweenClasses):
         score = 0
@@ -127,7 +132,7 @@ class Schedule:
         #print("sorted!")
         #print([str(classTime) for classTime in classTimes])
         for i in range(len(classTimes) - 1): #[0, second to last element]
-            if ((classTimes[i + 1].start - classTimes[i].end) < minutesBetweenClasses):
+            if (Schedule.getMinutesDifference(classTimes[i].end, classTimes[i + 1].start) < minutesBetweenClasses):
                 score -= 1
             else:
                 score += 1
