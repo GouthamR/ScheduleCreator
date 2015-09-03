@@ -22,6 +22,11 @@ class Time:
         self.minute = int(rawMinute[:2]) #cuts off p if necessary
     def __str__(self):
         return "Time: %s:%s" % (self.hour, self.minute)
+    def __lt__(self, other):
+        return (((self.hour == other.hour) and (self.minute < other.minute)) #same hour, different minute
+            or self.hour < other.hour) #(different hour and same minute) OR (different hour and different minute)
+    def __gt__(self, other):
+        return (not (self == other) and not (self < other))
     def __eq__(self, other):
         return self.hour == other.hour and self.minute == other.minute
     def __le__(self, other):
