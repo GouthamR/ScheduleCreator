@@ -116,6 +116,11 @@ class Schedule:
                     score -= 1
         return score
     def calculateBetweenClassScore(self, minutesBetweenClasses):
+        classTimes = [currClass.classTime for currClass in self.classes]
+        print(classTimes)
+        classTimes.sort(key=lambda classTime: classTime.start)
+        print("sorted!")
+        print(classTimes)
         return 0
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
