@@ -118,13 +118,20 @@ class Schedule:
                 elif currClassTime.overlapsWith(redZone):
                     score -= 1
         return score
+    #Prerequisite: schedule has no overlaps
     def calculateBetweenClassScore(self, minutesBetweenClasses):
+        score = 0
         classTimes = [currClass.classTime for currClass in self.classes]
-        print(classTimes)
+        #print([str(classTime) for classTime in classTimes])
         classTimes.sort(key=lambda classTime: classTime.start)
-        print("sorted!")
-        print(classTimes)
-        return 0
+        #print("sorted!")
+        #print([str(classTime) for classTime in classTimes])
+        for i in range(len(classTimes) - 1): #[0, second to last element]
+            if ((classTimes[i + 1].start - classTimes[i].end) < minutesBetweenClasses):
+                score -= 1
+            else:
+                score += 1
+        return score
     def __str__(self):
         return "[%s]" % (", ".join(map(str, self.classes)))
     def getClassCodes(self):
@@ -350,7 +357,7 @@ def main():
     courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones("red_zones.txt")
-    minutesBetweenClasses = 10
+    minutesBetweenClasses = 30
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
     print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones, minutesBetweenClasses)) for i in schedules]))
