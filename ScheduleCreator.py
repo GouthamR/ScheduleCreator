@@ -30,11 +30,9 @@ class Time:
     def __eq__(self, other):
         return self.hour == other.hour and self.minute == other.minute
     def __le__(self, other):
-        return (self == other #same hour and same minute
-            or ((self.hour == other.hour) and (self.minute < other.minute)) #same hour, different minute
-            or self.hour < other.hour) #(different hour and same minute) OR (different hour and different minute)
+        return (self < other or self == other)
     def __ge__(self, other):
-        return ((self == other) or (not (self <= other)))
+        return (self > other or self == other)
     def isPM(self):
         return self.hour > 12
 
