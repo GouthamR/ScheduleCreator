@@ -44,6 +44,22 @@ class Days:
         return "Days: %s" % (self.days)
 
 class ClassTime:
+    def calculateTimes(rawSplit, endIsPM):
+        end = Time(rawSplit[1])
+        start = None
+        if endIsPM:
+            start = Time(rawSplit[0] + "p")
+            if start > end:
+                start = Time(rawSplit[0])
+                if start > end:
+                    raise RuntimeError("Unusable ClassTime input: %s" % (rawSplit))
+        else:
+            start = Time(rawSplit[0])
+            if start > end:
+                start = Time(rawSplit[0] + "p")
+                if start > end:
+                    raise RuntimeError("Unusable ClassTime input: %s" % (rawSplit))
+        return start, end
     def __init__(self, rawData):
         rawSplit = rawData.replace(" ", "").split("-") #remove spaces, then split
         endIsPM = rawSplit[1].endswith('p')
