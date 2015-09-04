@@ -33,8 +33,6 @@ class Time:
         return (self < other or self == other)
     def __ge__(self, other):
         return (self > other or self == other)
-    def isPM(self):
-        return self.hour > 12
 
 class Days:
     def __init__(self, rawData):
