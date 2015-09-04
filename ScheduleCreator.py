@@ -45,11 +45,9 @@ class Days:
 
 class ClassTime:
     def __init__(self, rawData):
-        timeStrList = rawData.replace(" ", "").split("-") #remove spaces, then split
-        self.end = Time(timeStrList[1])
-        if self.end.isPM():
-            timeStrList[0] += "p" #if the end time is pm, odds are high that the start time is pm.
-        self.start = Time(timeStrList[0])
+        rawSplit = rawData.replace(" ", "").split("-") #remove spaces, then split
+        endIsPM = rawSplit[1].endswith('p')
+        self.start, self.end = ClassTime.calculateTimes(rawSplit, endIsPM)
     def __str__(self):
         return "ClassTime: %s, %s" % (self.start, self.end)
     def overlapsWith(self, otherTime):
