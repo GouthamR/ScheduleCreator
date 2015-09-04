@@ -255,6 +255,26 @@ def generateScheduleUnitTests():
                   [i.getClassCodes() for i in generatePossibleSchedules([course2, course3], {})] == [[21000, 31000], [21000, 32000], [22000, 31000], [22000, 32000]],
                   len(generatePossibleSchedules([course4, course5], {})) == 0)
 
+def classTimeAMPMUnitTests():
+    raw1 = "10:00- 11:59a"
+    raw2 = "10:00- 12:59p"
+    raw3 = "12:01- 12:59p"
+    raw4 = "12:01- 1:00p"
+    raw5 = "1:00- 10:00p"
+    raw6 = "10:00- 11:59p"
+    raw7 = "10:00- 12:01a"
+    printUnitTest("ClassTime ampm tests",
+                  str(ClassTime(raw1)) == "ClassTime: Time: 10:0, Time: 11:59",
+                  str(ClassTime(raw2)) == "ClassTime: Time: 10:0, Time: 12:59",
+                  str(ClassTime(raw3)) == "ClassTime: Time: 12:01, Time: 12:59",
+                  str(ClassTime(raw4)) == "ClassTime: Time: 12:01, Time: 13:0",
+                  str(ClassTime(raw5)) == "ClassTime: Time: 13:0, Time: 22:0",
+                  str(ClassTime(raw6)) == "ClassTime: Time: 22:0, Time: 23:59",
+                  str(ClassTime(raw7)) == "ClassTime: Time: 22:0, Time: 0:01")
+    #print("\"%s\"" % (ClassTime(raw1)))
+    #print(str(ClassTime(raw3)))
+    #
+
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
     classRawStr2 = "44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M	 	45	2	0	1	23	 	Bookstore	 	OPEN"
@@ -292,6 +312,7 @@ def unitTests():
     generateScheduleUnitTests()
     connectedCourseUnitTests()
     redZoneUnitTests()
+    classTimeAMPMUnitTests()
     print("End unit tests.")
 
 #Removes newline from end of inputStr if necessary and returns it.
