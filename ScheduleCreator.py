@@ -262,18 +262,29 @@ def classTimeAMPMUnitTests():
     raw4 = "12:01- 1:00p"
     raw5 = "1:00- 10:00p"
     raw6 = "10:00- 11:59p"
-    raw7 = "10:00- 12:01a"
+    raw7 = "10:00- 12:01"
+    raw8 = "10:00- 1:01"
+
+    exceptionTestsPass = True
+    try:
+        ClassTime(raw7)
+        exceptionTestsPass = False
+    except RuntimeError:
+        pass
+    try:
+        ClassTime(raw8)
+        exceptionTestsPass = False
+    except RuntimeError:
+        pass
+
     printUnitTest("ClassTime ampm tests",
                   str(ClassTime(raw1)) == "ClassTime: Time: 10:0, Time: 11:59",
                   str(ClassTime(raw2)) == "ClassTime: Time: 10:0, Time: 12:59",
-                  str(ClassTime(raw3)) == "ClassTime: Time: 12:01, Time: 12:59",
-                  str(ClassTime(raw4)) == "ClassTime: Time: 12:01, Time: 13:0",
+                  str(ClassTime(raw3)) == "ClassTime: Time: 12:1, Time: 12:59",
+                  str(ClassTime(raw4)) == "ClassTime: Time: 12:1, Time: 13:0",
                   str(ClassTime(raw5)) == "ClassTime: Time: 13:0, Time: 22:0",
                   str(ClassTime(raw6)) == "ClassTime: Time: 22:0, Time: 23:59",
-                  str(ClassTime(raw7)) == "ClassTime: Time: 22:0, Time: 0:01")
-    #print("\"%s\"" % (ClassTime(raw1)))
-    #print(str(ClassTime(raw3)))
-    #
+                  exceptionTestsPass)
 
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
