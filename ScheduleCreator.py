@@ -383,6 +383,7 @@ def readConnectedCourses(file, courses, connectedClassDict, firstLine):
     isLecture = False
     lastType = None
     currLine = "_flag_"
+    key = None
 
     while currLine != "":
         currLine = readNextLine(file)
