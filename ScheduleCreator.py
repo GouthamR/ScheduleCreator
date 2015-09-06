@@ -398,6 +398,7 @@ def readConnectedCourses(file, courses, connectedClassDict, firstLine):
             else:
                 labCourse.addClass(currClass)
                 connectedClassDict[key].append(currClass)
+            lastType = currClass.type
     
     courses.append(lectureCourse)
     courses.append(labCourse)
