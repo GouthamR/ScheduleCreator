@@ -407,10 +407,11 @@ def main():
     minutesBetweenClasses = 30
     #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
-    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones, minutesBetweenClasses)) for i in schedules]))
-    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(redZones, minutesBetweenClasses), reverse=True)
+    preferenceParams = (redZones, 2, minutesBetweenClasses, 1)
+    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
+    schedules.sort(key=lambda sched: sched.calculatePreferenceScore(*preferenceParams), reverse=True)
     print("done sorting")
-    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(redZones, minutesBetweenClasses)) for i in schedules]))
+    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
 
 unitTests()
 main()
