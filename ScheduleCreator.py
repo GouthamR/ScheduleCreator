@@ -76,6 +76,7 @@ class ClassTime:
 
 class Class:
     DATA_TIMINGS_INDEX = 5
+    DATA_TYPE_INDEX = 1
     def __init__(self, rawData):
         self.rawData = rawData
         rawSplit = rawData.split("\t")
@@ -83,6 +84,7 @@ class Class:
         timingsList = rawSplit[Class.DATA_TIMINGS_INDEX].split("   ")
         self.days = Days(timingsList[0])
         self.classTime = ClassTime(timingsList[1])
+        self.type = rawSplit[Class.DATA_TYPE_INDEX]
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
 
