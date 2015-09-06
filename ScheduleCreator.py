@@ -58,7 +58,7 @@ class ClassTime:
             if start > end:
                 start = Time(rawSplit[0] + "p")
                 if start > end:
-                    raise RuntimeError("Unusable ClassTime input: %s" % (rawSplit))
+                    raise RuntimeError("ClassTime crosses end of day: %s" % (rawSplit))
         return start, end
     def __init__(self, rawData):
         rawSplit = rawData.replace(" ", "").split("-") #remove spaces, then split
