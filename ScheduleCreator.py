@@ -120,8 +120,8 @@ class Schedule:
                 if not validConnection:
                     return False
         return True
-    def calculatePreferenceScore(self, redZones, minutesBetweenClasses):
-        return (self.calculateRedZoneScore(redZones) + self.calculateBetweenClassScore(minutesBetweenClasses))
+    def calculatePreferenceScore(self, redZones, redZonePriority, minutesBetweenClasses, minutesBetweenClassesPriority):
+        return (self.calculateRedZoneScore(redZones) * redZonePriority + self.calculateBetweenClassScore(minutesBetweenClasses) * minutesBetweenClassesPriority)
     def calculateRedZoneScore(self, redZones):
         score = 0
         for currClass in self.classes:
