@@ -348,7 +348,7 @@ def fileInputClasses(file, course):
             course.addClass(Class(currInput))
 
 CONNECTED_COURSE_INDICATOR = "_C_"
-CONNECTED_COURSE_END_INDICATOR = "_E_"
+#CONNECTED_COURSE_END_INDICATOR = "_E_"
 
 def readStandardCourses(file, courses, currInput):
     courses.append(Course(currInput))
@@ -357,29 +357,47 @@ def readStandardCourses(file, courses, currInput):
 def readConnectedCourses(file, courses, connectedClassDict, firstLine):
     lectureCourse, labCourse = (Course(i) for i in firstLine.split(CONNECTED_COURSE_INDICATOR))
 
-    isLecture = True
-    done = False
-    key = None
+##    isLecture = True
+##    done = False
+##    key = None
+##
+##    while(not done):
+##        line = readNextLine(file)
+##        if line == CONNECTED_COURSE_INDICATOR:
+##            isLecture = True
+##        elif line == CONNECTED_COURSE_END_INDICATOR:
+##            done = True
+##        else:
+##            currClass = Class(line)
+##            if isLecture:
+##                lectureCourse.addClass(currClass)
+##                key = currClass.code
+##                connectedClassDict[key] = []
+##                isLecture = False
+##            else:
+##                labCourse.addClass(currClass)
+##                connectedClassDict[key].append(currClass)
+##
+##    readNextLine(file) #skip the blank line after end of connected courses
 
-    while(not done):
-        line = readNextLine(file)
-        if line == CONNECTED_COURSE_INDICATOR:
-            isLecture = True
-        elif line == CONNECTED_COURSE_END_INDICATOR:
-            done = True
-        else:
-            currClass = Class(line)
+    isLecture = False
+    lastType = None
+    currLine = "_flag_"
+
+    while currLine != "":
+        currLine = readNextLine(file)
+        if currLine != "":
+            currClass = Class(currLine)
+            if currClass.type != lastType:
+                isLecture = not isLecture
             if isLecture:
                 lectureCourse.addClass(currClass)
                 key = currClass.code
                 connectedClassDict[key] = []
-                isLecture = False
             else:
                 labCourse.addClass(currClass)
                 connectedClassDict[key].append(currClass)
-
-    readNextLine(file) #skip the blank line after end of connected courses
-
+    
     courses.append(lectureCourse)
     courses.append(labCourse)
 
