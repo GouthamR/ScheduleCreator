@@ -2,18 +2,15 @@ IsolatedLecMy1
 52111	test	test	test	test	TuTh   6:10- 7:00	testinga	test	test	test	test	test	test	test	test
 
 LecMy_C_LabMy
-10010	test	test	test	test	MWF   1:10- 2:00	testinga	test	test	test	test	test	test	test	test
-11111	test	test	test	test	MWF   2:10- 3:00	testinga	test	test	test	test	test	test	test	test
-11112	test	test	test	test	MWF   3:10- 4:00	testinga	test	test	test	test	test	test	test	test
-_C_
-20010	test	test	test	test	MWF   4:10- 5:00	testinga	test	test	test	test	test	test	test	test
-21111	test	test	test	test	MWF   5:10- 6:00	testinga	test	test	test	test	test	test	test	test
-21112	test	test	test	test	MWF   6:10- 7:00	testinga	test	test	test	test	test	test	test	test
-21113	test	test	test	test	MWF   8:10- 9:00	testinga	test	test	test	test	test	test	test	test
-_C_
-30010	test	test	test	test	TuTh   1:10- 2:00	testinga	test	test	test	test	test	test	test	test
-31111	test	test	test	test	TuTh   2:10- 3:00	testinga	test	test	test	test	test	test	test	test
-_E_
+10010	Lec	test	test	test	MWF   1:10- 2:00	testinga	test	test	test	test	test	test	test	test
+11111	Lab	test	test	test	MWF   2:10- 3:00	testinga	test	test	test	test	test	test	test	test
+11112	Lab	test	test	test	MWF   3:10- 4:00	testinga	test	test	test	test	test	test	test	test
+20010	Lec	test	test	test	MWF   4:10- 5:00	testinga	test	test	test	test	test	test	test	test
+21111	Lab	test	test	test	MWF   5:10- 6:00	testinga	test	test	test	test	test	test	test	test
+21112	Lab	test	test	test	MWF   6:10- 7:00	testinga	test	test	test	test	test	test	test	test
+21113	Lab	test	test	test	MWF   8:10- 9:00	testinga	test	test	test	test	test	test	test	test
+30010	Lec	test	test	test	TuTh   1:10- 2:00	testinga	test	test	test	test	test	test	test	test
+31111	Lab	test	test	test	TuTh   2:10- 3:00	testinga	test	test	test	test	test	test	test	test
 
 IsolatedLecMy2
 42111	test	test	test	test	TuTh   5:10- 6:00	testinga	test	test	test	test	test	test	test	test
