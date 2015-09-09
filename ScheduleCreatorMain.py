@@ -7,6 +7,7 @@ from Course import *
 from Schedule import *
 from ScheduleInput import *
 from UnitTests import *
+from ScheduleGUI import *
 
 def main():
     courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
@@ -20,6 +21,7 @@ def main():
     schedules.sort(key=lambda sched: sched.calculatePreferenceScore(*preferenceParams), reverse=True)
     print("done sorting")
     print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
+    ScheduleGUI(schedules)
 
 unitTests()
 main()
