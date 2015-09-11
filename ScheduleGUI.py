@@ -4,7 +4,7 @@ from Course import *
 
 class ScheduleGUI:
     CANVAS_WIDTH = 600
-    CANVAS_HEIGHT = 600
+    CANVAS_HEIGHT = 200
     NUMBER_OF_DAYS = 5
     MINUTES_IN_DAY = 1440
     BLOCK_WIDTH = CANVAS_WIDTH/NUMBER_OF_DAYS
@@ -41,11 +41,11 @@ class ScheduleGUI:
                 startMin = currClass.classTime.start.getTotalMinutes()
                 endMin = currClass.classTime.end.getTotalMinutes()
                 x = day * ScheduleGUI.BLOCK_WIDTH
-                y = ScheduleGUI.getCanvasY(startMin, minMinutes, maxMinutes)
+                yStart = ScheduleGUI.getCanvasY(startMin, minMinutes, maxMinutes)
                 w = ScheduleGUI.BLOCK_WIDTH
-                h = ScheduleGUI.getCanvasY(endMin - startMin, minMinutes, maxMinutes)
-                self.canvas.create_rectangle(x, y, x + w, y + h, fill=currColor)
-                self.canvas.create_text(x, y, anchor="nw",text="%s: %s" % (currClass.name, currClass.code))
+                yEnd = ScheduleGUI.getCanvasY(endMin, minMinutes, maxMinutes)
+                self.canvas.create_rectangle(x, yStart, x + w, yEnd, fill=currColor)
+                self.canvas.create_text(x, yStart, anchor="nw",text="%s: %s" % (currClass.name, currClass.code))
     def __init__(self, schedules):
         self.schedules = schedules
         self.scheduleIndex = 0
