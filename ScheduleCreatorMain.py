@@ -10,7 +10,7 @@ from UnitTests import *
 from ScheduleGUI import *
 
 def main():
-    courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
+    courses, connectedClassDict = fileInputCourses("actual_input_1.txt")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones("red_zones.txt")
     minutesBetweenClasses = 30

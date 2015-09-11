@@ -7,7 +7,8 @@ class ScheduleGUI:
     CANVAS_HEIGHT = 600
     NUMBER_OF_DAYS = 5
     MINUTES_IN_DAY = 1440
-    BLOCK_WIDTH = CANVAS_WIDTH/NUMBER_OF_DAYS
+    TIME_LABEL_WIDTH = CANVAS_WIDTH / (NUMBER_OF_DAYS + 1) / 2
+    BLOCK_WIDTH = (CANVAS_WIDTH - TIME_LABEL_WIDTH) / NUMBER_OF_DAYS
     BLOCK_COLORS = ("white", "red", "green", "blue", "cyan", "yellow", "magenta")
     def switchSchedule(self):
         self.scheduleIndex += 1
@@ -42,12 +43,15 @@ class ScheduleGUI:
             for day in currClass.days.days:
                 startMin = currClass.classTime.start.getTotalMinutes()
                 endMin = currClass.classTime.end.getTotalMinutes()
-                x = day * ScheduleGUI.BLOCK_WIDTH
+                x = day * ScheduleGUI.BLOCK_WIDTH + ScheduleGUI.TIME_LABEL_WIDTH
                 yStart = ScheduleGUI.getCanvasY(startMin, minMinutes, maxMinutes)
                 w = ScheduleGUI.BLOCK_WIDTH
                 yEnd = ScheduleGUI.getCanvasY(endMin, minMinutes, maxMinutes)
                 self.canvas.create_rectangle(x, yStart, x + w, yEnd, fill=currColor)
                 self.canvas.create_text(x, yStart, anchor="nw",text="%s: %s" % (currClass.name, currClass.code))
+        HOUR_LABEL_HEIGHT = ScheduleGUI.getCanvasY(minHour + 1, minHour, maxHour)
+        for i in range(minHour, maxHour + 1):
+            self.canvas.create_text(0, (i - minHour) * HOUR_LABEL_HEIGHT, anchor="nw", text=str(i))
     def __init__(self, schedules):
         self.schedules = schedules
         self.scheduleIndex = 0
