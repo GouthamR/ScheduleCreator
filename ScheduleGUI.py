@@ -34,8 +34,8 @@ class ScheduleGUI:
             currClass = classes[i]
             currColor = ScheduleGUI.BLOCK_COLORS[i]
             for day in currClass.days.days:
-                startMin = currClass.classTime.start.getMinutes()
-                endMin = currClass.classTime.end.getMinutes()
+                startMin = currClass.classTime.start.getTotalMinutes()
+                endMin = currClass.classTime.end.getTotalMinutes()
                 x = day * ScheduleGUI.BLOCK_WIDTH
                 y = ScheduleGUI.getCanvasY(startMin)
                 w = ScheduleGUI.BLOCK_WIDTH

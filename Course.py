@@ -15,7 +15,7 @@ class Time:
         rawHour, rawMinute = rawData.split(":")
         self.hour = Time.getHourFromInput(rawHour, rawMinute.endswith("p"))
         self.minute = int(rawMinute[:2]) #cuts off p if necessary
-    def getMinutes(self):
+    def getTotalMinutes(self):
         return (self.hour * 60 + self.minute)
     def __str__(self):
         return "Time: %s:%s" % (self.hour, self.minute)
