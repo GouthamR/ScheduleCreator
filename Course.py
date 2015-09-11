@@ -82,6 +82,9 @@ class Class:
         self.days = Days(timingsList[0])
         self.classTime = ClassTime(timingsList[1])
         self.type = rawSplit[Class.DATA_TYPE_INDEX]
+        self.name = "No Name"
+    def setName(self, name):
+        self.name = name
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
 
@@ -91,5 +94,6 @@ class Course:
         self.classes = []
     def addClass(self, newClass):
         self.classes.append(newClass)
+        newClass.setName(self.name)
     def __str__(self):
         return "%s: [%s]" % (self.name, ", ".join(map(str, self.classes)))
