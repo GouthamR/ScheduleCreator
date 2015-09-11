@@ -89,7 +89,7 @@ def generatePossibleSchedules(courses, connectedClassDict):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
     #print(str(len(schedules)) + " combinations")
 
-    overlapRemovalETA(schedules)
+    #overlapRemovalETA(schedules)
     #progressBarOverlapRemoval(schedules)
 
     #Compact version of overlap removal:
