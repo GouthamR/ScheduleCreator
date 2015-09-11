@@ -4,15 +4,17 @@ from Course import *
 
 class ScheduleGUI:
     CANVAS_WIDTH = 600
-    CANVAS_HEIGHT = 200
+    CANVAS_HEIGHT = 600
     NUMBER_OF_DAYS = 5
     MINUTES_IN_DAY = 1440
     BLOCK_WIDTH = CANVAS_WIDTH/NUMBER_OF_DAYS
     BLOCK_COLORS = ("white", "red", "green", "blue", "cyan", "yellow", "magenta")
     def switchSchedule(self):
         self.scheduleIndex += 1
+        if self.scheduleIndex == len(self.schedules):
+            self.scheduleIndex = 0
         print("switch to " + str(self.scheduleIndex))
-        drawSchedule()
+        self.drawSchedule()
     def initGUI(self):
         root = Tk()
         root.protocol('WM_DELETE_WINDOW', root.destroy)
