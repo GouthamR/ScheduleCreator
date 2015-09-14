@@ -11,12 +11,13 @@ from ScheduleGUI import *
 
 INPUT_FILE_NAME = "input.txt"
 REDZONE_FILE_NAME = "red_zones.txt"
+MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
 
 def main():
     courses, connectedClassDict = fileInputCourses(INPUT_FILE_NAME)
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones(REDZONE_FILE_NAME)
-    minutesBetweenClasses = 30
+    minutesBetweenClasses = fileInputMinutesBetween(MINUTESBETWEEN_FILE_NAME)
     print("Number of schedules = " + str(len(schedules)))
     preferenceParams = (redZones, 2, minutesBetweenClasses, 1)
     print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
