@@ -29,8 +29,12 @@ class ScheduleGUI:
         frame = Frame(root, bg="grey", width=400, height=40)
         frame.pack(fill='x')
         #create button
-        button1 = Button(frame, text="Switch", command=self.switchSchedule)
-        button1.pack(side="right", padx=10)
+        def switchForward():
+            self.switchSchedule(True)
+        def switchBackward():
+            self.switchSchedule(False)
+        forwardButton = Button(frame, text="Next", command=switchForward)
+        forwardButton.pack(side="right", padx=10)
         #create label
         self.codeLabel = Text(frame, height=1, borderwidth=0)
         self.codeLabel.configure(inactiveselectbackground=self.codeLabel.cget("selectbackground"))
