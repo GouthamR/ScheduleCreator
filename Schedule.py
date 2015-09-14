@@ -4,7 +4,8 @@ class Schedule:
     def hasOverlaps(self):
         for i in (range(len(self.classes) - 1)): # [0, second to last]
             for j in (range(i + 1, len(self.classes))): # [next, last]
-                if(self.classes[i].classTime.overlapsWith(self.classes[j].classTime)):
+                if( self.classes[i].days.overlapsWith(self.classes[j].days) and
+                    self.classes[i].classTime.overlapsWith(self.classes[j].classTime)):
                     return True
         return False
     def hasValidConnections(self, connectedClassDict):
@@ -87,13 +88,11 @@ def progressBarOverlapRemoval(schedules):
 
 def generatePossibleSchedules(courses, connectedClassDict):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
-    #print(str(len(schedules)) + " combinations")
 
     #overlapRemovalETA(schedules)
     #progressBarOverlapRemoval(schedules)
 
-    #Compact version of overlap removal:
-    return [schedule for schedule in schedules if (not schedule.hasOverlaps() and schedule.hasValidConnections(connectedClassDict))] #remove schedules with overlaps
+    return [schedule for schedule in schedules if (not schedule.hasOverlaps() and schedule.hasValidConnections(connectedClassDict))]
 
 def generateAllSchedulesHelper(courses, index):
     if index == len(courses): #if past last course
