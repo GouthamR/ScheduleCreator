@@ -17,6 +17,13 @@ class Time:
         self.minute = int(rawMinute[:2]) #cuts off p if necessary
     def getTotalMinutes(self):
         return (self.hour * 60 + self.minute)
+    def getFormatted(self):
+        hour_12 = None
+        if self.hour <= 12:
+            hour_12 = self.hour
+        else:
+            hour_12 = self.hour - 12
+        return "%d:%02d" % (hour_12, self.minute)
     def __str__(self):
         return "Time: %s:%s" % (self.hour, self.minute)
     def __lt__(self, other):
