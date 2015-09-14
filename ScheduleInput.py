@@ -71,3 +71,9 @@ def fileInputRedZones(fileName):
         for line in file:
             redZones.append(ClassTime(removeNewline(line)))
     return redZones
+
+def fileInputMinutesBetween(fileName):
+    minutesBetween = None
+    with open(fileName, 'r') as file:
+        minutesBetween = int(readNextLine(file))
+    return minutesBetween
