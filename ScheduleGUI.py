@@ -28,7 +28,7 @@ class ScheduleGUI:
         # create frame
         frame = Frame(root, bg="grey", width=400, height=40)
         frame.pack(fill='x')
-        #create button
+        #create buttons
         def switchForward():
             self.switchSchedule(True)
         def switchBackward():
@@ -37,8 +37,12 @@ class ScheduleGUI:
         forwardButton.pack(side="right", padx=10)
         backButton = Button(frame, text="Previous", command=switchBackward)
         backButton.pack(side="right", padx=10)
-        #create label
-        self.codeLabel = Text(frame, height=1, borderwidth=0)
+        #create index label
+        self.indexLabel = Text(frame, height=1, padx=10, width=6)
+        self.indexLabel.configure(inactiveselectbackground=self.indexLabel.cget("selectbackground"))
+        self.indexLabel.pack(side="left")
+        #create code label
+        self.codeLabel = Text(frame, height=1, padx=10, borderwidth=0)
         self.codeLabel.configure(inactiveselectbackground=self.codeLabel.cget("selectbackground"))
         self.codeLabel.pack(side="left")
         # invoke canvas
@@ -75,6 +79,11 @@ class ScheduleGUI:
         self.codeLabel.delete(1.0, 'end')
         self.codeLabel.insert('end', ",".join(str(i) for i in self.schedules[self.scheduleIndex].getClassCodes()))
         self.codeLabel.config(state='disabled')
+
+        self.indexLabel.config(state='normal')
+        self.indexLabel.delete(1.0, 'end')
+        self.indexLabel.insert('end', self.scheduleIndex)
+        self.indexLabel.config(state='disabled')
     def __init__(self, schedules):
         self.schedules = schedules
         self.scheduleIndex = 0
