@@ -78,6 +78,8 @@ Python Lab
 36614	Lab	14	0	STAFF	MWF   10:00-11:50	ICS 189		44	34 / 44	n/a	35	0		Bookstore		FULL
 36615	Lab	15	0	STAFF	MWF   12:00- 1:50p	ICS 189		44	38 / 44	n/a	28	0		Bookstore		FULL
 36616	Lab	16	0	STAFF	MWF   2:00- 3:50p	ICS 189		44	39 / 44	n/a	21	0		Bookstore		FULL
+36617	Lab	17	0	STAFF	    TBA	TBA		0	0 / 0	n/a	0	0		Bookstore		FULL
+36618	Lab	18	0	STAFF	    TBA	TBA		0	0 / 0	n/a	0	0		Bookstore		FULL
 
 New Students Seminar
 36785	Lec	B	1	PATTIS, R.	W   5:00- 6:20p	HSLH 100A	    TBA	300	286	0	224	0	D	Bookstore		OPEN
