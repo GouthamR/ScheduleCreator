@@ -9,12 +9,14 @@ from ScheduleInput import *
 from UnitTests import *
 from ScheduleGUI import *
 
+INPUT_FILE_NAME = "input.txt"
+REDZONE_FILE_NAME = "red_zones.txt"
+
 def main():
-    courses, connectedClassDict = fileInputCourses("actual_input_3.txt")
+    courses, connectedClassDict = fileInputCourses(INPUT_FILE_NAME)
     schedules = generatePossibleSchedules(courses, connectedClassDict)
-    redZones = fileInputRedZones("red_zones.txt")
+    redZones = fileInputRedZones(REDZONE_FILE_NAME)
     minutesBetweenClasses = 30
-    #print([schedule.getClassCodes() for schedule in schedules])
     print("Number of schedules = " + str(len(schedules)))
     preferenceParams = (redZones, 2, minutesBetweenClasses, 1)
     print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
