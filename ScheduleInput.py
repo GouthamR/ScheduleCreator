@@ -3,6 +3,7 @@ from Course import *
 #Removes newline from end of inputStr if necessary and returns it.
 #Does NOT modify inputStr
 def removeNewline(inputStr):
+    inputStr = inputStr.replace('\xa0', ' ')
     if inputStr.endswith("\n"):
         return inputStr[:-1] #remove newline
     #else:
