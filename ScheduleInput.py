@@ -1,17 +1,17 @@
 from Course import *
 
-#Removes newline from end of inputStr if necessary and returns it.
-#Does NOT modify inputStr
-def removeNewline(inputStr):
+#Removes newline from end of inputStr if necessary and removes invalid unicode characters.
+#Returns processed string. Does NOT modify inputStr
+def processLine(inputStr):
     inputStr = inputStr.replace('\xa0', ' ')
     if inputStr.endswith("\n"):
         return inputStr[:-1] #remove newline
     #else:
     return inputStr
 
-#Returns next line, removing newline from end if necessary
+#Returns next line after processing.
 def readNextLine(file):
-    return removeNewline(file.readline())
+    return processLine(file.readline())
 
 def fileInputClasses(file, course):
     currInput = "_flag_"
@@ -70,7 +70,7 @@ def fileInputRedZones(fileName):
     redZones = []
     with open(fileName, 'r') as file:
         for line in file:
-            redZones.append(ClassTime(removeNewline(line)))
+            redZones.append(ClassTime(processLine(line)))
     return redZones
 
 def fileInputMinutesBetween(fileName):
