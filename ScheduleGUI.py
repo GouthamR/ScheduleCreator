@@ -10,10 +10,15 @@ class ScheduleGUI:
     TIME_LABEL_WIDTH = CANVAS_WIDTH / (NUMBER_OF_DAYS + 1) / 2
     BLOCK_WIDTH = (CANVAS_WIDTH - TIME_LABEL_WIDTH) / NUMBER_OF_DAYS
     BLOCK_COLORS = ("white", "red", "green", "blue", "cyan", "yellow", "magenta")
-    def switchSchedule(self):
-        self.scheduleIndex += 1
-        if self.scheduleIndex == len(self.schedules):
-            self.scheduleIndex = 0
+    def switchSchedule(self, forward):
+        if forward:
+            self.scheduleIndex += 1
+            if self.scheduleIndex == len(self.schedules):
+                self.scheduleIndex = 0
+        else:
+            self.scheduleIndex -= 1
+            if self.scheduleIndex == -1:
+                self.scheduleIndex = len(self.schedules) - 1
         print("switch to " + str(self.scheduleIndex))
         self.drawSchedule()
     def initGUI(self):
