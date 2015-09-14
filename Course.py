@@ -44,6 +44,12 @@ class Days:
         daysDict = { 'M': 0, 't': 1, 'W': 2, 'T' : 3, 'F': 4} #move outside function for performance
         for c in rawData.replace(" ", "").replace("Th","T").replace("Tu","t"): #Removes spaces, then converts Tuesday and Thursday to one character strings, to correspond with above dict
             self.days.append(daysDict[c])
+    def overlapsWith(self, otherDays):
+        for day in self.days:
+            for otherDay in otherDays.days:
+                if day == otherDay:
+                    return True
+        return False
     def __str__(self):
         return "Days: %s" % (self.days)
 
