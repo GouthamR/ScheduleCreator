@@ -15,7 +15,7 @@ Humanities Lecture_C_Humanities Seminar
 28125	Sem	HC5	4	FOGLI, G.	TuTh   2:00- 3:20p	HH 224	Thu, Dec 10, 1:30-3:30pm	16	16	n/a	15	0		Bookstore		FULL
 28126	Sem	HC6	4	TUCKER, I.	TuTh   12:30- 1:50p	HH 143	Fri, Dec 11, 10:30-12:30pm	16	16	n/a	15	0		Bookstore		FULL
 
-Calculus Lecture_Calculus Discussion
+Calculus Lecture_C_Calculus Discussion
 44215	Lec	A	4	LEHMAN, R.	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	100	0	145	0	A and N	Bookstore	Web/P	OPEN
 44220	Dis	10	0	STAFF	TuTh   1:00- 1:50p	ET 202		54	39	0	45	0		Bookstore		OPEN
 44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M		41	15	0	12	0		Bookstore		OPEN
