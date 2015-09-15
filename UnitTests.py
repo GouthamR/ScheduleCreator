@@ -85,6 +85,23 @@ def classTimeAMPMUnitTests():
                   str(ClassTime(raw6)) == "ClassTime: Time: 22:0, Time: 23:59",
                   exceptionTestsPass)
 
+def runUnitTestsFileInputTests():
+    file1Name = "sample_run_unit_tests_1.txt"
+    file2Name = "sample_run_unit_tests_2.txt"
+    file3Name = "sample_run_unit_tests_3.txt"
+
+    exceptionTestsPass = True
+    try:
+        fileInputRunUnitTests(file3Name)
+        exceptionTestsPass = False
+    except RuntimeError:
+        pass
+
+    printUnitTest("Run unit tests file input tests",
+                  fileInputRunUnitTests(file1Name) == True,
+                  fileInputRunUnitTests(file2Name) == False,
+                  exceptionTestsPass)
+
 def unitTests():
     classRawStr = "44215	Lec	A	4	STAFF	MWF   8:00- 8:50	DBH 1100	Sat, Dec 5, 1:30-3:30pm	221	34	0	51	111	A and N	Bookstore	 	OPEN"
     classRawStr2 = "44225	Dis	11	0	STAFF	TuTh   3:00- 3:50p	HICF 100M	 	45	2	0	1	23	 	Bookstore	 	OPEN"
@@ -123,4 +140,5 @@ def unitTests():
     connectedCourseUnitTests()
     redZoneUnitTests()
     classTimeAMPMUnitTests()
+    runUnitTestsFileInputTests()
     print("End unit tests.")
