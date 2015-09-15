@@ -12,6 +12,7 @@ from ScheduleGUI import *
 INPUT_FILE_NAME = "input.txt"
 REDZONE_FILE_NAME = "red_zones.txt"
 MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
+RUNUNITTESTS_FILE_NAME = "run_unit_tests.txt"
 
 def main():
     courses, connectedClassDict = fileInputCourses(INPUT_FILE_NAME)
@@ -26,5 +27,6 @@ def main():
     print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
     ScheduleGUI(schedules)
 
-unitTests()
+if fileInputRunUnitTests(RUNUNITTESTS_FILE_NAME):
+    unitTests()
 main()
