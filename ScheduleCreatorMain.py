@@ -24,7 +24,10 @@ def main():
     preferenceParams = (redZones, 2, minutesBetweenClasses, 1)
     schedules.sort(key=lambda sched: sched.calculatePreferenceScore(*preferenceParams), reverse=True)
     print("Done sorting")
-    print("\n".join([str(i.getClassCodes()) + " = " + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
+    #print("\n".join([str(i.getClassCodes()) + " = " + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
+    for i in range(len(schedules)):
+        schedule = schedules[i]
+        print("%s: %s = %s" % (i, schedule.getClassCodes(), schedule.calculatePreferenceScore(*preferenceParams)))
     ScheduleGUI(schedules)
 
 if fileInputRunUnitTests(RUNUNITTESTS_FILE_NAME):

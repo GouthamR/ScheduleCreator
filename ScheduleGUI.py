@@ -19,7 +19,6 @@ class ScheduleGUI:
             self.scheduleIndex -= 1
             if self.scheduleIndex == -1:
                 self.scheduleIndex = len(self.schedules) - 1
-        print("switch to " + str(self.scheduleIndex))
         self.drawSchedule()
     def initGUI(self):
         root = Tk()
