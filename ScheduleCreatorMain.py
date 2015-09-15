@@ -16,15 +16,15 @@ RUNUNITTESTS_FILE_NAME = "run_unit_tests.txt"
 
 def main():
     courses, connectedClassDict = fileInputCourses(INPUT_FILE_NAME)
+    print("Starting schedule generation...")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones(REDZONE_FILE_NAME)
     minutesBetweenClasses = fileInputMinutesBetween(MINUTESBETWEEN_FILE_NAME)
     print("Number of schedules = " + str(len(schedules)))
     preferenceParams = (redZones, 2, minutesBetweenClasses, 1)
-    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
     schedules.sort(key=lambda sched: sched.calculatePreferenceScore(*preferenceParams), reverse=True)
-    print("done sorting")
-    print("\n".join([str(i.getClassCodes()) + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
+    print("Done sorting")
+    print("\n".join([str(i.getClassCodes()) + " = " + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
     ScheduleGUI(schedules)
 
 if fileInputRunUnitTests(RUNUNITTESTS_FILE_NAME):
