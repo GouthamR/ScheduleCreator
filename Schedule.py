@@ -1,5 +1,4 @@
 OVERLAP_REMOVAL_ETA = True
-OVERLAP_REMOVAL_PROGRESS_BAR = True
 
 class Schedule:
     def __init__(self, classes):
@@ -80,22 +79,11 @@ def overlapRemovalETA(schedules):
     print("Overlap removal ETA = %s" % (eta))
     input("Press enter to continue...")
 
-def progressBarOverlapRemoval(schedules):
-    nonOverlappingSchedules = []
-    for i in range(len(schedules)):
-        schedule = schedules[i]
-        if not schedule.hasOverlaps():
-            nonOverlappingSchedules.append(schedule)
-        print("Overlap removal completed Percentage: %s" % ((i+1)/len(schedules)*100))
-    return nonOverlappingSchedules
-
 def generatePossibleSchedules(courses, connectedClassDict):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
 
     if OVERLAP_REMOVAL_ETA:
         overlapRemovalETA(schedules)
-    if OVERLAP_REMOVAL_PROGRESS_BAR:
-        progressBarOverlapRemoval(schedules)
 
     return [schedule for schedule in schedules if (not schedule.hasOverlaps() and schedule.hasValidConnections(connectedClassDict))]
 
