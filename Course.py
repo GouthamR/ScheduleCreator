@@ -54,6 +54,7 @@ class Days:
         return "Days: %s" % (self.days)
 
 class ClassTime:
+    END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
     def calculateTimes(rawSplit, endIsPM):
         end = Time(rawSplit[1])
         start = None
@@ -62,13 +63,13 @@ class ClassTime:
             if start > end:
                 start = Time(rawSplit[0])
                 if start > end:
-                    raise RuntimeError("Unusable ClassTime input: %s" % (rawSplit))
+                    raise RuntimeError("%s: %s" % (ClassTime.END_OF_DAY_ERROR_MESSAGE, rawSplit))
         else:
             start = Time(rawSplit[0])
             if start > end:
                 start = Time(rawSplit[0] + "p")
                 if start > end:
-                    raise RuntimeError("ClassTime crosses end of day: %s" % (rawSplit))
+                    raise RuntimeError("%s: %s" % (ClassTime.END_OF_DAY_ERROR_MESSAGE, rawSplit))
         return start, end
     def __init__(self, rawData):
         rawSplit = rawData.replace(" ", "").split("-") #remove spaces, then split
