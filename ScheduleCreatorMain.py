@@ -1,3 +1,4 @@
+##Copyright 2015 Goutham Rajeev.  All rights reserved.
 ##Goutham Rajeev
 ##Started 7/29/15
 ##ScheduleCreator
@@ -15,6 +16,8 @@ MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
 RUNUNITTESTS_FILE_NAME = "run_unit_tests.txt"
 
 def main():
+    print("CREATED BY GOUTHAM RAJEEV")
+    print("Copyright 2015 Goutham Rajeev.  All rights reserved.")
     courses, connectedClassDict = fileInputCourses(INPUT_FILE_NAME)
     print("Starting schedule generation...")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
