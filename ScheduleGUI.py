@@ -9,7 +9,7 @@ class ScheduleGUI:
     MINUTES_IN_DAY = 1440
     TIME_LABEL_WIDTH = CANVAS_WIDTH / (NUMBER_OF_DAYS + 1) / 2
     BLOCK_WIDTH = (CANVAS_WIDTH - TIME_LABEL_WIDTH) / NUMBER_OF_DAYS
-    BLOCK_COLORS = ("white", "red", "green", "blue", "cyan", "yellow", "magenta")
+    BLOCK_COLORS = ("white", "orange red", "pale green", "dodger blue", "turquoise", "goldenrod", "violet", "steelblue1")
     def switchSchedule(self, forward):
         if forward:
             self.scheduleIndex += 1
