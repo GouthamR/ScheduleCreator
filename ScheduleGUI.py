@@ -59,7 +59,7 @@ class ScheduleGUI:
         maxMinutes = maxHour * 60
         for i in range(len(classes)):
             currClass = classes[i]
-            currColor = ScheduleGUI.BLOCK_COLORS[i]
+            currColor = ScheduleGUI.BLOCK_COLORS[i % len(ScheduleGUI.BLOCK_COLORS)]
             for day in currClass.days.days:
                 startMin = currClass.classTime.start.getTotalMinutes()
                 endMin = currClass.classTime.end.getTotalMinutes()
