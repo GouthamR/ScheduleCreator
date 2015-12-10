@@ -77,7 +77,7 @@ def overlapRemovalETA(schedules):
 
     eta = (end - start)/5 * len(schedules)
     print("Overlap removal ETA = %s" % (eta))
-    input("Press enter to continue...")
+    #input("Press enter to continue...")
 
 def generatePossibleSchedules(courses, connectedClassDict):
     schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
