@@ -150,21 +150,36 @@ class ClassTimeDataParser:
         self.start, self.end = ClassTimeDataParser.calculateTimes(rawSplit, endIsPM)
 
 class Class:
-    DATA_TIMINGS_INDEX = 5
-    DATA_TYPE_INDEX = 1
-    def __init__(self, rawData):
-        self.rawData = rawData
-        rawSplit = rawData.split("\t")
-        self.code = int(rawSplit[0])
-        timingsList = rawSplit[Class.DATA_TIMINGS_INDEX].split("   ")
-        self.days = Days(timingsList[0])
-        self.classTime = ClassTime(timingsList[1])
-        self.type = rawSplit[Class.DATA_TYPE_INDEX]
-        self.name = "No Name"
+    def __init__(self, rawData: str) -> None:
+        data = ClassDataParser(rawData)
+        self.code, self.days, self.classTime, self.type, self.name = \
+            data.code, data.days, data.classTime, data.type, data.name
     def setName(self, name):
         self.name = name
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
+
+class ClassDataParser:
+    """
+    Parses raw input data for a Class class and stores corresponding Class
+    data (days, name, etc.) as fields.
+    """
+
+    DATA_TIMINGS_INDEX = 5
+    DATA_TYPE_INDEX = 1
+    INVALID_NAME = "_NO NAME_"
+
+    def __init__(self, rawData: str) -> None:
+        """
+        Initializes fields based on rawData.
+        """
+        rawSplit = rawData.split("\t")
+        self.code = int(rawSplit[0])
+        timingsList = rawSplit[ClassDataParser.DATA_TIMINGS_INDEX].split("   ")
+        self.days = Days(timingsList[0])
+        self.classTime = ClassTime(timingsList[1])
+        self.type = rawSplit[ClassDataParser.DATA_TYPE_INDEX]
+        self.name = ClassDataParser.INVALID_NAME # will be set later by Course
 
 class Course:
     def __init__(self, name):
