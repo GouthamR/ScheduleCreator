@@ -57,11 +57,8 @@ class TimeDataParser:
         self.minute = int(rawMinute[:2]) #cuts off p if necessary
 
 class Days:
-    def __init__(self, rawData):
-        self.days = []
-        daysDict = { 'M': 0, 't': 1, 'W': 2, 'T' : 3, 'F': 4} #move outside function for performance
-        for c in rawData.replace(" ", "").replace("Th","T").replace("Tu","t"): #Removes spaces, then converts Tuesday and Thursday to one character strings, to correspond with above dict
-            self.days.append(daysDict[c])
+    def __init__(self, rawData: str) -> None:
+        self.days = DaysDataParser(rawData).days
     def overlapsWith(self, otherDays):
         for day in self.days:
             for otherDay in otherDays.days:
@@ -70,6 +67,30 @@ class Days:
         return False
     def __str__(self):
         return "Days: %s" % (self.days)
+
+class DaysDataParser:
+    """
+    Parses raw input data for a Days class and stores corresponding Days
+    data as field.
+    """
+
+    TUESDAY_REPLACEMENT = 't'
+    THURSDAY_REPLACEMENT = 'T'
+    DAYS_MAP = { 'M': 0,
+                TUESDAY_REPLACEMENT: 1,
+                'W': 2,
+                THURSDAY_REPLACEMENT : 3,
+                'F': 4 }
+
+    def __init__(self, rawData: str) -> None:
+        """
+        Initializes fields.
+        """
+        #Removes spaces, then converts Tuesday and Thursday to corresponding one-character strings to correspond with DAYS_MAP:
+        replaced_raw_data = rawData.replace(" ", "")\
+                                    .replace("Tu", DaysDataParser.TUESDAY_REPLACEMENT)\
+                                    .replace("Th", DaysDataParser.THURSDAY_REPLACEMENT)
+        self.days = [ DaysDataParser.DAYS_MAP[char] for char in replaced_raw_data ]
 
 class ClassTime:
     END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
