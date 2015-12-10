@@ -1,20 +1,10 @@
 class Time:
-    def getHourFromInput(rawHour, isPm):
-        rawHourInt = int(rawHour)
-        if isPm:
-            if rawHourInt == 12:
-                return 12
-            else:
-                return (rawHourInt + 12)
-        else:
-            if rawHourInt == 12:
-                return 0
-            else:
-                return rawHourInt
-    def __init__(self, rawData):
-        rawHour, rawMinute = rawData.split(":")
-        self.hour = Time.getHourFromInput(rawHour, rawMinute.endswith("p"))
-        self.minute = int(rawMinute[:2]) #cuts off p if necessary
+    def __init__(self, rawData: str) -> None:
+        """
+        Initializes fields.
+        """
+        timeParser = TimeDataParser(rawData)
+        self.hour, self.minute = timeParser.hour, timeParser.minute
     def getTotalMinutes(self):
         return (self.hour * 60 + self.minute)
     def getFormatted(self):
@@ -37,6 +27,34 @@ class Time:
         return (self < other or self == other)
     def __ge__(self, other):
         return (self > other or self == other)
+
+class TimeDataParser:
+    """
+    Parses raw input data for a Time class and stores corresponding Time
+    data (hour, minute, etc.) as fields.
+    """
+    def getHourFromInput(rawHour: str, isPm: bool):
+        """
+        Returns hour corresponding to rawHour and if isPm as integer on [0, 24).
+        """
+        rawHourInt = int(rawHour)
+        if isPm:
+            if rawHourInt == 12:
+                return 12
+            else:
+                return (rawHourInt + 12)
+        else:
+            if rawHourInt == 12:
+                return 0
+            else:
+                return rawHourInt
+    def __init__(self, rawData: str) -> None:
+        """
+        Initializes fields.
+        """
+        rawHour, rawMinute = rawData.split(":")
+        self.hour = TimeDataParser.getHourFromInput(rawHour, rawMinute.endswith("p"))
+        self.minute = int(rawMinute[:2]) #cuts off p if necessary
 
 class Days:
     def __init__(self, rawData):
