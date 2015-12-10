@@ -6,9 +6,6 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
     for i in testResults:
         if i == False:
             print("%s: %s" % (testName, testResults))
-            return
-    #if not returned before here, all tests pass:
-    print("%s: success!" % (testName))
 
 def redZoneUnitTests():
     courses = fileInputCourses("sample_input_3.txt")[0]
