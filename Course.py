@@ -93,27 +93,9 @@ class DaysDataParser:
         self.days = [ DaysDataParser.DAYS_MAP[char] for char in replaced_raw_data ]
 
 class ClassTime:
-    END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
-    def calculateTimes(rawSplit, endIsPM):
-        end = Time(rawSplit[1])
-        start = None
-        if endIsPM:
-            start = Time(rawSplit[0] + "p")
-            if start > end:
-                start = Time(rawSplit[0])
-                if start > end:
-                    raise RuntimeError("%s: %s" % (ClassTime.END_OF_DAY_ERROR_MESSAGE, rawSplit))
-        else:
-            start = Time(rawSplit[0])
-            if start > end:
-                start = Time(rawSplit[0] + "p")
-                if start > end:
-                    raise RuntimeError("%s: %s" % (ClassTime.END_OF_DAY_ERROR_MESSAGE, rawSplit))
-        return start, end
-    def __init__(self, rawData):
-        rawSplit = rawData.replace(" ", "").split("-") #remove spaces, then split
-        endIsPM = rawSplit[1].endswith('p')
-        self.start, self.end = ClassTime.calculateTimes(rawSplit, endIsPM)
+    def __init__(self, rawData: str):
+        data = ClassTimeDataParser(rawData)
+        self.start, self.end = data.start, data.end
     def __str__(self):
         return "ClassTime: %s, %s" % (self.start, self.end)
     def overlapsWith(self, otherTime):
@@ -123,6 +105,49 @@ class ClassTime:
                 #other encompassing self is included in first two cases above
     def isWithin(self, other):
         return (self.start >= other.start and self.end <= other.end)
+
+class ClassTimeDataParser:
+    """
+    Parses raw input data for a ClassTime class and stores corresponding ClassTime
+    data (start, end, etc.) as fields.
+    """
+
+    END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
+
+    def getDayCrossErrorMessage(rawSplit: 'list of str') -> str:
+        """
+        Returns error message mentioning rawSplit data.
+        """
+        return "%s: %s" % (ClassTimeDataParser.END_OF_DAY_ERROR_MESSAGE, rawSplit)
+
+    def calculateTimes(rawSplit: 'list of str', endIsPM: bool) -> (Time, Time):
+        """
+        Returns start and end times corresponding to parameters.
+        Raises error if times are invalid.
+        """
+        end = Time(rawSplit[1])
+        start = None
+        if endIsPM:
+            start = Time(rawSplit[0] + "p")
+            if start > end:
+                start = Time(rawSplit[0])
+                if start > end:
+                    raise RuntimeError(ClassTimeDataParser.getDayCrossErrorMessage(rawSplit))
+        else:
+            start = Time(rawSplit[0])
+            if start > end:
+                start = Time(rawSplit[0] + "p")
+                if start > end:
+                    raise RuntimeError(ClassTimeDataParser.getDayCrossErrorMessage(rawSplit))
+        return start, end
+
+    def __init__(self, rawData: str) -> None:
+        """
+        Initializes fields based on rawData.
+        """
+        rawSplit = rawData.replace(" ", "").split("-") # remove spaces, then split
+        endIsPM = rawSplit[1].endswith('p')
+        self.start, self.end = ClassTimeDataParser.calculateTimes(rawSplit, endIsPM)
 
 class Class:
     DATA_TIMINGS_INDEX = 5
