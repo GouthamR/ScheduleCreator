@@ -160,20 +160,20 @@ class ClassDataParser:
     data (days, name, etc.) as fields.
     """
 
-    DATA_TIMINGS_INDEX = 5
-    DATA_TYPE_INDEX = 1
+    CODE_INDEX = 0
+    TYPE_INDEX = 1
+    DAYS_INDEX = 5
+    TIME_INDEX = 6
     INVALID_NAME = "_NO NAME_"
 
-    def __init__(self, rawData: str) -> None:
+    def __init__(self, data: 'tuple of str') -> None:
         """
         Initializes fields based on rawData.
         """
-        rawSplit = rawData.split("\t")
-        self.code = int(rawSplit[0])
-        timingsList = rawSplit[ClassDataParser.DATA_TIMINGS_INDEX].split("   ")
-        self.days = Days(timingsList[0])
-        self.classTime = ClassTime(timingsList[1])
-        self.type = rawSplit[ClassDataParser.DATA_TYPE_INDEX]
+        self.code = int(data[ClassDataParser.CODE_INDEX])
+        self.type = data[ClassDataParser.TYPE_INDEX]
+        self.days = Days(data[ClassDataParser.DAYS_INDEX])
+        self.classTime = ClassTime(data[ClassDataParser.TIME_INDEX])
         self.name = ClassDataParser.INVALID_NAME # will be set later by Course
 
 class Course:
