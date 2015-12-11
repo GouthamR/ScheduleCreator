@@ -126,19 +126,14 @@ class ClassTimeDataParser:
         Raises error if times are invalid.
         """
         end = Time(rawSplit[1])
-        start = None
-        if endIsPM:
-            start = Time(rawSplit[0] + "p")
+        timeArgStrs = (rawSplit[0] + "p", rawSplit[0])
+
+        start = Time(timeArgStrs[0]) if endIsPM else Time(timeArgStrs[1])
+        if start > end:
+            start = Time(timeArgStrs[1]) if endIsPM else Time(timeArgStrs[0])
             if start > end:
-                start = Time(rawSplit[0])
-                if start > end:
-                    raise RuntimeError(ClassTimeDataParser.getDayCrossErrorMessage(rawSplit))
-        else:
-            start = Time(rawSplit[0])
-            if start > end:
-                start = Time(rawSplit[0] + "p")
-                if start > end:
-                    raise RuntimeError(ClassTimeDataParser.getDayCrossErrorMessage(rawSplit))
+                raise RuntimeError(ClassTimeDataParser.getDayCrossErrorMessage(rawSplit))
+
         return start, end
 
     def __init__(self, rawData: str) -> None:
