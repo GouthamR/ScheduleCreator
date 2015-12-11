@@ -13,18 +13,16 @@ def processLine(inputStr):
 def readNextLine(file):
     return processLine(file.readline())
 
-def fileInputClasses(file, course):
+CONNECTED_COURSE_INDICATOR = "_C_"
+
+def readStandardCourses(file, courses, currInput):
+    newCourse = Course(currInput)
+    courses.append(newCourse)
     currInput = "_flag_"
     while currInput != "":
         currInput = readNextLine(file)
         if(currInput != ""):
-            course.addClass(Class(currInput))
-
-CONNECTED_COURSE_INDICATOR = "_C_"
-
-def readStandardCourses(file, courses, currInput):
-    courses.append(Course(currInput))
-    fileInputClasses(file, courses[-1])
+            newCourse.addClass(Class(currInput))
 
 def readConnectedCourses(file, courses, connectedClassDict, firstLine):
     lectureCourse, labCourse = (Course(i) for i in firstLine.split(CONNECTED_COURSE_INDICATOR))
