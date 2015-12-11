@@ -24,8 +24,9 @@ def readStandardCourses(file, courses, currInput):
         if(currInput != ""):
             newCourse.addClass(Class(currInput))
 
-def readConnectedCourses(file, courses, connectedClassDict, firstLine):
-    lectureCourse, labCourse = (Course(i) for i in firstLine.split(CONNECTED_COURSE_INDICATOR))
+def readConnectedCourses(file, courses, connectedClassDict, lecName, labName):
+    lectureCourse = Course(lecName)
+    labCourse = Course(labName)
 
     isLecture = False
     lastType = None
@@ -59,7 +60,7 @@ def fileInputCourses(fileName):
             currInput = readNextLine(file)
             if(currInput != ""):
                 if CONNECTED_COURSE_INDICATOR in currInput:
-                    readConnectedCourses(file, courses, connectedClassDict, currInput)
+                    readConnectedCourses(file, courses, connectedClassDict, *currInput.split(CONNECTED_COURSE_INDICATOR))
                 else:
                     readStandardCourses(file, courses, currInput)
     return courses, connectedClassDict
