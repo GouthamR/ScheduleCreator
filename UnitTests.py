@@ -8,11 +8,11 @@ def printUnitTest(testName, *testResults): #testResult = True is success, False 
             print("%s: %s" % (testName, testResults))
 
 def redZoneUnitTests():
-    courses = fileInputCourses("sample_input_3.txt")[0]
+    courses = fileInputCourses("unit_test_input_3.txt")[0]
     schedule1 = Schedule(courses[0].classes)
     schedule2 = Schedule(courses[1].classes)
     schedules = [schedule1, schedule2]
-    redZones = fileInputRedZones("sample_red_zones.txt")
+    redZones = fileInputRedZones("unit_test_red_zones.txt")
     schedules.sort(key=lambda sched: sched.calculateRedZoneScore(redZones), reverse=True)
     printUnitTest("Red zone unit tests",
                   schedule1.calculateRedZoneScore(redZones) == -6,
@@ -20,7 +20,7 @@ def redZoneUnitTests():
                   schedules == [schedule2, schedule1])
 
 def connectedCourseUnitTests():
-    courses, connectedClassDict = fileInputCourses("sample_input_2.txt")
+    courses, connectedClassDict = fileInputCourses("unit_test_input_2.txt")
     printUnitTest("Connected course input unit tests",
                   [i.code for i in courses[0].classes] == [52111],
                   [i.code for i in courses[1].classes] == [10010, 20010, 30010],
@@ -83,9 +83,9 @@ def classTimeAMPMUnitTests():
                   exceptionTestsPass)
 
 def runUnitTestsFileInputTests():
-    file1Name = "sample_run_unit_tests_1.txt"
-    file2Name = "sample_run_unit_tests_2.txt"
-    file3Name = "sample_run_unit_tests_3.txt"
+    file1Name = "unit_test_run_test_1.txt"
+    file2Name = "unit_test_run_test_2.txt"
+    file3Name = "unit_test_run_test_3.txt"
 
     exceptionTestsPass = True
     try:
