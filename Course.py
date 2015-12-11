@@ -87,8 +87,8 @@ class DaysDataParser:
         Initializes fields.
         """
         #Removes spaces, then converts Tuesday and Thursday to corresponding one-character strings to correspond with DAYS_MAP:
-        replaced_raw_data = rawData.replace(" ", "")\
-                                    .replace("Tu", DaysDataParser.TUESDAY_REPLACEMENT)\
+        replaced_raw_data = rawData.replace(" ", "") \
+                                    .replace("Tu", DaysDataParser.TUESDAY_REPLACEMENT) \
                                     .replace("Th", DaysDataParser.THURSDAY_REPLACEMENT)
         self.days = [ DaysDataParser.DAYS_MAP[char] for char in replaced_raw_data ]
 
