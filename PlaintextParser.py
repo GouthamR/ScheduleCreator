@@ -25,31 +25,43 @@ def tupleToFileOutputFormat(tup: tuple) -> str:
 	"""
 	return "".format()
 
-tuples = []
+def readCourseFileToTuples() -> 'list of tuple':
+	"""
+	Reads file for a course and returns list of tuples, with each tuple
+	corresponding to each class in file.
+	"""
+	COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
 
-#    CCode Typ Sec Unt Instructor  Time              Place    Final                      Max Enr     WL Req Nor Rstr Status 
+	tuples = []
 
-COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
+	with open(FILE_NAME, 'r') as f:
+		for line in f:
+			if line.strip().startswith("CCode"):
+				column_indices = []
+				for i in range(len(COLUMN_NAMES) - 1):
+					column_indices.append( (line.index(COLUMN_NAMES[i]), line.index(COLUMN_NAMES[i+1])) )
+				column_indices.append( (line.index(COLUMN_NAMES[-1]), None) )
+				column_indices = tuple(column_indices)
+			elif isInt(line.strip()[0:5]):
+				new_class = []
+				for i in range(len(column_indices) - 1):
+					new_class.append(line[column_indices[i][0]:column_indices[i][1]])
+				new_class.append(line[column_indices[-1][0]:])
+				tuples.append(tuple(new_class))
 
-with open(FILE_NAME, 'r') as f:
-	for line in f:
-		if line.strip().startswith("CCode"):
-			column_indices = []
-			for i in range(len(COLUMN_NAMES) - 1):
-				column_indices.append( (line.index(COLUMN_NAMES[i]), line.index(COLUMN_NAMES[i+1])) )
-			column_indices.append( (line.index(COLUMN_NAMES[-1]), None) )
-			column_indices = tuple(column_indices)
-		elif isInt(line.strip()[0:5]):
-			new_class = []
-			for i in range(len(column_indices) - 1):
-				new_class.append(line[column_indices[i][0]:column_indices[i][1]])
-			new_class.append(line[column_indices[-1][0]:])
-			tuples.append(tuple(new_class))
+	return tuples
 
-with open(OUT_FILE_NAME, 'w') as f:
-	for tup in tuples:
-		f.write(str(tup) + '\n')
-		f.write(str(Class(tup)) + '\n')
+def outputTuplesToFile(tuples: 'list of tuple') -> None:
+	"""
+	Outputs argument to file.
+	"""
+	with open(OUT_FILE_NAME, 'w') as f:
+		for tup in tuples:
+			f.write(str(tup) + '\n')
+			f.write(str(Class(tup)) + '\n')
+			#f.write(tupleToFileOutputFormat(tup) + '\n')
+
+outputTuplesToFile(readCourseFileToTuples())
 
 '''
 TYPE_INDEX = 1
