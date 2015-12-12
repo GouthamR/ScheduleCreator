@@ -145,7 +145,7 @@ class ClassTimeDataParser:
         self.start, self.end = ClassTimeDataParser.calculateTimes(rawSplit, endIsPM)
 
 class Class:
-    def __init__(self, rawData: str) -> None:
+    def __init__(self, rawData: 'tuple of str') -> None:
         data = ClassDataParser(rawData)
         self.code, self.days, self.classTime, self.type, self.name = \
             data.code, data.days, data.classTime, data.type, data.name
@@ -162,8 +162,7 @@ class ClassDataParser:
 
     CODE_INDEX = 0
     TYPE_INDEX = 1
-    DAYS_INDEX = 5
-    TIME_INDEX = 6
+    DAY_TIME_INDEX = 5
     INVALID_NAME = "_NO NAME_"
 
     def __init__(self, data: 'tuple of str') -> None:
@@ -172,8 +171,10 @@ class ClassDataParser:
         """
         self.code = int(data[ClassDataParser.CODE_INDEX])
         self.type = data[ClassDataParser.TYPE_INDEX]
-        self.days = Days(data[ClassDataParser.DAYS_INDEX])
-        self.classTime = ClassTime(data[ClassDataParser.TIME_INDEX])
+        day_time = data[ClassDataParser.DAY_TIME_INDEX]
+        day_end_index = day_time.index(' ')
+        self.days = Days(day_time[0:day_end_index])
+        self.classTime = ClassTime(day_time[day_end_index:])
         self.name = ClassDataParser.INVALID_NAME # will be set later by Course
 
 class Course:

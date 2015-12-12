@@ -49,6 +49,7 @@ with open(FILE_NAME, 'r') as f:
 with open(OUT_FILE_NAME, 'w') as f:
 	for tup in tuples:
 		f.write(str(tup) + '\n')
+		f.write(str(Class(tup)) + '\n')
 
 '''
 TYPE_INDEX = 1
