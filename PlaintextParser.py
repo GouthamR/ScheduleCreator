@@ -1,7 +1,7 @@
 from Course import *
 
 COURSE_NAME = "CourseName"
-FILE_NAME = "human.txt"
+FILE_NAME = "ics32.txt"
 OUT_FILE_NAME = "output.txt"
 
 def isInt(input: str) -> int:
@@ -19,13 +19,7 @@ assert not isInt('a0')
 assert not isInt('0a')
 assert not isInt('asdf')
 
-def tupleToFileOutputFormat(tup: tuple) -> str:
-	"""
-	Converts tuple to string in format for output file.
-	"""
-	return "".format()
-
-def readCourseFileToTuples() -> 'list of tuple':
+def readCourseFileToTuples(fileName: str) -> 'list of tuple':
 	"""
 	Reads file for a course and returns list of tuples, with each tuple
 	corresponding to each class in file.
@@ -34,7 +28,7 @@ def readCourseFileToTuples() -> 'list of tuple':
 
 	tuples = []
 
-	with open(FILE_NAME, 'r') as f:
+	with open(fileName, 'r') as f:
 		for line in f:
 			if line.strip().startswith("CCode"):
 				column_indices = []
@@ -59,27 +53,5 @@ def outputTuplesToFile(tuples: 'list of tuple') -> None:
 		for tup in tuples:
 			f.write(str(tup) + '\n')
 			f.write(str(Class(tup)) + '\n')
-			#f.write(tupleToFileOutputFormat(tup) + '\n')
 
-outputTuplesToFile(readCourseFileToTuples())
-
-'''
-TYPE_INDEX = 1
-
-if len(tuples) >= 2:
-	connected = tuples[0][TYPE_INDEX] != tuples[1][TYPE_INDEX]
-else: # len = 0 or 1
-	connected = False
-
-with open(OUT_FILE_NAME, 'w') as f:
-	if connected:
-		type_1 = tuples[0][TYPE_INDEX]
-		type_2 = tuples[1][TYPE_INDEX]
-		f.write("{0} {1}_C_{0} {2}\n".format(COURSE_NAME, type_1, type_2))
-		for t in tuples:
-			print("{}\n".format())
-	else:
-		f.write("{}\n".format(COURSE_NAME))
-	for tup in tuples:
-		f.write("{}\n".format(tup))
-'''
+outputTuplesToFile(readCourseFileToTuples(FILE_NAME))
