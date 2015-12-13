@@ -1,5 +1,7 @@
 from Course import *
 
+# Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
+
 TYPE_INDEX = 1
 COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
 
@@ -97,6 +99,7 @@ def _getType1Name(tuples: 'list of tuple') -> str:
 	Returns name of type of first class in course.
 	"""
 	return tuples[0][TYPE_INDEX]
+
 def _getType2Name(tuples: 'list of tuple') -> str:
 	"""
 	Returns name of second type for connected course.
@@ -136,20 +139,36 @@ def _splitClassTuplesByTypeAssertions():
 	assert _splitClassTuplesByType([lec, lab, lec, lab]) == [[lec], [lab], [lec], [lab]]
 _splitClassTuplesByTypeAssertions()
 
+def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
+	"""
+	Reads course data from file.
+	If course is connected, returns sub-courses and dict of connected class data.
+	If course is not connected, returns sub-courses and None.
+	Assumes only two sub-courses for connected courses.
+	"""
+	tuples = readCourseFileToTuples(fileName)
+	splitTuples = _splitClassTuplesByType(tuples)
+	if _isConnected(tuples):
+		course1Classes = []
+		course2Classes = []
+		connectedClassDict = {}
+		for i in range(0, len(splitTuples), 2):
+			currCourse1Class = Class("_TEMP_", splitTuples[i][0])
+			course1Classes.append(currCourse1Class)
+			key = currCourse1Class.code
+			connectedClassDict[key] = []
+			for currCourse2ClassTuple in splitTuples[i + 1]:
+				currCourse2Class = Class("_TEMP_", currCourse2ClassTuple)
+				course2Classes.append(currCourse2Class)
+				connectedClassDict[key].append(currCourse2Class)
+		course1 = Course("_TEMP_", course1Classes)
+		course2 = Course("_TEMP_", course2Classes)
+		return [course1, course2], connectedClassDict
+
 def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 	"""
 	Outputs argument to file.
 	"""
-	# with open(OUT_FILE_NAME, 'w') as f:
-	# 	if _isConnected(tuples):
-	# 		f.write("{0} {1}_C_{0} {2}\n".format(courseName, _getType1Name(tuples), _getType2Name(tuples)))
-	# 		for tup in tuples:
-	# 			f.write(str(tup) + '\n')
-	# 	else:
-	# 		for subCourse in _splitClassTuplesByType(tuples):
-	# 			f.write("{0} {1}\n".format(courseName, _getType1Name(subCourse)))
-	# 			for tup in subCourse:
-	# 				f.write(str(tup) + '\n')
 	with open(OUT_FILE_NAME, 'w') as f:
 		if _isConnected(tuples):
 			f.write("Connected:\n")
@@ -161,3 +180,4 @@ def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 			f.write("\n")
 
 outputTuplesToFile(readCourseFileToTuples(FILE_NAME), COURSE_NAME)
+print('doing nothing')
