@@ -155,7 +155,7 @@ def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 		else:
 			f.write("Not Connected:\n")
 			for subCourse in _getSubCourses(tuples):
-				f.write("{}\n".format(Course(courseName, subCourse)))
+				f.write("{}\n".format(Course("{0} {1}".format(courseName, _getType1Name(subCourse).title()), subCourse)))
 			f.write("\n")
 
 outputTuplesToFile(readCourseFileToTuples(FILE_NAME), COURSE_NAME)
