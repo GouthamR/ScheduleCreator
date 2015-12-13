@@ -145,12 +145,11 @@ class ClassTimeDataParser:
         self.start, self.end = ClassTimeDataParser.calculateTimes(rawSplit, endIsPM)
 
 class Class:
-    def __init__(self, rawData: 'tuple of str') -> None:
-        data = ClassDataParser(rawData)
-        self.code, self.days, self.classTime, self.type, self.name = \
-            data.code, data.days, data.classTime, data.type, data.name
-    def setName(self, name):
+    def __init__(self, name: str, rawData: 'tuple of str') -> None:
         self.name = name
+        parsed = ClassDataParser(rawData)
+        self.code, self.days, self.classTime, self.type = \
+            parsed.code, parsed.days, parsed.classTime, parsed.type
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
 
@@ -163,7 +162,6 @@ class ClassDataParser:
     CODE_INDEX = 0
     TYPE_INDEX = 1
     DAY_TIME_INDEX = 5
-    INVALID_NAME = "_NO NAME_"
 
     def __init__(self, data: 'tuple of str') -> None:
         """
@@ -175,14 +173,16 @@ class ClassDataParser:
         day_end_index = day_time.index(' ')
         self.days = Days(day_time[0:day_end_index])
         self.classTime = ClassTime(day_time[day_end_index:])
-        self.name = ClassDataParser.INVALID_NAME # will be set later by Course
 
 class Course:
-    def __init__(self, name):
+    def __init__(self, name: str, classTuples: 'list of (tuple of str)') -> None:
+        """
+        name:           the title of the course.
+        classTuples:    a list of tuples corresponding to this Course's classes;
+                            each tuple is in the format required by the argument
+                            to Class' constructor.
+        """
         self.name = name
-        self.classes = []
-    def addClass(self, newClass):
-        self.classes.append(newClass)
-        newClass.setName(self.name)
+        self.classes = [Class(name, tup) for tup in classTuples]
     def __str__(self):
         return "%s: [%s]" % (self.name, ", ".join(map(str, self.classes)))

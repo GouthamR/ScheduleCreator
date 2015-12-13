@@ -1,6 +1,6 @@
 from Course import *
 
-FILE_NAME = "ics6b.txt"
+FILE_NAME = "human.txt"
 COURSE_NAME = FILE_NAME.replace(".txt", "")
 OUT_FILE_NAME = "output.txt"
 
@@ -108,19 +108,28 @@ def _getSubCoursesAssertions():
 	assert getSubCourses([lec, lab, lec, lab]) == [[lec], [lab], [lec], [lab]]
 _getSubCoursesAssertions()
 
-def outputTuplesToFile(tuples: 'list of tuple', courseName) -> None:
+def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 	"""
 	Outputs argument to file.
 	"""
+	# with open(OUT_FILE_NAME, 'w') as f:
+	# 	if isConnected(tuples):
+	# 		f.write("{0} {1}_C_{0} {2}\n".format(courseName, getType1Name(tuples), getType2Name(tuples)))
+	# 		for tup in tuples:
+	# 			f.write(str(tup) + '\n')
+	# 	else:
+	# 		for subCourse in getSubCourses(tuples):
+	# 			f.write("{0} {1}\n".format(courseName, getType1Name(subCourse)))
+	# 			for tup in subCourse:
+	# 				f.write(str(tup) + '\n')
 	with open(OUT_FILE_NAME, 'w') as f:
 		if isConnected(tuples):
-			f.write("{0} {1}_C_{0} {2}\n".format(courseName, getType1Name(tuples), getType2Name(tuples)))
-			for tup in tuples:
-				f.write(str(tup) + '\n')
+			f.write("Connected:\n")
+			f.write("{}\n\n".format(Course(courseName, tuples)))
 		else:
+			f.write("Not Connected:\n")
 			for subCourse in getSubCourses(tuples):
-				f.write("{0} {1}\n".format(courseName, getType1Name(subCourse)))
-				for tup in subCourse:
-					f.write(str(tup) + '\n')
+				f.write("{}\n".format(Course(courseName, subCourse)))
+			f.write("\n")
 
 outputTuplesToFile(readCourseFileToTuples(FILE_NAME), COURSE_NAME)

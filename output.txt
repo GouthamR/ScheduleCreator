@@ -1,5 +1,3 @@
-ics6b LEC_C_ics6b DIS
-('36520', 'LEC', 'A', '4', 'REGAN, A.', 'TuTh  3:30- 4:50p', 'ELH 100', 'Tue, Mar 15, 4:00-6:00pm', '300', '258', '0', '459', '0', 'N', 'OPEN')
-('36521', 'DIS', '1', '0', 'STAFF', 'MW    8:00- 8:50', 'SSL 270', '', '100', '92', '0', '111', '0', 'N', 'OPEN')
-('36522', 'DIS', '2', '0', 'STAFF', 'MW    9:00- 9:50', 'SSL 270', '', '100', '100', '9', '134', '0', 'N', 'Waitl')
-('36524', 'DIS', '4', '0', 'STAFF', 'MW    5:00- 5:50p', 'SSL 270', '', '100', '66', '0', '61', '0', 'N', 'OPEN')
+Connected:
+human: [Class: Days: [0, 2, 4], ClassTime: Time: 9:0, Time: 9:50, Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2], ClassTime: Time: 15:30, Time: 16:50, Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2, 4], ClassTime: Time: 11:0, Time: 11:50, Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2], ClassTime: Time: 15:0, Time: 16:20, Class: Days: [1, 3], ClassTime: Time: 9:30, Time: 10:50, Class: Days: [1, 3], ClassTime: Time: 11:0, Time: 12:20, Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50, Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50, Class: Days: [1, 3], ClassTime: Time: 14:0, Time: 15:20, Class: Days: [1, 3], ClassTime: Time: 11:0, Time: 12:20, Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50]
+
