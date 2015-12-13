@@ -166,6 +166,12 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 		course1 = Course(course1Name, course1Classes)
 		course2 = Course(course2Name, course2Classes)
 		return [course1, course2], connectedClassDict
+	else:
+		subCourses = []
+		for subCourseTuples in _splitClassTuplesByType(tuples):
+			currCourse = Course("{} {}".format(courseName, _getType1Name(subCourseTuples).title()), subCourseTuples)
+			subCourses.append(currCourse)
+		return subCourses, None
 
 def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 	"""
