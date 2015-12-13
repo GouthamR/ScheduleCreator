@@ -175,14 +175,12 @@ class ClassDataParser:
         self.classTime = ClassTime(day_time[day_end_index:])
 
 class Course:
-    def __init__(self, name: str, classTuples: 'list of (tuple of str)') -> None:
+    def __init__(self, name: str, classes: 'list of Class') -> None:
         """
-        name:           the title of the course.
-        classTuples:    a list of tuples corresponding to this Course's classes;
-                            each tuple is in the format required by the argument
-                            to Class' constructor.
+        name:       the title of the course.
+        classes:    this Course's classes.
         """
         self.name = name
-        self.classes = [Class(name, tup) for tup in classTuples]
+        self.classes = classes
     def __str__(self):
         return "%s: [%s]" % (self.name, ", ".join(map(str, self.classes)))

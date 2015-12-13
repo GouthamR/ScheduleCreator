@@ -152,17 +152,19 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 		course1Classes = []
 		course2Classes = []
 		connectedClassDict = {}
+		course1Name = "{} {}".format(courseName, _getType1Name(tuples).title())
+		course2Name = "{} {}".format(courseName, _getType2Name(tuples).title())
 		for i in range(0, len(splitTuples), 2):
-			currCourse1Class = Class("_TEMP_", splitTuples[i][0])
+			currCourse1Class = Class(course1Name, splitTuples[i][0])
 			course1Classes.append(currCourse1Class)
 			key = currCourse1Class.code
 			connectedClassDict[key] = []
 			for currCourse2ClassTuple in splitTuples[i + 1]:
-				currCourse2Class = Class("_TEMP_", currCourse2ClassTuple)
+				currCourse2Class = Class(course2Name, currCourse2ClassTuple)
 				course2Classes.append(currCourse2Class)
 				connectedClassDict[key].append(currCourse2Class)
-		course1 = Course("_TEMP_", course1Classes)
-		course2 = Course("_TEMP_", course2Classes)
+		course1 = Course(course1Name, course1Classes)
+		course2 = Course(course2Name, course2Classes)
 		return [course1, course2], connectedClassDict
 
 def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
