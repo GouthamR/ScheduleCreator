@@ -1,6 +1,9 @@
 from Course import *
 
-FILE_NAME = "human.txt"
+TYPE_INDEX = 1
+COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
+
+FILE_NAME = "ics32.txt"
 COURSE_NAME = FILE_NAME.replace(".txt", "")
 OUT_FILE_NAME = "output.txt"
 
@@ -19,33 +22,56 @@ assert not isInt('a0')
 assert not isInt('0a')
 assert not isInt('asdf')
 
-def readCourseFileToTuples(fileName: str) -> 'list of tuple':
+def isTableHeader(line: str) -> bool:
+	"""
+	Returns True if line is in format of course table header, with column
+	names (as in COLUMN_NAMES).
+	"""
+	return line.strip().startswith(COLUMN_NAMES[0])
+
+def isClassFormat(line: str) -> bool:
+	"""
+	Returns True if line is in format of class fields.
+	"""
+	return isInt(line.strip()[0:5])
+
+def getColumnIndices(line: str) -> 'list of (tuple of int)':
+	"""
+	Returns list representing position of each column, from COLUMN_NAMES, in line.
+	Each element is a tuple of form (start index, end index), except for
+	last element which is of form (start index, None).
+	"""
+	column_indices = []
+	for i in range(len(COLUMN_NAMES) - 1):
+		column_indices.append( (line.index(COLUMN_NAMES[i]), line.index(COLUMN_NAMES[i+1])) )
+	column_indices.append( (line.index(COLUMN_NAMES[-1]), None) )
+	return column_indices
+
+def getClass(line: str, column_indices: 'list of (tuple of int)') -> 'tuple of str':
+	"""
+	Returns tuple of class fields corresponding to input line,
+	using table format based on column_indices.
+	"""
+	new_class = []
+	for i in range(len(column_indices) - 1):
+		new_class.append(line[column_indices[i][0]:column_indices[i][1]].strip())
+	new_class.append(line[column_indices[-1][0]:].strip())
+	return tuple(new_class)
+
+def readCourseFileToTuples(fileName: str) -> 'list of (tuple of str)':
 	"""
 	Reads file for a course and returns list of tuples, with each tuple
 	corresponding to each class in file.
 	"""
-	COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
-
 	tuples = []
-
+	curr_column_indices = None
 	with open(fileName, 'r') as f:
 		for line in f:
-			if line.strip().startswith("CCode"):
-				column_indices = []
-				for i in range(len(COLUMN_NAMES) - 1):
-					column_indices.append( (line.index(COLUMN_NAMES[i]), line.index(COLUMN_NAMES[i+1])) )
-				column_indices.append( (line.index(COLUMN_NAMES[-1]), None) )
-				column_indices = tuple(column_indices)
-			elif isInt(line.strip()[0:5]):
-				new_class = []
-				for i in range(len(column_indices) - 1):
-					new_class.append(line[column_indices[i][0]:column_indices[i][1]].strip())
-				new_class.append(line[column_indices[-1][0]:].strip())
-				tuples.append(tuple(new_class))
-
+			if isTableHeader(line):
+				curr_column_indices = getColumnIndices(line)
+			elif isClassFormat(line):
+				tuples.append(getClass(line, curr_column_indices))
 	return tuples
-
-TYPE_INDEX = 1
 
 def isConnected(class_tuples: 'list of tuple') -> bool:
 	"""
