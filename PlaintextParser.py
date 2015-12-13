@@ -5,7 +5,7 @@ from Course import *
 TYPE_INDEX = 1
 COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
 
-FILE_NAME = "ics32.txt"
+FILE_NAME = "human.txt"
 COURSE_NAME = FILE_NAME.replace(".txt", "")
 OUT_FILE_NAME = "output.txt"
 
@@ -173,19 +173,18 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 			subCourses.append(currCourse)
 		return subCourses, None
 
-def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
-	"""
-	Outputs argument to file.
-	"""
+def outputCourseDataToFile(subCourses, connectedDict):
 	with open(OUT_FILE_NAME, 'w') as f:
-		if _isConnected(tuples):
-			f.write("Connected:\n")
-			f.write("{}\n\n".format(Course(courseName, tuples)))
+		for c in subCourses:
+			f.write("{}\n".format(c))
+		f.write('\n')
+		if connectedDict == None:
+			f.write("Not connected.")
 		else:
-			f.write("Not Connected:\n")
-			for subCourse in _splitClassTuplesByType(tuples):
-				f.write("{}\n".format(Course("{0} {1}".format(courseName, _getType1Name(subCourse).title()), subCourse)))
-			f.write("\n")
+			for key in connectedDict:
+				f.write("{}:\n ".format(key))
+				for currClass in connectedDict[key]:
+					f.write("\t{}\n".format(currClass))
+				f.write('\n')
 
-outputTuplesToFile(readCourseFileToTuples(FILE_NAME), COURSE_NAME)
-print('doing nothing')
+outputCourseDataToFile(*readCourseFileToCourseData(FILE_NAME, COURSE_NAME))
