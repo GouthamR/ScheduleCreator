@@ -1,38 +1,5 @@
-('36600 ', 'LEC ', 'A   ', '4   ', 'THORNTON, A. ', 'TuTh  5:00- 6:20p ', 'ELH 100  ', 'Thu, Mar 17, 4:00-6:00pm ', '300 234/', '300    n', '/a ', '363 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [1, 3], ClassTime: Time: 17:0, Time: 18:20
-('36605 ', 'LEC ', 'B   ', '4   ', 'THORNTON, A. ', 'TuTh  6:30- 7:50p ', 'ELH 100  ', 'TBA                      ', '300 143/', '164    n', '/a ', '188 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [1, 3], ClassTime: Time: 18:30, Time: 19:50
-('36610 ', 'LAB ', '1   ', '0   ', 'STAFF        ', 'MWF   8:00- 9:50  ', 'ICS 189  ', '                         ', ' 44   10', '/15    n', '/a ', '  9 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 9:50
-('36611 ', 'LAB ', '2   ', '0   ', 'STAFF        ', 'MWF  10:00-11:50  ', 'ICS 189  ', '                         ', ' 44   39', '/44    n', '/a ', ' 42 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 10:0, Time: 11:50
-('36612 ', 'LAB ', '3   ', '0   ', 'STAFF        ', 'MWF  12:00- 1:50p ', 'ICS 189  ', '                         ', ' 44   38', '/44    n', '/a ', ' 46 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50
-('36613 ', 'LAB ', '4   ', '0   ', 'STAFF        ', 'MWF   2:00- 3:50p ', 'ICS 189  ', '                         ', ' 44   37', '/44    n', '/a ', ' 47 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50
-('36614 ', 'LAB ', '5   ', '0   ', 'STAFF        ', 'MWF   4:00- 5:50p ', 'ICS 189  ', '                         ', ' 44   32', '/44    n', '/a ', ' 35 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 16:0, Time: 17:50
-('36615 ', 'LAB ', '6   ', '0   ', 'STAFF        ', 'MWF   6:00- 7:50p ', 'ICS 189  ', '                         ', ' 44   13', '/17    n', '/a ', ' 17 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 18:0, Time: 19:50
-('36616 ', 'LAB ', '7   ', '0   ', 'STAFF        ', 'MWF  12:00- 1:50p ', 'ICS 183  ', '                         ', ' 40   29', '/40    n', '/a ', ' 30 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50
-('36617 ', 'LAB ', '8   ', '0   ', 'STAFF        ', 'MWF   2:00- 3:50p ', 'ICS 183  ', '                         ', ' 40   30', '/40    n', '/a ', ' 34 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50
-('36618 ', 'LAB ', '9   ', '0   ', 'STAFF        ', 'MWF  12:00- 1:50p ', 'ICS 192  ', '                         ', ' 40   25', '/31    n', '/a ', ' 23 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50
-('36619 ', 'LAB ', '10  ', '0   ', 'STAFF        ', 'MWF   2:00- 3:50p ', 'ICS 192  ', '                         ', ' 40   38', '/40    n', '/a ', ' 39 ', '  0 ', 'A&N  ', 'FULL   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50
-('36620 ', 'LAB ', '11  ', '0   ', 'STAFF        ', 'MWF   8:00- 9:50  ', 'ICS 364A ', '                         ', ' 42     ', '4/4    n', '/a ', '  5 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 9:50
-('36621 ', 'LAB ', '12  ', '0   ', 'STAFF        ', 'MWF  10:00-11:50  ', 'ICS 364A ', '                         ', ' 42   30', '/34    n', '/a ', ' 32 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 10:0, Time: 11:50
-('36622 ', 'LAB ', '13  ', '0   ', 'STAFF        ', 'MWF  12:00- 1:50p ', 'ICS 364A ', '                         ', ' 42   28', '/35    n', '/a ', ' 28 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50
-('36623 ', 'LAB ', '14  ', '0   ', 'STAFF        ', 'MWF   2:00- 3:50p ', 'ICS 364A ', '                         ', ' 42   24', '/32    n', '/a ', ' 22 ', '  0 ', 'A&N  ', 'OPEN   \n')
-Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50
-('77261 ', 'TAP ', 'A   ', '0   ', 'NYGAARD, N.  ', 'MW    1:00- 1:50p ', '*TBA*    ', '                         ', ' 12     ', '  0    n', '/a ', '  0 ', '  0 ', '     ', 'OPEN   \n')
-Class: Days: [0, 2], ClassTime: Time: 13:0, Time: 13:50
-('77262 ', 'TAP ', 'A   ', '0   ', 'NYGAARD, N.  ', 'MW    2:00- 2:50p ', '*TBA*    ', '                         ', ' 12     ', '  0    n', '/a ', '  0 ', '  0 ', '     ', 'OPEN   \n')
-Class: Days: [0, 2], ClassTime: Time: 14:0, Time: 14:50
-('77263 ', 'TAP ', 'A   ', '0   ', 'NYGAARD, N.  ', 'TuTh  1:00- 1:50p ', 'RH 270   ', '                         ', ' 15     ', '  0    n', '/a ', '  0 ', '  0 ', '     ', 'OPEN   \n')
-Class: Days: [1, 3], ClassTime: Time: 13:0, Time: 13:50
+ics6b LEC _C_ics6b DIS 
+('36520 ', 'LEC ', 'A   ', '4   ', 'REGAN, A.  ', 'TuTh  3:30- 4:50p ', 'ELH 100 ', 'Tue, Mar 15, 4:00-6:00pm ', '300 ', '258     ', ' 0 ', '459 ', '  0 ', 'N    ', 'OPEN   \n')
+('36521 ', 'DIS ', '1   ', '0   ', 'STAFF      ', 'MW    8:00- 8:50  ', 'SSL 270 ', '                         ', '100 ', ' 92     ', ' 0 ', '111 ', '  0 ', 'N    ', 'OPEN   \n')
+('36522 ', 'DIS ', '2   ', '0   ', 'STAFF      ', 'MW    9:00- 9:50  ', 'SSL 270 ', '                         ', '100 ', '100     ', ' 9 ', '134 ', '  0 ', 'N    ', 'Waitl  \n')
+('36524 ', 'DIS ', '4   ', '0   ', 'STAFF      ', 'MW    5:00- 5:50p ', 'SSL 270 ', '                         ', '100 ', ' 66     ', ' 0 ', ' 61 ', '  0 ', 'N    ', 'OPEN   \n')
