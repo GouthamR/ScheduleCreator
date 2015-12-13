@@ -84,12 +84,12 @@ def _isConnected(class_tuples: 'list of tuple') -> bool:
 def _isConnectedAssertions():
 	lec = ('', 'LEC ', '', '', '', '', '', '', '', '', '', '', '', '', '')
 	lab = ('', 'LAB ', '', '', '', '', '', '', '', '', '', '', '', '', '')
-	assert not _isConnected( () )
-	assert not _isConnected( (lec, ) )
-	assert _isConnected( (lec, lab) )
-	assert not _isConnected( (lec, lec) )
-	assert _isConnected( (lec, lab, lec) )
-	assert not _isConnected( (lec, lec, lab, lec) )
+	assert not _isConnected( [] )
+	assert not _isConnected( [ lec ] )
+	assert _isConnected( [lec, lab] )
+	assert not _isConnected( [lec, lec] )
+	assert _isConnected( [lec, lab, lec] )
+	assert not _isConnected( [lec, lec, lab, lec] )
 _isConnectedAssertions()
 
 def _getType1Name(tuples: 'list of tuple') -> str:
