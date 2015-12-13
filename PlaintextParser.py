@@ -39,8 +39,8 @@ def readCourseFileToTuples(fileName: str) -> 'list of tuple':
 			elif isInt(line.strip()[0:5]):
 				new_class = []
 				for i in range(len(column_indices) - 1):
-					new_class.append(line[column_indices[i][0]:column_indices[i][1]])
-				new_class.append(line[column_indices[-1][0]:])
+					new_class.append(line[column_indices[i][0]:column_indices[i][1]].strip())
+				new_class.append(line[column_indices[-1][0]:].strip())
 				tuples.append(tuple(new_class))
 
 	return tuples
