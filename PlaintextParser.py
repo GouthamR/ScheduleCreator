@@ -108,10 +108,12 @@ def _getType2Name(tuples: 'list of tuple') -> str:
 		if currType != type1:
 			return currType
 
-def _getSubCourses(tuples: 'list of tuple') -> 'list of list of tuple':
+def _splitClassTuplesByType(tuples: 'list of tuple') -> 'list of list of tuple':
 	"""
-	Splits argument course into multiple sub-courses, where each sub-course
-	is made up of the classes of one type.
+	Splits argument list of class-tuples into multiple lists, where each
+	list is made up of the classes of one type in sequence.
+	Returns as list of lists.
+	E.g. For [lec, lec, lab, lec], returns [[lec, lec], [lab], [lec]].
 	"""
 	subCourses = []
 	prevType = None
@@ -123,16 +125,16 @@ def _getSubCourses(tuples: 'list of tuple') -> 'list of list of tuple':
 		else:
 			subCourses[-1].append(tup)
 	return subCourses
-def _getSubCoursesAssertions():
+def _splitClassTuplesByTypeAssertions():
 	lec = ('', 'LEC ', '', '', '', '', '', '', '', '', '', '', '', '', '')
 	lab = ('', 'LAB ', '', '', '', '', '', '', '', '', '', '', '', '', '')
-	assert _getSubCourses([]) == []
-	assert _getSubCourses([lec]) == [[lec]]
-	assert _getSubCourses([lec, lec]) == [[lec, lec]]
-	assert _getSubCourses([lec, lab]) == [[lec], [lab]]
-	assert _getSubCourses([lec, lec, lab, lab]) == [[lec, lec], [lab, lab]]
-	assert _getSubCourses([lec, lab, lec, lab]) == [[lec], [lab], [lec], [lab]]
-_getSubCoursesAssertions()
+	assert _splitClassTuplesByType([]) == []
+	assert _splitClassTuplesByType([lec]) == [[lec]]
+	assert _splitClassTuplesByType([lec, lec]) == [[lec, lec]]
+	assert _splitClassTuplesByType([lec, lab]) == [[lec], [lab]]
+	assert _splitClassTuplesByType([lec, lec, lab, lab]) == [[lec, lec], [lab, lab]]
+	assert _splitClassTuplesByType([lec, lab, lec, lab]) == [[lec], [lab], [lec], [lab]]
+_splitClassTuplesByTypeAssertions()
 
 def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 	"""
@@ -144,7 +146,7 @@ def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 	# 		for tup in tuples:
 	# 			f.write(str(tup) + '\n')
 	# 	else:
-	# 		for subCourse in _getSubCourses(tuples):
+	# 		for subCourse in _splitClassTuplesByType(tuples):
 	# 			f.write("{0} {1}\n".format(courseName, _getType1Name(subCourse)))
 	# 			for tup in subCourse:
 	# 				f.write(str(tup) + '\n')
@@ -154,7 +156,7 @@ def outputTuplesToFile(tuples: 'list of tuple', courseName: str) -> None:
 			f.write("{}\n\n".format(Course(courseName, tuples)))
 		else:
 			f.write("Not Connected:\n")
-			for subCourse in _getSubCourses(tuples):
+			for subCourse in _splitClassTuplesByType(tuples):
 				f.write("{}\n".format(Course("{0} {1}".format(courseName, _getType1Name(subCourse).title()), subCourse)))
 			f.write("\n")
 
