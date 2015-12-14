@@ -177,9 +177,11 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 		return _convertConnectedCourseTuplesToCourseData(splitTuples, course1Name, course2Name)
 	else:
 		subCourses = []
-		for subCourseTuples in _splitClassTuplesByType(tuples):
-			subCourseType = _getType1Name(subCourseTuples).title()
-			currCourse = Course("{} {}".format(courseName, subCourseType), subCourseTuples)
+		for subCourseClassTuples in _splitClassTuplesByType(tuples):
+			subCourseType = _getType1Name(subCourseClassTuples).title()
+			subCourseName = "{} {}".format(courseName, subCourseType)
+			subCourseClasses = [Class(subCourseName, tup) for tup in subCourseClassTuples]
+			currCourse = Course(subCourseName, subCourseClasses)
 			subCourses.append(currCourse)
 		return subCourses, None
 
