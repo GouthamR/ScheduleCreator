@@ -5,8 +5,8 @@ from Course import *
 TYPE_INDEX = 1
 COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
 
-FILE_NAME = "human.txt"
-COURSE_NAME = FILE_NAME.replace(".txt", "")
+FILE_NAMES = ["ics32.txt", "ics6b.txt", "human.txt"]
+COURSE_NAMES = [fName.replace(".txt", "") for fName in FILE_NAMES]
 OUT_FILE_NAME = "output.txt"
 
 def _isInt(input: str) -> int:
@@ -183,6 +183,25 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 			subCourses.append(currCourse)
 		return subCourses, None
 
+def readCourseFilesToCourseData(fileNames: 'list of str', courseNames: 'list of str') -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
+	"""
+	Reads course data from multiple course files.
+	Returns sub-courses and dict of connected class data.
+	If no connected courses, returns sub-courses and None.
+	courseNames must correspond to fileNames.
+	Assumes only two sub-courses for connected courses.
+	"""
+	subCourses = []
+	connectedClassDict = None
+	for i in range(len(fileNames)):
+		currSubCourses, currDict = readCourseFileToCourseData(fileNames[i], courseNames[i])
+		subCourses.extend(currSubCourses)
+		if currDict != None:
+			if connectedClassDict == None:
+				connectedClassDict = {}
+			connectedClassDict.update(currDict)
+	return subCourses, connectedClassDict
+
 def outputCourseDataToFile(subCourses, connectedDict):
 	with open(OUT_FILE_NAME, 'w') as f:
 		for c in subCourses:
@@ -197,4 +216,4 @@ def outputCourseDataToFile(subCourses, connectedDict):
 					f.write("\t{}\n".format(currClass))
 				f.write('\n')
 
-outputCourseDataToFile(*readCourseFileToCourseData(FILE_NAME, COURSE_NAME))
+outputCourseDataToFile(*readCourseFilesToCourseData(FILE_NAMES, COURSE_NAMES))
