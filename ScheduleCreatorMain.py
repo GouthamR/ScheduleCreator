@@ -7,13 +7,11 @@
 from Course import *
 from Schedule import *
 from ScheduleInput import *
-from UnitTests import *
 from ScheduleGUI import *
 
 INPUT_FILE_NAME = "input.txt"
 REDZONE_FILE_NAME = "red_zones.txt"
 MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
-RUNUNITTESTS_FILE_NAME = "run_unit_tests.txt"
 
 def main():
     print("CREATED BY GOUTHAM RAJEEV")
@@ -33,6 +31,4 @@ def main():
         print("%s: %s = %s" % (i, schedule.getClassCodes(), schedule.calculatePreferenceScore(*preferenceParams)))
     ScheduleGUI(schedules)
 
-if fileInputRunUnitTests(RUNUNITTESTS_FILE_NAME):
-    unitTests()
 main()
