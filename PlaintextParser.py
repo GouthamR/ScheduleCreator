@@ -217,13 +217,22 @@ def outputCourseDataToFile(subCourses, connectedDict):
 					f.write("\t{}\n".format(currClass))
 				f.write('\n')
 
-def main():
+def fileInputCourses(inFile: str) -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
+	"""
+	Reads course data from multiple course files as specified in inFile.
+	Returns sub-courses and dict of connected class data.
+	If no connected courses, returns sub-courses and None.
+	"""
 	fileNames = []
-	with open(IN_FILE_NAME, 'r') as f:
+	with open(inFile, 'r') as f:
 		for line in f:
 			fileNames.append(line.strip())
 	courseNames = [fName.replace(".txt", "") for fName in fileNames]
-	outputCourseDataToFile(*readCourseFilesToCourseData(fileNames, courseNames))
+	return readCourseFilesToCourseData(fileNames, courseNames)
+
+def main():
+	print(fileInputCourses(IN_FILE_NAME))
+	outputCourseDataToFile(*fileInputCourses(IN_FILE_NAME))
 
 if __name__ == '__main__':
 	main()
