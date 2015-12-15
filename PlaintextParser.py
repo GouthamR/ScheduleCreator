@@ -212,7 +212,7 @@ def outputCourseDataToFile(subCourses, connectedDict):
 			f.write("Not connected.")
 		else:
 			for key in connectedDict:
-				f.write("{}:\n ".format(key))
+				f.write("{}:\n".format(key))
 				for currClass in connectedDict[key]:
 					f.write("\t{}\n".format(currClass))
 				f.write('\n')
