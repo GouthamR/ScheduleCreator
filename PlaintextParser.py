@@ -4,8 +4,7 @@ from Course import *
 
 COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
 
-FILE_NAMES = ["ics32.txt", "ics6b.txt", "human.txt"]
-COURSE_NAMES = [fName.replace(".txt", "") for fName in FILE_NAMES]
+IN_FILE_NAME = "input.txt"
 OUT_FILE_NAME = "output.txt"
 
 def _isInt(input: str) -> int:
@@ -218,4 +217,13 @@ def outputCourseDataToFile(subCourses, connectedDict):
 					f.write("\t{}\n".format(currClass))
 				f.write('\n')
 
-outputCourseDataToFile(*readCourseFilesToCourseData(FILE_NAMES, COURSE_NAMES))
+def main():
+	fileNames = []
+	with open(IN_FILE_NAME, 'r') as f:
+		for line in f:
+			fileNames.append(line.strip())
+	courseNames = [fName.replace(".txt", "") for fName in fileNames]
+	outputCourseDataToFile(*readCourseFilesToCourseData(fileNames, courseNames))
+
+if __name__ == '__main__':
+	main()
