@@ -145,11 +145,17 @@ class ClassTimeDataParser:
         self.start, self.end = ClassTimeDataParser.calculateTimes(rawSplit, endIsPM)
 
 class Class:
+    # Note: name = name of course, e.g. ICS 31. Does NOT include course type.
     def __init__(self, name: str, rawData: 'tuple of str') -> None:
         self.name = name
         parsed = ClassDataParser(rawData)
         self.code, self.days, self.classTime, self.type = \
             parsed.code, parsed.days, parsed.classTime, parsed.type
+    def getFullName(self) -> str:
+        """
+        Returns full name of class, i.e. name and type.
+        """
+        return "{} {}".format(self.name, self.type)
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
 
