@@ -75,23 +75,27 @@ def readCourseFileToTuples(fileName: str) -> 'list of (tuple of str)':
 				tuples.append(_getClass(line, curr_column_indices))
 	return tuples
 
-def _isConnected(class_tuples: 'list of tuple') -> bool:
+def _isConnected(splitClasses: 'list of list of Class') -> bool:
 	"""
 	Returns if course represented by argument is a connected course.
 	"""
-	if len(class_tuples) < 2:
+	if len(splitClasses) < 2:
 		return False
 	#else:
-	return class_tuples[0][TYPE_INDEX] != class_tuples[1][TYPE_INDEX]
+	return len(splitClasses[0]) == 1
 def _isConnectedAssertions():
-	lec = ('', 'LEC ', '', '', '', '', '', '', '', '', '', '', '', '', '')
-	lab = ('', 'LAB ', '', '', '', '', '', '', '', '', '', '', '', '', '')
+	lecType = "LEC"
+	labType = "LAB"
+	lecTup = ("28100", lecType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
+	labTup = ("28100", labType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
+	lec = Class(lecType, lecTup)
+	lab = Class(labType, labTup)
 	assert not _isConnected( [] )
-	assert not _isConnected( [ lec ] )
-	assert _isConnected( [lec, lab] )
-	assert not _isConnected( [lec, lec] )
-	assert _isConnected( [lec, lab, lec] )
-	assert not _isConnected( [lec, lec, lab, lec] )
+	assert not _isConnected( [ [lec] ] )
+	assert _isConnected( [[lec], [lab]] )
+	assert not _isConnected( [[lec, lec]] )
+	assert _isConnected( [[lec], [lab], [lec]] )
+	assert not _isConnected( [[lec, lec], [lab], [lec]] )
 _isConnectedAssertions()
 
 # def _getType1Name(tuples: 'list of tuple') -> str:
@@ -211,8 +215,8 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 	Assumes only two sub-courses for connected courses.
 	"""
 	tuples = readCourseFileToTuples(fileName)
-	splitTuples = _splitClassTuplesByType(tuples)
-	if _isConnected(tuples):
+	splitClasses = _convertToClassesByType(courseName, tuples)
+	if _isConnected(splitClasses):
 		return _convertConnectedCourseTuplesToCourseData(splitTuples, courseName)
 	else:
 		subCourses = []
