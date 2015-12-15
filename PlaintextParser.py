@@ -48,7 +48,7 @@ def _getColumnIndices(line: str) -> 'list of (tuple of int)':
 	column_indices.append( (line.index(COLUMN_NAMES[-1]), None) )
 	return column_indices
 
-def _getClass(line: str, column_indices: 'list of (tuple of int)') -> 'tuple of str':
+def _getClassTuple(line: str, column_indices: 'list of (tuple of int)') -> 'tuple of str':
 	"""
 	Returns tuple of class fields corresponding to input line,
 	using table format based on column_indices.
@@ -71,7 +71,7 @@ def readCourseFileToTuples(fileName: str) -> 'list of (tuple of str)':
 			if _isTableHeader(line):
 				curr_column_indices = _getColumnIndices(line)
 			elif _isClassFormat(line):
-				tuples.append(_getClass(line, curr_column_indices))
+				tuples.append(_getClassTuple(line, curr_column_indices))
 	return tuples
 
 def _isConnected(splitClasses: 'list of list of Class') -> bool:
