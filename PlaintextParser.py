@@ -77,11 +77,21 @@ def readCourseFileToTuples(fileName: str) -> 'list of (tuple of str)':
 def _isConnected(splitClasses: 'list of list of Class') -> bool:
 	"""
 	Returns if course represented by argument is a connected course.
+	If not valid connected course with two-sub-courses, raises ValueError.
 	"""
-	if len(splitClasses) < 2:
+	numSubCourses = len(splitClasses)
+	if numSubCourses < 2 or len(splitClasses[0]) != 1 or numSubCourses % 2 != 0:
 		return False
-	#else:
-	return len(splitClasses[0]) == 1
+	# else, number of sub-courses is even and at least 2, and first sub-course has one class.
+	# Now, check for valid sub-course connection:
+	firstType = splitClasses[0][0].type
+	for i in range(2, len(splitClasses), 2):
+		currSubCourse = splitClasses[i]
+		if len(currSubCourse) != 1 or currSubCourse[0].type != firstType:
+			raise ValueError("Invalid connected courses.")
+	# if here, no exception raised:
+	return True
+
 def _isConnectedAssertions():
 	lecType = "LEC"
 	labType = "LAB"
