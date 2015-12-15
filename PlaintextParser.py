@@ -103,7 +103,7 @@ def _isConnectedAssertions():
 	assert not _isConnected( [ [lec] ] )
 	assert _isConnected( [[lec], [lab]] )
 	assert not _isConnected( [[lec, lec]] )
-	assert _isConnected( [[lec], [lab], [lec]] )
+	assert not _isConnected( [[lec], [lab], [lec]] )
 	assert not _isConnected( [[lec, lec], [lab], [lec]] )
 _isConnectedAssertions()
 
