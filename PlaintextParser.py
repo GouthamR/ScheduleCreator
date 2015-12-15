@@ -2,7 +2,6 @@ from Course import *
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
 
-TYPE_INDEX = 1
 COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
 
 FILE_NAMES = ["ics32.txt", "ics6b.txt", "human.txt"]
@@ -97,51 +96,6 @@ def _isConnectedAssertions():
 	assert _isConnected( [[lec], [lab], [lec]] )
 	assert not _isConnected( [[lec, lec], [lab], [lec]] )
 _isConnectedAssertions()
-
-# def _getType1Name(tuples: 'list of tuple') -> str:
-# 	"""
-# 	Returns name of type of first class in course.
-# 	"""
-# 	return tuples[0][TYPE_INDEX]
-
-# def _getType2Name(tuples: 'list of tuple') -> str:
-# 	"""
-# 	Returns name of second type for connected course.
-# 	Assumes course is connected.
-# 	"""
-# 	type1 = _getType1Name(tuples)
-# 	for tup in tuples:
-# 		currType = tup[TYPE_INDEX]
-# 		if currType != type1:
-# 			return currType
-
-# def _splitClassTuplesByType(tuples: 'list of tuple') -> 'list of list of tuple':
-# 	"""
-# 	Splits argument list of class-tuples into multiple lists, where each
-# 	list is made up of the classes of one type in sequence.
-# 	Returns as list of lists.
-# 	E.g. For [lec, lec, lab, lec], returns [[lec, lec], [lab], [lec]].
-# 	"""
-# 	subCourses = []
-# 	prevType = None
-# 	for tup in tuples:
-# 		currType = tup[TYPE_INDEX]
-# 		if currType != prevType:
-# 			subCourses.append([tup])
-# 			prevType = currType
-# 		else:
-# 			subCourses[-1].append(tup)
-# 	return subCourses
-# def _splitClassTuplesByTypeAssertions():
-# 	lec = ('', 'LEC ', '', '', '', '', '', '', '', '', '', '', '', '', '')
-# 	lab = ('', 'LAB ', '', '', '', '', '', '', '', '', '', '', '', '', '')
-# 	assert _splitClassTuplesByType([]) == []
-# 	assert _splitClassTuplesByType([lec]) == [[lec]]
-# 	assert _splitClassTuplesByType([lec, lec]) == [[lec, lec]]
-# 	assert _splitClassTuplesByType([lec, lab]) == [[lec], [lab]]
-# 	assert _splitClassTuplesByType([lec, lec, lab, lab]) == [[lec, lec], [lab, lab]]
-# 	assert _splitClassTuplesByType([lec, lab, lec, lab]) == [[lec], [lab], [lec], [lab]]
-# _splitClassTuplesByTypeAssertions()
 
 def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list of list of Class':
 	"""
