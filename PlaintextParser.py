@@ -218,11 +218,7 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 	if _isConnected(splitClasses):
 		return _convertConnectedSplitClassesToCourseData(splitClasses, courseName)
 	else:
-		subCourses = []
-		for subCourseClassTuples in _splitClassTuplesByType(tuples):
-			subCourseClasses = [Class(courseName, tup) for tup in subCourseClassTuples]
-			currCourse = Course(courseName, subCourseClasses)
-			subCourses.append(currCourse)
+		subCourses = [Course(courseName, subCourseClasses) for subCourseClasses in splitClasses]
 		return subCourses, None
 
 def readCourseFilesToCourseData(fileNames: 'list of str', courseNames: 'list of str') -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
