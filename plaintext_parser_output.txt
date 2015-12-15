@@ -1,0 +1,31 @@
+human: [Class: Days: [0, 2, 4], ClassTime: Time: 9:0, Time: 9:50, Class: Days: [0, 2, 4], ClassTime: Time: 11:0, Time: 11:50, Class: Days: [1, 3], ClassTime: Time: 9:30, Time: 10:50]
+human: [Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2], ClassTime: Time: 15:30, Time: 16:50, Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50, Class: Days: [0, 2], ClassTime: Time: 15:0, Time: 16:20, Class: Days: [1, 3], ClassTime: Time: 11:0, Time: 12:20, Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50, Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50, Class: Days: [1, 3], ClassTime: Time: 14:0, Time: 15:20, Class: Days: [1, 3], ClassTime: Time: 11:0, Time: 12:20, Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50]
+ics6b: [Class: Days: [1, 3], ClassTime: Time: 15:30, Time: 16:50]
+ics6b: [Class: Days: [0, 2], ClassTime: Time: 8:0, Time: 8:50, Class: Days: [0, 2], ClassTime: Time: 9:0, Time: 9:50, Class: Days: [0, 2], ClassTime: Time: 17:0, Time: 17:50]
+ics32: [Class: Days: [1, 3], ClassTime: Time: 17:0, Time: 18:20, Class: Days: [1, 3], ClassTime: Time: 18:30, Time: 19:50]
+ics32: [Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 9:50, Class: Days: [0, 2, 4], ClassTime: Time: 10:0, Time: 11:50, Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50, Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50, Class: Days: [0, 2, 4], ClassTime: Time: 16:0, Time: 17:50, Class: Days: [0, 2, 4], ClassTime: Time: 18:0, Time: 19:50, Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50, Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50, Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50, Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50, Class: Days: [0, 2, 4], ClassTime: Time: 8:0, Time: 9:50, Class: Days: [0, 2, 4], ClassTime: Time: 10:0, Time: 11:50, Class: Days: [0, 2, 4], ClassTime: Time: 12:0, Time: 13:50, Class: Days: [0, 2, 4], ClassTime: Time: 14:0, Time: 15:50]
+ics32: [Class: Days: [0, 2], ClassTime: Time: 13:0, Time: 13:50, Class: Days: [0, 2], ClassTime: Time: 14:0, Time: 14:50, Class: Days: [1, 3], ClassTime: Time: 13:0, Time: 13:50]
+
+28120:
+	Class: Days: [1, 3], ClassTime: Time: 11:0, Time: 12:20
+	Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50
+	Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50
+	Class: Days: [1, 3], ClassTime: Time: 14:0, Time: 15:20
+	Class: Days: [1, 3], ClassTime: Time: 11:0, Time: 12:20
+	Class: Days: [1, 3], ClassTime: Time: 12:30, Time: 13:50
+
+36520:
+	Class: Days: [0, 2], ClassTime: Time: 8:0, Time: 8:50
+	Class: Days: [0, 2], ClassTime: Time: 9:0, Time: 9:50
+	Class: Days: [0, 2], ClassTime: Time: 17:0, Time: 17:50
+
+28100:
+	Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50
+	Class: Days: [0, 2], ClassTime: Time: 15:30, Time: 16:50
+	Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50
+	Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50
+
+28110:
+	Class: Days: [0, 2], ClassTime: Time: 13:30, Time: 14:50
+	Class: Days: [0, 2], ClassTime: Time: 15:0, Time: 16:20
+
