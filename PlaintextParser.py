@@ -94,22 +94,22 @@ def _isConnectedAssertions():
 	assert not _isConnected( [lec, lec, lab, lec] )
 _isConnectedAssertions()
 
-def _getType1Name(tuples: 'list of tuple') -> str:
-	"""
-	Returns name of type of first class in course.
-	"""
-	return tuples[0][TYPE_INDEX]
+# def _getType1Name(tuples: 'list of tuple') -> str:
+# 	"""
+# 	Returns name of type of first class in course.
+# 	"""
+# 	return tuples[0][TYPE_INDEX]
 
-def _getType2Name(tuples: 'list of tuple') -> str:
-	"""
-	Returns name of second type for connected course.
-	Assumes course is connected.
-	"""
-	type1 = _getType1Name(tuples)
-	for tup in tuples:
-		currType = tup[TYPE_INDEX]
-		if currType != type1:
-			return currType
+# def _getType2Name(tuples: 'list of tuple') -> str:
+# 	"""
+# 	Returns name of second type for connected course.
+# 	Assumes course is connected.
+# 	"""
+# 	type1 = _getType1Name(tuples)
+# 	for tup in tuples:
+# 		currType = tup[TYPE_INDEX]
+# 		if currType != type1:
+# 			return currType
 
 def _splitClassTuplesByType(tuples: 'list of tuple') -> 'list of list of tuple':
 	"""
@@ -140,7 +140,7 @@ def _splitClassTuplesByTypeAssertions():
 _splitClassTuplesByTypeAssertions()
 
 def _convertConnectedCourseTuplesToCourseData(splitTuples: 'list of list of tuple',
-												course1Name: str, course2Name: str) -> ('list of Course', 'dict of (courseNum:list of Class)'):
+												courseName: str) -> ('list of Course', 'dict of (courseNum:list of Class)'):
 	"""
 	For connected course data split tuples, returns sub-course objects and
 	dict of connected class data.
@@ -150,16 +150,16 @@ def _convertConnectedCourseTuplesToCourseData(splitTuples: 'list of list of tupl
 	course2Classes = []
 	connectedClassDict = {}
 	for i in range(0, len(splitTuples), 2):
-		currCourse1Class = Class(course1Name, splitTuples[i][0])
+		currCourse1Class = Class(courseName, splitTuples[i][0])
 		course1Classes.append(currCourse1Class)
 		key = currCourse1Class.code
 		connectedClassDict[key] = []
 		for currCourse2ClassTuple in splitTuples[i + 1]:
-			currCourse2Class = Class(course2Name, currCourse2ClassTuple)
+			currCourse2Class = Class(courseName, currCourse2ClassTuple)
 			course2Classes.append(currCourse2Class)
 			connectedClassDict[key].append(currCourse2Class)
-	course1 = Course(course1Name, course1Classes)
-	course2 = Course(course2Name, course2Classes)
+	course1 = Course(courseName, course1Classes)
+	course2 = Course(courseName, course2Classes)
 	return [course1, course2], connectedClassDict
 
 def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
@@ -172,16 +172,12 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 	tuples = readCourseFileToTuples(fileName)
 	splitTuples = _splitClassTuplesByType(tuples)
 	if _isConnected(tuples):
-		course1Name = "{} {}".format(courseName, _getType1Name(tuples).title())
-		course2Name = "{} {}".format(courseName, _getType2Name(tuples).title())
-		return _convertConnectedCourseTuplesToCourseData(splitTuples, course1Name, course2Name)
+		return _convertConnectedCourseTuplesToCourseData(splitTuples, courseName)
 	else:
 		subCourses = []
 		for subCourseClassTuples in _splitClassTuplesByType(tuples):
-			subCourseType = _getType1Name(subCourseClassTuples).title()
-			subCourseName = "{} {}".format(courseName, subCourseType)
-			subCourseClasses = [Class(subCourseName, tup) for tup in subCourseClassTuples]
-			currCourse = Course(subCourseName, subCourseClasses)
+			subCourseClasses = [Class(courseName, tup) for tup in subCourseClassTuples]
+			currCourse = Course(courseName, subCourseClasses)
 			subCourses.append(currCourse)
 		return subCourses, None
 
