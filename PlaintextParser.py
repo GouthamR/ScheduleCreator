@@ -184,23 +184,22 @@ def _convertToClassesByTypeAssertions():
 	assert convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup, lecTup, labTup])) == [[lecType], [labType], [lecType], [labType]]
 _convertToClassesByTypeAssertions()
 
-def _convertConnectedCourseTuplesToCourseData(splitTuples: 'list of list of tuple',
+def _convertConnectedSplitClassesToCourseData(splitClasses: 'list of list of Class',
 												courseName: str) -> ('list of Course', 'dict of (courseNum:list of Class)'):
 	"""
-	For connected course data split tuples, returns sub-course objects and
+	For connected course data split classes, returns sub-course objects and
 	dict of connected class data.
 	Assumes only two sub-courses for connected courses.
 	"""
 	course1Classes = []
 	course2Classes = []
 	connectedClassDict = {}
-	for i in range(0, len(splitTuples), 2):
-		currCourse1Class = Class(courseName, splitTuples[i][0])
+	for i in range(0, len(splitClasses), 2):
+		currCourse1Class = splitClasses[i][0]
 		course1Classes.append(currCourse1Class)
 		key = currCourse1Class.code
 		connectedClassDict[key] = []
-		for currCourse2ClassTuple in splitTuples[i + 1]:
-			currCourse2Class = Class(courseName, currCourse2ClassTuple)
+		for currCourse2Class in splitClasses[i + 1]:
 			course2Classes.append(currCourse2Class)
 			connectedClassDict[key].append(currCourse2Class)
 	course1 = Course(courseName, course1Classes)
@@ -217,7 +216,7 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
 	tuples = readCourseFileToTuples(fileName)
 	splitClasses = _convertToClassesByType(courseName, tuples)
 	if _isConnected(splitClasses):
-		return _convertConnectedCourseTuplesToCourseData(splitTuples, courseName)
+		return _convertConnectedSplitClassesToCourseData(splitClasses, courseName)
 	else:
 		subCourses = []
 		for subCourseClassTuples in _splitClassTuplesByType(tuples):
