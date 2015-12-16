@@ -112,5 +112,33 @@ class ScheduleTests(unittest.TestCase):
         sched = Schedule([Class("", classRawTuple1), Class("", classRawTuple2)])
         self.assertEqual(sched.getClassCodes(), [10000, 20000])
 
+class GenerateScheduleTests(unittest.TestCase):
+
+    def test_generatePossibleSchedules(self):
+        """
+        generatePossibleSchedules should return correct values.
+        """
+
+        class_2_1 = Class("", ("21000", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_2_2 = Class("", ("22000", "LEC", "1", "0", "STAFF", "MWF   4:00- 5:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        course2 = Course("", [class_2_1, class_2_2])
+        class_3_1 = Class("", ("31000", "LEC", "1", "0", "STAFF", "TuTh   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_3_2 = Class("", ("32000", "LEC", "1", "0", "STAFF", "MW   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        course3 = Course("", [class_3_1, class_3_2])
+        class_4_1 = Class("", ("41000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 11:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        course4 = Course("", [class_4_1])
+        class_5_1 = Class("", ("51000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 10:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        course5 = Course("", [class_5_1])
+
+        scheds_1 = generatePossibleSchedules([course2], {})
+        scheds_2 = generatePossibleSchedules([course2, course4], {})
+        scheds_3 = generatePossibleSchedules([course2, course3], {})
+        scheds_4 = generatePossibleSchedules([course4, course5], {})
+
+        self.assertEqual([s.classes for s in scheds_1], [(class_2_1, ), (class_2_2, )])
+        self.assertEqual([s.classes for s in scheds_2], [(class_2_1, class_4_1), (class_2_2, class_4_1)])
+        self.assertEqual([s.classes for s in scheds_3], [(class_2_1, class_3_1), (class_2_1, class_3_2), (class_2_2, class_3_1), (class_2_2, class_3_2)])
+        self.assertEqual([s.classes for s in scheds_4], [])
+
 if __name__ == "__main__":
     unittest.main()
