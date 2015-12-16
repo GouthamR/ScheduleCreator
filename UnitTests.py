@@ -80,5 +80,37 @@ class ClassTimeTests(unittest.TestCase):
         self.assertFalse(ClassTime("8:00- 8:50").isWithin(ClassTime("7:50- 8:40")))
         self.assertFalse(ClassTime("8:00- 8:50").isWithin(ClassTime("8:10- 9:00")))
 
+class CourseTests(unittest.TestCase):
+
+    NAME = "CourseName"
+
+    def test_course_name(self):
+        """
+        Course should correctly store name argument.
+        """
+        c1 = Course(self.NAME, [])
+        self.assertEqual(c1.name, self.NAME)
+
+    def test_course_classes(self):
+        """
+        Course should correctly store classes argument.
+        """
+        classRawTuple1 = ("10000", "LEC", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
+        classRawTuple2 = ("20000", "LEC", "2", "0", "STAFF", "MWF   1:00- 2:50p", "ICS 180", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
+        classes = [Class(self.NAME, classRawTuple1), Class(self.NAME, classRawTuple2)]
+        c1 = Course(self.NAME, classes)
+        self.assertEqual(c1.classes, classes)
+
+class ScheduleTests(unittest.TestCase):
+
+    def test_getClassCodes(self):
+        """
+        Schedule should return correct class codes.
+        """
+        classRawTuple1 = ("10000", "LEC", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
+        classRawTuple2 = ("20000", "LEC", "2", "0", "STAFF", "MWF   1:00- 2:50p", "ICS 180", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
+        sched = Schedule([Class("", classRawTuple1), Class("", classRawTuple2)])
+        self.assertEqual(sched.getClassCodes(), [10000, 20000])
+
 if __name__ == "__main__":
     unittest.main()
