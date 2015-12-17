@@ -164,5 +164,22 @@ class ScheduleTests(unittest.TestCase):
         self.assertTrue(Schedule([c1_class1, c4_class1]).hasValidConnections(connectedClassDict))
         self.assertTrue(Schedule([c3_class1, c3_class5]).hasValidConnections(connectedClassDict)) # True because connection is one-way, lec to lab
 
+class FileInputTests(unittest.TestCase):
+
+    def test_connected_course_input(self):
+        """
+        Connected courses should be read in properly by readCourseFileToCourseData.
+        """
+        courses, connectedClassDict = readCourseFileToCourseData("unit_test_input_2.txt", "")
+
+        self.assertEqual(len(courses), 2)
+        self.assertEqual([i.code for i in courses[0].classes], [10010, 20010, 30010])
+        self.assertEqual([i.code for i in courses[1].classes], [11111, 11112, 21111, 21112, 21113, 31111])
+        keyList = sorted(list(connectedClassDict.keys()))
+        self.assertEqual(keyList, [10010, 20010, 30010])
+        self.assertEqual([i.code for i in connectedClassDict[10010]], [11111, 11112])
+        self.assertEqual([i.code for i in connectedClassDict[20010]], [21111, 21112, 21113])
+        self.assertEqual([i.code for i in connectedClassDict[30010]], [31111])
+
 if __name__ == "__main__":
     unittest.main()
