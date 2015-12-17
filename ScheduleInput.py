@@ -225,14 +225,3 @@ def fileInputMinutesBetween(fileName):
     with open(fileName, 'r') as f:
         minutesBetween = int(f.read().strip())
     return minutesBetween
-
-def fileInputRunUnitTests(fileName):
-    INVALID_INPUT_ERROR_MESSAGE = "Invalid run_unit_tests file input"
-    with open(fileName, 'r') as f:
-        runTestsStr = f.read().strip()
-        if runTestsStr == "True":
-            return True
-        elif runTestsStr == "False":
-            return False
-    #else:
-    raise RuntimeError("%s: %s" % (INVALID_INPUT_ERROR_MESSAGE, runTestsStr))
