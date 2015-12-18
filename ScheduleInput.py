@@ -98,29 +98,6 @@ def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list o
         else:
             classes[-1].append(currClass)
     return classes
-def _convertToClassesByTypeAssertions():
-    lecType = "LEC"
-    labType = "LAB"
-    lecTup = ("28100", lecType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
-    labTup = ("28100", labType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
-    NAME = "Human"
-
-    def convertToTypeList(classes: 'list of list of Class') -> 'list of list of str':
-        result = []
-        for i in classes:
-            newL = []
-            for j in i:
-                newL.append(j.type)
-            result.append(newL)
-        return result
-
-    assert convertToTypeList(_convertToClassesByType(NAME, [])) == []
-    assert convertToTypeList(_convertToClassesByType(NAME, [lecTup])) == [[lecType]]
-    assert convertToTypeList(_convertToClassesByType(NAME, [lecTup, lecTup])) == [[lecType, lecType]]
-    assert convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup])) == [[lecType], [labType]]
-    assert convertToTypeList(_convertToClassesByType(NAME, [lecTup, lecTup, labTup, labTup])) == [[lecType, lecType], [labType, labType]]
-    assert convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup, lecTup, labTup])) == [[lecType], [labType], [lecType], [labType]]
-_convertToClassesByTypeAssertions()
 
 def _convertConnectedSplitClassesToCourseData(splitClasses: 'list of list of Class',
                                                 courseName: str) -> ('list of Course', 'dict of (courseNum:list of Class)'):

@@ -2,7 +2,7 @@ import unittest
 from Course import *
 from Schedule import *
 from ScheduleInput import *
-from ScheduleInput import _isInt, _isConnected
+from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
 
 class ClassTests(unittest.TestCase):
 
@@ -223,6 +223,32 @@ class ScheduleInputFunctionTests(unittest.TestCase):
         self.assertFalse(_isConnected( [[lec], [lab], [lec]] ))
         self.assertFalse(_isConnected( [[lec, lec], [lab], [lec]] ))
         self.assertTrue(_isConnected( [[lec], [lab]] ))
+
+    def test_convertToClassesByType(self):
+        """
+        _convertToClassesByType should return correct values.
+        """
+        lecType = "LEC"
+        labType = "LAB"
+        lecTup = ("28100", lecType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
+        labTup = ("28100", labType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
+        NAME = "Human"
+
+        def convertToTypeList(classes: 'list of list of Class') -> 'list of list of str':
+            result = []
+            for i in classes:
+                newL = []
+                for j in i:
+                    newL.append(j.type)
+                result.append(newL)
+            return result
+
+        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [])), [])
+        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup])), [[lecType]])
+        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, lecTup])), [[lecType, lecType]])
+        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup])), [[lecType], [labType]])
+        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, lecTup, labTup, labTup])), [[lecType, lecType], [labType, labType]])
+        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup, lecTup, labTup])), [[lecType], [labType], [lecType], [labType]])
 
 if __name__ == "__main__":
     unittest.main()
