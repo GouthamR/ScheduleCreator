@@ -2,6 +2,7 @@ import unittest
 from Course import *
 from Schedule import *
 from ScheduleInput import *
+from ScheduleInput import _isInt
 
 class ClassTests(unittest.TestCase):
 
@@ -192,11 +193,19 @@ class FileInputTests(unittest.TestCase):
         self.assertEqual([i.code for i in courses[1].classes], [11111, 11112, 21111])
         self.assertEqual(connectedClassDict, None)
 
-    def test_connected_and_nonconnected_course_input(self):
+class ScheduleInputFunctionTests(unittest.TestCase):
+
+    def test_isInt(self):
         """
-        File with both non-connected and connected courses should be read in properly by readCourseFileToCourseData.
+        _isInt should return correct values.
         """
-        pass
+        self.assertTrue(_isInt('534'))
+        self.assertTrue(_isInt('-534'))
+        self.assertTrue(_isInt('0'))
+        self.assertTrue(_isInt('-0'))
+        self.assertFalse(_isInt('a0'))
+        self.assertFalse(_isInt('0a'))
+        self.assertFalse(_isInt('asdf'))
 
 if __name__ == "__main__":
     unittest.main()

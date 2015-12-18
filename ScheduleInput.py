@@ -11,13 +11,6 @@ def _isInt(input: str) -> int:
         return True
     except Exception:
         return False
-assert _isInt('534')
-assert _isInt('-534')
-assert _isInt('0')
-assert _isInt('-0')
-assert not _isInt('a0')
-assert not _isInt('0a')
-assert not _isInt('asdf')
 
 def _isTableHeader(line: str) -> bool:
     """
