@@ -181,5 +181,22 @@ class FileInputTests(unittest.TestCase):
         self.assertEqual([i.code for i in connectedClassDict[20010]], [21111, 21112, 21113])
         self.assertEqual([i.code for i in connectedClassDict[30010]], [31111])
 
+    def test_nonconnected_course_input(self):
+        """
+        Non-connected courses should be read in properly by readCourseFileToCourseData.
+        """
+        courses, connectedClassDict = readCourseFileToCourseData("unit_test_input_4.txt", "")
+
+        self.assertEqual(len(courses), 2)
+        self.assertEqual([i.code for i in courses[0].classes], [10010, 20010])
+        self.assertEqual([i.code for i in courses[1].classes], [11111, 11112, 21111])
+        self.assertEqual(connectedClassDict, None)
+
+    def test_connected_and_nonconnected_course_input(self):
+        """
+        File with both non-connected and connected courses should be read in properly by readCourseFileToCourseData.
+        """
+        pass
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,6 @@
+    CCode Typ Sec Unt Instructor   Time              Place    Final                    Max     Enr     WL Req Nor Rstr Status 
+    10010 Lec A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 234/300    n/a 363   0 A&N  FULL   
+    20010 Lec A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 234/300    n/a 363   0 A&N  FULL   
+    11111 Lab A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 234/300    n/a 363   0 A&N  FULL   
+    11112 Lab A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 234/300    n/a 363   0 A&N  FULL   
+    21111 Lab A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 234/300    n/a 363   0 A&N  FULL       
