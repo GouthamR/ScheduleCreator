@@ -113,8 +113,6 @@ class ScheduleTests(unittest.TestCase):
         sched = Schedule([Class("", classRawTuple1), Class("", classRawTuple2)])
         self.assertEqual(sched.getClassCodes(), [10000, 20000])
 
-class ScheduleTests(unittest.TestCase):
-
     def test_generatePossibleSchedules(self):
         """
         generatePossibleSchedules should return correct values.
