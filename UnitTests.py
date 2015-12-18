@@ -2,7 +2,7 @@ import unittest
 from Course import *
 from Schedule import *
 from ScheduleInput import *
-from ScheduleInput import _isInt
+from ScheduleInput import _isInt, _isConnected
 
 class ClassTests(unittest.TestCase):
 
@@ -206,6 +206,23 @@ class ScheduleInputFunctionTests(unittest.TestCase):
         self.assertFalse(_isInt('a0'))
         self.assertFalse(_isInt('0a'))
         self.assertFalse(_isInt('asdf'))
+
+    def test_isConnected(self):
+        """
+        _isConnected should return correct values.
+        """
+        lecType = "LEC"
+        labType = "LAB"
+        lecTup = ("28100", lecType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
+        labTup = ("28100", labType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
+        lec = Class(lecType, lecTup)
+        lab = Class(labType, labTup)
+        self.assertFalse(_isConnected( [] ))
+        self.assertFalse(_isConnected( [ [lec] ] ))
+        self.assertFalse(_isConnected( [[lec, lec]] ))
+        self.assertFalse(_isConnected( [[lec], [lab], [lec]] ))
+        self.assertFalse(_isConnected( [[lec, lec], [lab], [lec]] ))
+        self.assertTrue(_isConnected( [[lec], [lab]] ))
 
 if __name__ == "__main__":
     unittest.main()

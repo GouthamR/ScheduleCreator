@@ -81,21 +81,6 @@ def _isConnected(splitClasses: 'list of list of Class') -> bool:
     # if here, no exception raised:
     return True
 
-def _isConnectedAssertions():
-    lecType = "LEC"
-    labType = "LAB"
-    lecTup = ("28100", lecType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
-    labTup = ("28100", labType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
-    lec = Class(lecType, lecTup)
-    lab = Class(labType, labTup)
-    assert not _isConnected( [] )
-    assert not _isConnected( [ [lec] ] )
-    assert _isConnected( [[lec], [lab]] )
-    assert not _isConnected( [[lec, lec]] )
-    assert not _isConnected( [[lec], [lab], [lec]] )
-    assert not _isConnected( [[lec, lec], [lab], [lec]] )
-_isConnectedAssertions()
-
 def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list of list of Class':
     """
     Converts argument list of class-tuples into multiple lists of Class, where
