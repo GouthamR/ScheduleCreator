@@ -3,13 +3,13 @@ from Schedule import *
 from Course import *
 
 class ScheduleGUI:
-    CANVAS_WIDTH = 600
-    CANVAS_HEIGHT = 600
-    NUMBER_OF_DAYS = 5
+    _CANVAS_WIDTH = 600
+    _CANVAS_HEIGHT = 600
+    _NUMBER_OF_DAYS = 5
     MINUTES_IN_DAY = 1440
-    TIME_LABEL_WIDTH = CANVAS_WIDTH / (NUMBER_OF_DAYS + 1) / 2
-    BLOCK_WIDTH = (CANVAS_WIDTH - TIME_LABEL_WIDTH) / NUMBER_OF_DAYS
-    BLOCK_COLORS = ("white", "orange red", "pale green", "dodger blue", "turquoise", "goldenrod", "violet", "steelblue1")
+    _TIME_LABEL_WIDTH = _CANVAS_WIDTH / (_NUMBER_OF_DAYS + 1) / 2
+    _BLOCK_WIDTH = (_CANVAS_WIDTH - _TIME_LABEL_WIDTH) / _NUMBER_OF_DAYS
+    _BLOCK_COLORS = ("white", "orange red", "pale green", "dodger blue", "turquoise", "goldenrod", "violet", "steelblue1")
     def _switchSchedule(self, forward):
         if forward:
             self.scheduleIndex += 1
@@ -45,10 +45,10 @@ class ScheduleGUI:
         self.codeLabel.configure(inactiveselectbackground=self.codeLabel.cget("selectbackground"))
         self.codeLabel.pack(side="left")
         # invoke canvas
-        self.canvas = Canvas(root, width=ScheduleGUI.CANVAS_WIDTH, height=ScheduleGUI.CANVAS_HEIGHT)
+        self.canvas = Canvas(root, width=ScheduleGUI._CANVAS_WIDTH, height=ScheduleGUI._CANVAS_HEIGHT)
         self.canvas.pack()
     def _getCanvasY(minutes, minMinutes, maxMinutes):
-        return (minutes - minMinutes) / (maxMinutes - minMinutes) * ScheduleGUI.CANVAS_HEIGHT
+        return (minutes - minMinutes) / (maxMinutes - minMinutes) * ScheduleGUI._CANVAS_HEIGHT
     def _drawSchedule(self):
         self.canvas.delete("all")
 
@@ -59,13 +59,13 @@ class ScheduleGUI:
         maxMinutes = maxHour * 60
         for i in range(len(classes)):
             currClass = classes[i]
-            currColor = ScheduleGUI.BLOCK_COLORS[i % len(ScheduleGUI.BLOCK_COLORS)]
+            currColor = ScheduleGUI._BLOCK_COLORS[i % len(ScheduleGUI._BLOCK_COLORS)]
             for day in currClass.days.days:
                 startMin = currClass.classTime.start.getTotalMinutes()
                 endMin = currClass.classTime.end.getTotalMinutes()
-                x = day * ScheduleGUI.BLOCK_WIDTH + ScheduleGUI.TIME_LABEL_WIDTH
+                x = day * ScheduleGUI._BLOCK_WIDTH + ScheduleGUI._TIME_LABEL_WIDTH
                 yStart = ScheduleGUI._getCanvasY(startMin, minMinutes, maxMinutes)
-                w = ScheduleGUI.BLOCK_WIDTH
+                w = ScheduleGUI._BLOCK_WIDTH
                 yEnd = ScheduleGUI._getCanvasY(endMin, minMinutes, maxMinutes)
                 self.canvas.create_rectangle(x, yStart, x + w, yEnd, fill=currColor)
                 self.canvas.create_text(x, yStart, anchor="nw",text="%s: %s\n%s - %s" % (currClass.getFullName(), currClass.code, currClass.classTime.start.getFormatted(), currClass.classTime.end.getFormatted()))
