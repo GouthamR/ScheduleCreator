@@ -23,8 +23,9 @@ class ClassTests(unittest.TestCase):
         """
         class1 = Class("", self._classRawTuple1)
         self.assertEqual(class1.code, 36610)
-        self.assertEqual(str(class1.days), str(Days("MWF")))
-        self.assertEqual(str(class1.classTime), str(ClassTime("8:00- 9:50")))
+        self.assertEqual(class1.days.days, [0, 2, 4])
+        self.assertEqual(class1.classTime.start, Time("8:00"))
+        self.assertEqual(class1.classTime.end, Time("9:50"))
         self.assertEqual(class1.type, "LAB")
 
 class TimeTests(unittest.TestCase):
@@ -87,6 +88,7 @@ class ClassTimeTests(unittest.TestCase):
         ClassTime should correctly infer am/pm from constructor argument,
         or raise RuntimeError if invalid argument.
         """
+        # Remember that 12:00p is noon, not midnight
         raw1 = "10:00- 11:59a"
         raw2 = "10:00- 12:59p"
         raw3 = "12:01- 12:59p"
@@ -96,12 +98,18 @@ class ClassTimeTests(unittest.TestCase):
         raw7 = "10:00- 12:01"
         raw8 = "10:00- 1:01"
 
-        self.assertEqual(str(ClassTime(raw1)), "ClassTime: Time: 10:0, Time: 11:59")
-        self.assertEqual(str(ClassTime(raw2)), "ClassTime: Time: 10:0, Time: 12:59")
-        self.assertEqual(str(ClassTime(raw3)), "ClassTime: Time: 12:1, Time: 12:59")
-        self.assertEqual(str(ClassTime(raw4)), "ClassTime: Time: 12:1, Time: 13:0")
-        self.assertEqual(str(ClassTime(raw5)), "ClassTime: Time: 13:0, Time: 22:0")
-        self.assertEqual(str(ClassTime(raw6)), "ClassTime: Time: 22:0, Time: 23:59")
+        self.assertEqual(ClassTime(raw1).start, Time("10:00"))
+        self.assertEqual(ClassTime(raw1).end, Time("11:59"))
+        self.assertEqual(ClassTime(raw2).start, Time("10:00"))
+        self.assertEqual(ClassTime(raw2).end, Time("12:59p"))
+        self.assertEqual(ClassTime(raw3).start, Time("12:01p"))
+        self.assertEqual(ClassTime(raw3).end, Time("12:59p"))
+        self.assertEqual(ClassTime(raw4).start, Time("12:01p"))
+        self.assertEqual(ClassTime(raw4).end, Time("1:00p"))
+        self.assertEqual(ClassTime(raw5).start, Time("1:00p"))
+        self.assertEqual(ClassTime(raw5).end, Time("10:00p"))
+        self.assertEqual(ClassTime(raw6).start, Time("10:00p"))
+        self.assertEqual(ClassTime(raw6).end, Time("11:59p"))
         with self.assertRaises(RuntimeError):
             ClassTime(raw7)
             ClassTime(raw8)
@@ -244,12 +252,12 @@ class FileInputTests(unittest.TestCase):
         """
         zones = fileInputRedZones("unit_test_red_zones.txt")
         self.assertEqual(len(zones), 3)
-        self.assertEqual(str(zones[0].start), str(Time("1:00")))
-        self.assertEqual(str(zones[0].end), str(Time("9:00")))
-        self.assertEqual(str(zones[1].start), str(Time("3:00p")))
-        self.assertEqual(str(zones[1].end), str(Time("5:00p")))
-        self.assertEqual(str(zones[2].start), str(Time("10:00p")))
-        self.assertEqual(str(zones[2].end), str(Time("11:00p")))
+        self.assertEqual(zones[0].start, Time("1:00"))
+        self.assertEqual(zones[0].end, Time("9:00"))
+        self.assertEqual(zones[1].start, Time("3:00p"))
+        self.assertEqual(zones[1].end, Time("5:00p"))
+        self.assertEqual(zones[2].start, Time("10:00p"))
+        self.assertEqual(zones[2].end, Time("11:00p"))
 
 class ScheduleInputFunctionTests(unittest.TestCase):
 
