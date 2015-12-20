@@ -229,7 +229,7 @@ class ScheduleInputFunctionTests(unittest.TestCase):
 
     def test_isConnected(self):
         """
-        _isConnected should return correct values.
+        _isConnected should return correct values and raise exceptions if necessary.
         """
         lecType = "LEC"
         labType = "LAB"
@@ -243,6 +243,9 @@ class ScheduleInputFunctionTests(unittest.TestCase):
         self.assertFalse(_isConnected( [[lec], [lab], [lec]] ))
         self.assertFalse(_isConnected( [[lec, lec], [lab], [lec]] ))
         self.assertTrue(_isConnected( [[lec], [lab]] ))
+        with self.assertRaises(ValueError):
+            _isConnected( [[lec], [lab], [lec, lec], [lab]] )
+            _isConnected( [[lec], [lab], [lab, lab], [lab]] )
 
     def test_convertToClassesByType(self):
         """
