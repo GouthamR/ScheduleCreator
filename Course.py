@@ -157,7 +157,7 @@ class Class:
         """
         Returns full name of class, i.e. name and type.
         """
-        return "{} {}".format(self.name, self.type)
+        return "{} {}".format(self.name, self.type.title())
     def __str__(self):
         return "Class: %s, %s" % (self.days, self.classTime)
 
