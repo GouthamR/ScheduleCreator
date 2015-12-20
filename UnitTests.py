@@ -56,6 +56,7 @@ class TimeTests(unittest.TestCase):
         self.assertTrue(time2 <= time3)
         self.assertTrue(time4 >= time3)
         self.assertTrue(time1 == time1)
+        self.assertFalse(time2 == time3)
 
 class ClassTimeTests(unittest.TestCase):
 
