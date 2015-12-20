@@ -213,6 +213,19 @@ class FileInputTests(unittest.TestCase):
         self.assertEqual([i.code for i in courses[1].classes], [11111, 11112, 21111])
         self.assertEqual(connectedClassDict, None)
 
+    def test_fileInputRedZones(self):
+        """
+        fileInputRedZones should return correct values.
+        """
+        zones = fileInputRedZones("unit_test_red_zones.txt")
+        self.assertEqual(len(zones), 3)
+        self.assertEqual(str(zones[0].start), str(Time("1:00")))
+        self.assertEqual(str(zones[0].end), str(Time("9:00")))
+        self.assertEqual(str(zones[1].start), str(Time("3:00p")))
+        self.assertEqual(str(zones[1].end), str(Time("5:00p")))
+        self.assertEqual(str(zones[2].start), str(Time("10:00p")))
+        self.assertEqual(str(zones[2].end), str(Time("11:00p")))
+
 class ScheduleInputFunctionTests(unittest.TestCase):
 
     def test_isInt(self):
