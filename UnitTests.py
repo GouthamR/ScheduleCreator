@@ -6,21 +6,22 @@ from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
 
 class ClassTests(unittest.TestCase):
 
-    classRawTuple1 = ("36610", "LAB", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
+    def setUp(self):
+        self._classRawTuple1 = ("36610", "LAB", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
 
     def test_class_name(self):
         """
         Class should correctly store name argument.
         """
         name = "ClassName"
-        class1 = Class(name, self.classRawTuple1)
+        class1 = Class(name, self._classRawTuple1)
         self.assertEqual(class1.name, name)
 
     def test_class_parse(self):
         """
         Class should correctly parse tuples.
         """
-        class1 = Class("", self.classRawTuple1)
+        class1 = Class("", self._classRawTuple1)
         self.assertEqual(class1.code, 36610)
         self.assertEqual(str(class1.days), str(Days("MWF")))
         self.assertEqual(str(class1.classTime), str(ClassTime("8:00- 9:50")))
