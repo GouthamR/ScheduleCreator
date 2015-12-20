@@ -33,7 +33,7 @@ class TimeDataParser:
     Parses raw input data for a Time class and stores corresponding Time
     data (hour, minute, etc.) as fields.
     """
-    def getHourFromInput(rawHour: str, isPm: bool):
+    def _getHourFromInput(rawHour: str, isPm: bool):
         """
         Returns hour corresponding to rawHour and if isPm as integer on [0, 24).
         """
@@ -53,7 +53,7 @@ class TimeDataParser:
         Initializes fields.
         """
         rawHour, rawMinute = rawData.split(":")
-        self.hour = TimeDataParser.getHourFromInput(rawHour, rawMinute.endswith("p"))
+        self.hour = TimeDataParser._getHourFromInput(rawHour, rawMinute.endswith("p"))
         self.minute = int(rawMinute[:2]) #cuts off p if necessary
 
 class Days:
@@ -114,13 +114,13 @@ class ClassTimeDataParser:
 
     END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
 
-    def getDayCrossErrorMessage(rawSplit: 'list of str') -> str:
+    def _getDayCrossErrorMessage(rawSplit: 'list of str') -> str:
         """
         Returns error message mentioning rawSplit data.
         """
         return "%s: %s" % (ClassTimeDataParser.END_OF_DAY_ERROR_MESSAGE, rawSplit)
 
-    def calculateTimes(rawSplit: 'list of str', endIsPM: bool) -> (Time, Time):
+    def _calculateTimes(rawSplit: 'list of str', endIsPM: bool) -> (Time, Time):
         """
         Returns start and end times corresponding to parameters.
         Raises error if times are invalid.
@@ -132,7 +132,7 @@ class ClassTimeDataParser:
         if start > end:
             start = Time(timeArgStrs[1]) if endIsPM else Time(timeArgStrs[0])
             if start > end:
-                raise RuntimeError(ClassTimeDataParser.getDayCrossErrorMessage(rawSplit))
+                raise RuntimeError(ClassTimeDataParser._getDayCrossErrorMessage(rawSplit))
 
         return start, end
 
@@ -142,7 +142,7 @@ class ClassTimeDataParser:
         """
         rawSplit = rawData.replace(" ", "").split("-") # remove spaces, then split
         endIsPM = rawSplit[1].endswith('p')
-        self.start, self.end = ClassTimeDataParser.calculateTimes(rawSplit, endIsPM)
+        self.start, self.end = ClassTimeDataParser._calculateTimes(rawSplit, endIsPM)
 
 class Class:
     """
