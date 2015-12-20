@@ -15,7 +15,7 @@ MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
 
 def main():
     print("CREATED BY GOUTHAM RAJEEV")
-    print("Copyright 2015 Goutham Rajeev.  All rights reserved.")
+    print("Copyright 2016 Goutham Rajeev.  All rights reserved.")
     courses, connectedClassDict = fileInputCourses(INPUT_FILE_NAME)
     print("Starting schedule generation...")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
