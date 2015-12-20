@@ -81,6 +81,30 @@ class ClassTimeTests(unittest.TestCase):
         self.assertFalse(ClassTime("8:00- 8:50").isWithin(ClassTime("7:50- 8:40")))
         self.assertFalse(ClassTime("8:00- 8:50").isWithin(ClassTime("8:10- 9:00")))
 
+    def test_ampm_construction(self):
+        """
+        ClassTime should correctly infer am/pm from constructor argument,
+        or raise RuntimeError if invalid argument.
+        """
+        raw1 = "10:00- 11:59a"
+        raw2 = "10:00- 12:59p"
+        raw3 = "12:01- 12:59p"
+        raw4 = "12:01- 1:00p"
+        raw5 = "1:00- 10:00p"
+        raw6 = "10:00- 11:59p"
+        raw7 = "10:00- 12:01"
+        raw8 = "10:00- 1:01"
+
+        self.assertEqual(str(ClassTime(raw1)), "ClassTime: Time: 10:0, Time: 11:59")
+        self.assertEqual(str(ClassTime(raw2)), "ClassTime: Time: 10:0, Time: 12:59")
+        self.assertEqual(str(ClassTime(raw3)), "ClassTime: Time: 12:1, Time: 12:59")
+        self.assertEqual(str(ClassTime(raw4)), "ClassTime: Time: 12:1, Time: 13:0")
+        self.assertEqual(str(ClassTime(raw5)), "ClassTime: Time: 13:0, Time: 22:0")
+        self.assertEqual(str(ClassTime(raw6)), "ClassTime: Time: 22:0, Time: 23:59")
+        with self.assertRaises(RuntimeError):
+            ClassTime(raw7)
+            ClassTime(raw8)
+
 class CourseTests(unittest.TestCase):
 
     NAME = "CourseName"
