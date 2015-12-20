@@ -6,7 +6,6 @@ class ScheduleGUI:
     _CANVAS_WIDTH = 600
     _CANVAS_HEIGHT = 600
     _NUMBER_OF_DAYS = 5
-    MINUTES_IN_DAY = 1440
     _TIME_LABEL_WIDTH = _CANVAS_WIDTH / (_NUMBER_OF_DAYS + 1) / 2
     _BLOCK_WIDTH = (_CANVAS_WIDTH - _TIME_LABEL_WIDTH) / _NUMBER_OF_DAYS
     _BLOCK_COLORS = ("white", "orange red", "pale green", "dodger blue", "turquoise", "goldenrod", "violet", "steelblue1")
