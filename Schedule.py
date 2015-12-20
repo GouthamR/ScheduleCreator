@@ -25,7 +25,7 @@ class Schedule:
                     return False
         return True
     def calculatePreferenceScore(self, redZones, redZonePriority, minutesBetweenClasses, minutesBetweenClassesPriority):
-        return (self.calculateRedZoneScore(redZones) * redZonePriority + self.calculateBetweenClassScore(minutesBetweenClasses) * minutesBetweenClassesPriority)
+        return (self.calculateRedZoneScore(redZones) * redZonePriority + self._calculateBetweenClassScore(minutesBetweenClasses) * minutesBetweenClassesPriority)
     def calculateRedZoneScore(self, redZones):
         score = 0
         for currClass in self.classes:
@@ -37,12 +37,12 @@ class Schedule:
                     score -= 1
         return score
     #Prerequisite: second is after first. First and second are both Times.
-    def getMinutesDifference(first, second):
+    def _getMinutesDifference(first, second):
         hourDiff = second.hour - first.hour
         minDiff = second.minute - first.minute
         return (hourDiff * 60 + minDiff)
     #Prerequisite: schedule has no overlaps
-    def calculateBetweenClassScore(self, minutesBetweenClasses):
+    def _calculateBetweenClassScore(self, minutesBetweenClasses):
         score = 0
         classTimes = [currClass.classTime for currClass in self.classes]
         #print([str(classTime) for classTime in classTimes])
@@ -50,7 +50,7 @@ class Schedule:
         #print("sorted!")
         #print([str(classTime) for classTime in classTimes])
         for i in range(len(classTimes) - 1): #[0, second to last element]
-            if (Schedule.getMinutesDifference(classTimes[i].end, classTimes[i + 1].start) < minutesBetweenClasses):
+            if (Schedule._getMinutesDifference(classTimes[i].end, classTimes[i + 1].start) < minutesBetweenClasses):
                 score -= 1
             else:
                 score += 1
@@ -63,7 +63,7 @@ class Schedule:
             codes.append(currClass.code)
         return codes
 
-def overlapRemovalETA(schedules):
+def _overlapRemovalETA(schedules):
     import time
 
     nonOverlappingSchedules = []
@@ -80,19 +80,19 @@ def overlapRemovalETA(schedules):
     #input("Press enter to continue...")
 
 def generatePossibleSchedules(courses, connectedClassDict):
-    schedules = [Schedule(subTuple) for subTuple in generateAllSchedulesHelper(courses, 0)]
+    schedules = [Schedule(subTuple) for subTuple in _generateAllSchedulesHelper(courses, 0)]
 
     if OVERLAP_REMOVAL_ETA:
-        overlapRemovalETA(schedules)
+        _overlapRemovalETA(schedules)
 
     return [schedule for schedule in schedules if (not schedule.hasOverlaps() and schedule.hasValidConnections(connectedClassDict))]
 
-def generateAllSchedulesHelper(courses, index):
+def _generateAllSchedulesHelper(courses, index):
     if index == len(courses): #if past last course
         return ((), )
     #else:
     mainList = []
-    fnTuple = generateAllSchedulesHelper(courses, index + 1)
+    fnTuple = _generateAllSchedulesHelper(courses, index + 1)
     for currClass in courses[index].classes:
         for subTuple in fnTuple:
             mainList.append((currClass, ) + subTuple)
