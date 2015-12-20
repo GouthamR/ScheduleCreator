@@ -68,7 +68,7 @@ class ScheduleGUI:
                 w = ScheduleGUI.BLOCK_WIDTH
                 yEnd = ScheduleGUI.getCanvasY(endMin, minMinutes, maxMinutes)
                 self.canvas.create_rectangle(x, yStart, x + w, yEnd, fill=currColor)
-                self.canvas.create_text(x, yStart, anchor="nw",text="%s: %s\n%s - %s" % (currClass.name, currClass.code, currClass.classTime.start.getFormatted(), currClass.classTime.end.getFormatted()))
+                self.canvas.create_text(x, yStart, anchor="nw",text="%s: %s\n%s - %s" % (currClass.getFullName(), currClass.code, currClass.classTime.start.getFormatted(), currClass.classTime.end.getFormatted()))
 
         HOUR_LABEL_HEIGHT = ScheduleGUI.getCanvasY(minHour + 1, minHour, maxHour)
         for i in range(minHour, maxHour + 1):
