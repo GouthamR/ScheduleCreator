@@ -31,4 +31,5 @@ def main():
         print("%s: %s = %s" % (i, schedule.getClassCodes(), schedule.calculatePreferenceScore(*preferenceParams)))
     ScheduleGUI(schedules)
 
-main()
+if __name__ == '__main__':
+    main()
