@@ -180,7 +180,7 @@ class ScheduleTests(unittest.TestCase):
         schedule1 = Schedule([c1_1, c1_2, c1_3, c1_4, c1_5])
         schedule2 = Schedule([c2_1, c2_2, c2_3, c2_4, c2_5])
         schedules = [schedule1, schedule2]
-        redZones = fileInputRedZones("unit_test_red_zones.txt")
+        redZones = [ClassTime("1:00- 9:00"), ClassTime("3:00- 5:00p"), ClassTime("10:00- 11:00p")]
 
         self.assertEqual(schedule1.calculateRedZoneScore(redZones), -6)
         self.assertEqual(schedule2.calculateRedZoneScore(redZones), -4)
