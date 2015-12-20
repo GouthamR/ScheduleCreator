@@ -163,6 +163,28 @@ class ScheduleTests(unittest.TestCase):
         self.assertTrue(Schedule([c1_class1, c4_class1]).hasValidConnections(connectedClassDict))
         self.assertTrue(Schedule([c3_class1, c3_class5]).hasValidConnections(connectedClassDict)) # True because connection is one-way, lec to lab
 
+    def test_calculateRedZoneScore(self):
+        """
+        calculateRedZoneScore should return correct value.
+        """
+        c1_1 = Class("", ("52111", "RedIn", "1", "0", "STAFF", "TuTh   6:10- 7:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_2 = Class("", ("10010", "OK", "1", "0", "STAFF", "MWF   9:10- 10:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_3 = Class("", ("11112", "RedIn", "1", "0", "STAFF", "MWF   3:10- 4:00p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_4 = Class("", ("20010", "RedOv", "1", "0", "STAFF", "MWF   4:10- 5:10p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_5 = Class("", ("42111", "RedOv", "1", "0", "STAFF", "TuTh   9:10- 10:30p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_1 = Class("", ("52111", "OK", "1", "0", "STAFF", "TuTh   10:10- 11:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_2 = Class("", ("10010", "OK", "1", "0", "STAFF", "MWF   9:10- 10:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_3 = Class("", ("11112", "RedIn", "1", "0", "STAFF", "MWF   3:10- 4:00p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_4 = Class("", ("20010", "RedOv", "1", "0", "STAFF", "MWF   4:10- 5:10p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_5 = Class("", ("42111", "RedOv", "1", "0", "STAFF", "TuTh   9:10- 10:30p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        schedule1 = Schedule([c1_1, c1_2, c1_3, c1_4, c1_5])
+        schedule2 = Schedule([c2_1, c2_2, c2_3, c2_4, c2_5])
+        schedules = [schedule1, schedule2]
+        redZones = fileInputRedZones("unit_test_red_zones.txt")
+
+        self.assertEqual(schedule1.calculateRedZoneScore(redZones), -6)
+        self.assertEqual(schedule2.calculateRedZoneScore(redZones), -4)
+
 class FileInputTests(unittest.TestCase):
 
     def test_connected_course_input(self):
