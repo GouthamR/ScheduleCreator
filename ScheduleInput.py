@@ -2,7 +2,7 @@ from Course import *
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
 
-COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
+_COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
 
 def _isInt(input: str) -> int:
     """ Checks if input str contains an integer. """
@@ -15,9 +15,9 @@ def _isInt(input: str) -> int:
 def _isTableHeader(line: str) -> bool:
     """
     Returns True if line is in format of course table header, with column
-    names (as in COLUMN_NAMES).
+    names (as in _COLUMN_NAMES).
     """
-    return line.strip().startswith(COLUMN_NAMES[0])
+    return line.strip().startswith(_COLUMN_NAMES[0])
 
 def _isClassFormat(line: str) -> bool:
     """
@@ -27,14 +27,14 @@ def _isClassFormat(line: str) -> bool:
 
 def _getColumnIndices(line: str) -> 'list of (tuple of int)':
     """
-    Returns list representing position of each column, from COLUMN_NAMES, in line.
+    Returns list representing position of each column, from _COLUMN_NAMES, in line.
     Each element is a tuple of form (start index, end index), except for
     last element which is of form (start index, None).
     """
     column_indices = []
-    for i in range(len(COLUMN_NAMES) - 1):
-        column_indices.append( (line.index(COLUMN_NAMES[i]), line.index(COLUMN_NAMES[i+1])) )
-    column_indices.append( (line.index(COLUMN_NAMES[-1]), None) )
+    for i in range(len(_COLUMN_NAMES) - 1):
+        column_indices.append( (line.index(_COLUMN_NAMES[i]), line.index(_COLUMN_NAMES[i+1])) )
+    column_indices.append( (line.index(_COLUMN_NAMES[-1]), None) )
     return column_indices
 
 def _getClassTuple(line: str, column_indices: 'list of (tuple of int)') -> 'tuple of str':
