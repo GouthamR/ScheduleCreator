@@ -33,11 +33,17 @@ def getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName:
 	data = response.read().decode(response.headers.get_content_charset())
 	return data
 
+def writeWebsiteDataToFile(term: 'constant from Term', year: int, dept: str, courseName: str, courseCodes: str, fileName: str) -> None:
+	"""
+	Writes website data for the classes specified by arguments to a file with fileName.
+	"""
+	with open(fileName, 'w') as f:
+		f.write(getWebsiteData(term, year, dept, courseName, courseCodes))
+
 term = Term.WINTER
 year = 2016
 dept = "I&C SCI"
 courseName = "ICS 32"
 courseCodes = ""
-
-with open('output.txt', 'w') as f:
-	f.write(getWebsiteData(term, year, dept, courseName, courseCodes))
+fileName = "out.txt"
+writeWebsiteDataToFile(term, year, dept, courseName, courseCodes, fileName)
