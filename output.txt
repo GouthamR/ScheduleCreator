@@ -1,0 +1,174 @@
+			UC Irvine Office of the Registrar
+		      Schedule of Classes    Monday, December 21, 2015
+
+Search Criteria:
+    Department: I&C SCI
+    Course Number Range: ICS 32
+    Exclude cancelled courses
+
+
+Winter Quarter, 2016      Term starts on Monday, January 4, 2016
+
+
+   #########################################################################
+   ###                                                                   ###
+   ###      Donald Bren School of Information and Computer Sciences      ###
+   ###                                                                   ###
+   ###  ADD/DROP/CHANGE GRADE OPTION DEADLINE: The Bren School of ICS    ###
+   ###  STRICTLY adheres to the campus deadline of 5:00pm on Friday of   ###
+   ###  Week 2 for both undergraduate AND graduate level courses.        ###
+   ###                                                                   ###
+   ###  An enrollment exception request must be submitted to add, drop,  ###
+   ###  or change the grading option of a course after this deadline.    ###
+   ###  Approval of enrollment exception requests is not automatic.      ###
+   ###  Students should be prepared to submit documentation for any      ###
+   ###  enrollment exception requests. For more information:             ###
+   ###  https://www.reg.uci.edu/enrollment/adc/exceptions.html           ###
+   ###                                                                   ###
+   ###  PREREQUISITES: Prerequisites are strictly enforced. The School   ###
+   ###  WILL DROP students from courses for which they have not          ###
+   ###  satisfied prerequisites. If you find you have been dropped from  ###
+   ###  a course, please check the course prerequisites and contact the  ###
+   ###  ICS Student Affairs Office                                       ###
+   ###  (http://www.ics.uci.edu/ugrad/sao/index.php) BEFORE enrolling in ###
+   ###  the course again. Note that meeting the prerequisites for a      ###
+   ###  course does not guarantee a space in the class.                  ###
+   ###                                                                   ###
+   ###  DISCUSSIONS & LABS: Unless otherwise specified by the course     ###
+   ###  instructor, discussion and lab sections begin meeting AFTER the  ###
+   ###  first lecture.                                                   ###
+   ###                                                                   ###
+   ###  GRADUATE ENROLLMENT IN UNDERGRADUATE COURSES: Graduate students  ###
+   ###  may enroll in undergraduate courses with permission and pending  ###
+   ###  availability of seating.                                         ###
+   ###                                                                   ###
+   ###  UNDERGRADUATE ENROLLMENT IN GRADUATE COURSES: Undergraduate      ###
+   ###  students may enroll in graduate level courses with the           ###
+   ###  instructor's consent, if seats are available. No graduate course ###
+   ###  taken as an undergraduate will count toward a graduate degree    ###
+   ###  program.                                                         ###
+   ###                                                                   ###
+   #########################################################################
+
+       _________________________________________________________________
+
+                      Information and Computer Science
+
+        SCHOOL/MAJOR RESTRICTIONS: Some sections of I&C SCI courses will
+        initially be restricted to Bren School of ICS MAJORS ONLY.
+        Students should always check for any restrictions before
+        enrolling in classes or making changes to their enrollment.
+
+        Restrictions will be lifted after the fee payment deadline on
+        December 15, 2015.
+
+        If a class has a "B" or "X" restriction, contact the Instructor
+        to obtain an authorization code.
+       _________________________________________________________________
+
+I&C Sci  32        PROG SOFTWARE LIBR
+    CCode Typ Sec Unt Instructor   Time              Place    Final                    Max     Enr     WL Req Rstr Status 
+    36600 LEC A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 236/300    n/a 323 A    FULL   
+      ~ Same as 16100 (CSE 42, Lec A);  and 36100 (CSE 42, Lec A).
+    36605 LEC B   4   THORNTON, A. TuTh  6:30- 7:50p ELH 100  TBA                      296 263/296    n/a 282 A    FULL   
+      ~ Same as 16105 (CSE 42, Lec B);  and 36105 (CSE 42, Lec B).
+    36610 LAB 1   0   STAFF        MWF   8:00- 9:50  ICS 189                            44   38/44    n/a  30 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16110 (CSE 42, Lab 1);  and 36110 (CSE 42, Lab 1).
+    36611 LAB 2   0   STAFF        MWF  10:00-11:50  ICS 189                            44   39/44    n/a  41 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16111 (CSE 42, Lab 2);  and 36111 (CSE 42, Lab 2).
+    36612 LAB 3   0   STAFF        MWF  12:00- 1:50p ICS 189                            44   38/44    n/a  45 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16112 (CSE 42, Lab 3);  and 36112 (CSE 42, Lab 3).
+    36613 LAB 4   0   STAFF        MWF   2:00- 3:50p ICS 189                            44   36/44    n/a  46 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16113 (CSE 42, Lab 4);  and 36113 (CSE 42, Lab 4).
+    36614 LAB 5   0   STAFF        MWF   4:00- 5:50p ICS 189                            44   33/44    n/a  34 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16114 (CSE 42, Lab 5);  and 36114 (CSE 42, Lab 5).
+    36615 LAB 6   0   STAFF        MWF   6:00- 7:50p ICS 189                            44   38/44    n/a  30 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16115 (CSE 42, Lab 6);  and 36115 (CSE 42, Lab 6).
+    36616 LAB 7   0   STAFF        MWF  12:00- 1:50p ICS 183                            40   31/40    n/a  30 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16116 (CSE 42, Lab 7);  and 36116 (CSE 42, Lab 7).
+    36617 LAB 8   0   STAFF        MWF   2:00- 3:50p ICS 183                            40   31/40    n/a  35 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16117 (CSE 42, Lab 8);  and 36117 (CSE 42, Lab 8).
+    36618 LAB 9   0   STAFF        MWF  12:00- 1:50p ICS 192                            40   34/40    n/a  31 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16118 (CSE 42, Lab 9);  and 36118 (CSE 42, Lab 9).
+    36619 LAB 10  0   STAFF        MWF   2:00- 3:50p ICS 192                            40   38/40    n/a  38 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16119 (CSE 42, Lab 10);  and 36119 (CSE 42, Lab 10).
+    36620 LAB 11  0   STAFF        MWF   8:00- 9:50  ICS 364A                           40   33/40    n/a  27 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16120 (CSE 42, Lab 11);  and 36120 (CSE 42, Lab 11).
+      ~ Laptop only section. Enrolled students are required to bring their
+      ~    personal laptop to class meetings.
+    36621 LAB 12  0   STAFF        MWF  10:00-11:50  ICS 364A                           44   40/44    n/a  38 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16121 (CSE 42, Lab 12);  and 36121 (CSE 42, Lab 12).
+      ~ Laptop only section. Enrolled students are required to bring their
+      ~    personal laptop to class meetings.
+    36622 LAB 13  0   STAFF        MWF  12:00- 1:50p ICS 364A                           44   35/44    n/a  34 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16122 (CSE 42, Lab 13);  and 36122 (CSE 42, Lab 13).
+      ~ Laptop only section. Enrolled students are required to bring their
+      ~    personal laptop to class meetings.
+    36623 LAB 14  0   STAFF        MWF   2:00- 3:50p ICS 364A                           44   35/44    n/a  30 A    FULL   
+                      THORNTON, A.                                                                                        
+      ~ Same as 16123 (CSE 42, Lab 14);  and 36123 (CSE 42, Lab 14).
+      ~ Laptop only section. Enrolled students are required to bring their
+      ~    personal laptop to class meetings.
+
+
+   #########################################################################
+   ###                                                                   ###
+   ###               Learning and Academic Resource Center               ###
+   ###                                                                   ###
+   ###  LARC tutorials are lecture-specific.  Go to the LARC website     ###
+   ###  (http://www.larc.uci.edu) to make sure you are enrolled in the   ###
+   ###  correct tutorial for your lecture.                               ###
+   ###                                                                   ###
+   ###  LARC will use your UCI email to communicate with you about       ###
+   ###  critical information.  Please be sure to activate your UCInetID  ###
+   ###  (http://www.nacs.uci.edu/email/).                                ###
+   ###                                                                   ###
+   ###  DROP POLICY:  You may be dropped if you do not attend the first  ###
+   ###  tutorial meeting.  Tutorials begin on the Wednesday of the first ###
+   ###  week of classes. (http://www.larc.uci.edu/fees.html)             ###
+   ###                                                                   ###
+   ###  WAIT LIST POLICY:  You cannot attend a LARC session while on the ###
+   ###  waitlist.                                                        ###
+   ###                                                                   ###
+   #########################################################################
+
+       _________________________________________________________________
+
+                                  I&C Sci*
+       _________________________________________________________________
+
+I&C Sci  32        PROG SOFTWARE LIBR
+    CCode Typ Sec Unt Instructor   Time              Place    Final                    Max     Enr     WL Req Rstr Status 
+    77261 TAP A   0   NYGAARD, N.  MW    1:00- 1:50p *TBA*                              12       0    n/a   0      OPEN   
+    77262 TAP A   0   NYGAARD, N.  MW    2:00- 2:50p *TBA*                              12       0    n/a   0      OPEN   
+    77263 TAP A   0   NYGAARD, N.  TuTh  1:00- 1:50p RH 270                             15       0    n/a   0      OPEN   
+
+
+*** Total Classes Displayed: 19
+    Values in the "Enr" column like "236/300" show "section / joint" enrollment
+	totals for cross-listed courses.
+    Course "New-Only Reservations" (NOR) for new students have been turned off for this term.
+    The column headings above are defined at:
+	    https://www.reg.uci.edu/help/WebSoc-Columns.shtml
+    Course textbooks link:
+	    http://book.uci.edu/
+    Building Abbreviations:
+	    http://www.reg.uci.edu/uci/rooms
+    Campus map:
+	    http://www.uci.edu/campusmap
+
+Restriction Codes from the 'Rst' column above:
+    A: Prerequisite required
