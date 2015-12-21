@@ -33,21 +33,32 @@ def getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName:
 	data = response.read().decode(response.headers.get_content_charset())
 	return data
 
-def writeCourseWebDataToFile(term: 'constant from Term', year: int, dept: str, courseName: str, courseCodes: str, fileName: str) -> None:
+def writeCourseWebDataToFile(term: 'constant from Term', year: int, dept: str,
+								courseName: str, courseCodes: str, fileName: str) -> None:
 	"""
 	Writes website data for the classes specified by arguments to a file with fileName.
 	"""
 	with open(fileName, 'w') as f:
 		f.write(getWebsiteData(term, year, dept, courseName, courseCodes))
 
+def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'list of str',
+								courseNames: 'list of str', courseCodes: 'list of str', 
+								fileNames: 'list of str') -> None:
+	"""
+	Writes website data for the courses specified by arguments to the corresponding argument files.
+	All list arguments should have same length and have corresponding elements.
+	"""
+	for i in range(len(fileNames)):
+		writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
+
 def main():
 	term = Term.WINTER
 	year = 2016
-	dept = "I&C SCI"
-	courseName = "ICS 32"
-	courseCodes = ""
-	fileName = "out.txt"
-	writeCourseWebDataToFile(term, year, dept, courseName, courseCodes, fileName)
+	depts = ["I&C SCI", "HUMAN", "I&C SCI"]
+	courseNames = ["ICS 32", "HUMAN 1B", "ICS 6B"]
+	courseCodes = ["36600-36623", "28100-28126", ""]
+	fileNames = ["ics32.txt", "human1b.txt", "ics6b.txt"]
+	writeCoursesWebDataToFiles(term, year, depts, courseNames, courseCodes, fileNames)
 
 if __name__ == '__main__':
 	main()
