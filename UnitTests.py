@@ -3,6 +3,7 @@ from Course import *
 from Schedule import *
 from ScheduleInput import *
 from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
+from WebsiteInput import _getFileName
 
 class ClassTests(unittest.TestCase):
 
@@ -319,6 +320,17 @@ class ScheduleInputFunctionTests(unittest.TestCase):
         self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup])), [[lecType], [labType]])
         self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, lecTup, labTup, labTup])), [[lecType, lecType], [labType, labType]])
         self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup, lecTup, labTup])), [[lecType], [labType], [lecType], [labType]])
+
+class WebsiteInputTests(unittest.TestCase):
+
+    def test_getFileName(self):
+        """
+        _getFileName should returns correct values.
+        """
+        self.assertEqual(_getFileName("ICS 32"), "ics32.txt")
+        self.assertEqual(_getFileName("ICS32"), "ics32.txt")
+        self.assertEqual(_getFileName("IcS 32"), "ics32.txt")
+        self.assertEqual(_getFileName("ics32"), "ics32.txt")
 
 if __name__ == "__main__":
     unittest.main()
