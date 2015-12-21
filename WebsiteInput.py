@@ -41,6 +41,13 @@ def writeCourseWebDataToFile(term: 'constant from Term', year: int, dept: str,
 	with open(fileName, 'w') as f:
 		f.write(getWebsiteData(term, year, dept, courseName, courseCodes))
 
+def _getFileName(courseName: str) -> str:
+	"""
+	Returns file name corresponding to courseName.
+	File name is the lowercased course name without spaces, with a .txt extension.
+	"""
+	return courseName.lower().replace(" ", "") + ".txt"
+
 def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'list of str',
 								courseNames: 'list of str', courseCodes: 'list of str') -> None:
 	"""
@@ -49,7 +56,7 @@ def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'li
 	All list arguments should have same length and have corresponding elements.
 	Assumes all courses in same term and year.
 	"""
-	fileNames = [name.lower().replace(" ", "") + ".txt" for name in courseNames]
+	fileNames = [_getFileName(name) for name in courseNames]
 	for i in range(len(depts)):
 		writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
 
