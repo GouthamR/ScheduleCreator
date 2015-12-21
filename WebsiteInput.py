@@ -1,0 +1,60 @@
+from urllib import parse, request
+
+term_str = "WINTER"
+year_str = 2016
+dept_str = "I&C SCI"
+course_num_str = "ICS 32"
+course_codes = ""
+
+YEAR_TERM_FORMAT = "{}-{}"
+TERMS = {"FALL":"92", "WINTER":"03", "SPRING":"14"}
+term_param = YEAR_TERM_FORMAT.format(int(year_str), TERMS[term_str])
+
+URL = "https://www.reg.uci.edu/perl/WebSoc"
+HEADERS = { }
+PARAMS = { "Breadth":"ANY",
+			"CancelledCourses":"Exclude",
+			"ClassType":"ALL",
+			"CourseNum":course_num_str,
+			"CourseCodes":course_codes,
+			"Dept":dept_str,
+			"Division":"ANY",
+			"FontSize":"200",
+			"FullCourses":"ANY",
+			"ShowComments":"off",
+			"ShowFinals":"off",
+			"Submit":"Display Text Results",
+			"YearTerm": term_param}
+
+headers = HEADERS
+params = parse.urlencode(PARAMS)
+req = request.Request(URL, params.encode('ascii'), headers)
+response = request.urlopen(req)
+print(response.status, response.reason)
+data = response.read().decode(response.headers.get_content_charset())
+
+with open('output.txt', 'w') as f:
+	f.write(data)
+
+'''
+HEADERS = { "Accept:": "*/*",
+			"Accept-Encoding": "gzip, deflate",
+			"Content-Length": "199",
+			"Content-Type": "application/x-www-form-urlencoded",
+			"User-Agent": "runscope/0.1" }
+'''
+
+'''
+from urllib import parse, request
+params = parse.urlencode({})
+headers = {"Content-type": "application/x-www-form-urlencoded",
+           "Accept": "text/plain"}
+req = request.Request("http://bugs.python.org", params.encode('ascii'), headers)
+response = request.urlopen(req)
+print(response.status, response.reason)
+data = response.read()
+print(data)
+
+with open('output.txt', 'wb') as f:
+	f.write(data)
+'''
