@@ -40,10 +40,14 @@ def writeWebsiteDataToFile(term: 'constant from Term', year: int, dept: str, cou
 	with open(fileName, 'w') as f:
 		f.write(getWebsiteData(term, year, dept, courseName, courseCodes))
 
-term = Term.WINTER
-year = 2016
-dept = "I&C SCI"
-courseName = "ICS 32"
-courseCodes = ""
-fileName = "out.txt"
-writeWebsiteDataToFile(term, year, dept, courseName, courseCodes, fileName)
+def main():
+	term = Term.WINTER
+	year = 2016
+	dept = "I&C SCI"
+	courseName = "ICS 32"
+	courseCodes = ""
+	fileName = "out.txt"
+	writeWebsiteDataToFile(term, year, dept, courseName, courseCodes, fileName)
+
+if __name__ == '__main__':
+	main()
