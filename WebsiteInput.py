@@ -15,7 +15,6 @@ YEAR_TERM_FORMAT = "{}-{}"
 term_param = YEAR_TERM_FORMAT.format(year, term)
 
 URL = "https://www.reg.uci.edu/perl/WebSoc"
-HEADERS = { }
 PARAMS = { "Breadth":"ANY",
 			"CancelledCourses":"Exclude",
 			"ClassType":"ALL",
@@ -30,7 +29,7 @@ PARAMS = { "Breadth":"ANY",
 			"Submit":"Display Text Results",
 			"YearTerm": term_param}
 
-headers = HEADERS
+headers = { }
 params = parse.urlencode(PARAMS)
 req = request.Request(URL, params.encode('ascii'), headers)
 response = request.urlopen(req)
