@@ -60,6 +60,38 @@ def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'li
 	for i in range(len(depts)):
 		writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
 
+def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
+													'courseNames = list of str', 'courseCodes = list of str'):
+	"""
+	Parses argument file for and then returns course parameters.
+
+	Assumes argument file is in the following format:
+	term
+	year
+
+	dept
+	courseName
+	courseCodes
+
+	dept2
+	...etc...
+	"""
+	with open(fileName, 'r') as f:
+		term_str = f.readline().strip()
+		year_str = f.readline().strip()
+		f.readline() # skip blank line
+		course_strs = f.read().split('\n\n')
+	term = _getTerm(term_str)
+	year = int(year_str)
+	depts = []
+	courseNames = []
+	coursesCodes = []
+	for course_str in course_strs:
+		depts.append(_getDept(course_str))
+		courseNames.append(_getCourseName(course_str))
+		coursesCodes.append(_getCourseCodes(course_str))
+	return term, year, depts, courseNames, coursesCodes
+
 def main():
 	term = Term.WINTER
 	year = 2016
@@ -67,6 +99,7 @@ def main():
 	courseNames = ["ICS 32", "HUMAN 1B", "ICS 6B"]
 	courseCodes = ["36600-36623", "28100-28126", ""]
 	writeCoursesWebDataToFiles(term, year, depts, courseNames, courseCodes)
+	getCoursesParamsFromFile("web_input.txt")
 
 if __name__ == '__main__':
 	main()
