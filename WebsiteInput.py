@@ -6,13 +6,13 @@ class Term:
 	SPRING = "14"
 
 term = Term.WINTER
-year_str = 2016
+year = 2016
 dept_str = "I&C SCI"
 course_num_str = "ICS 32"
 course_codes = ""
 
 YEAR_TERM_FORMAT = "{}-{}"
-term_param = YEAR_TERM_FORMAT.format(int(year_str), term)
+term_param = YEAR_TERM_FORMAT.format(year, term)
 
 URL = "https://www.reg.uci.edu/perl/WebSoc"
 HEADERS = { }
