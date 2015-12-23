@@ -338,10 +338,8 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertEqual(_getTerm("FALL"), Term.FALL)
         self.assertEqual(_getTerm("fall"), Term.FALL)
         self.assertEqual(_getTerm("FaLl"), Term.FALL)
-        self.assertEqual(_getTerm("  \tFALL\n"), Term.FALL)
         with self.assertRaises(ValueError):
             _getTerm("hello")
-            _getTerm("   \t\nhello\t\n\n")
 
 if __name__ == "__main__":
     unittest.main()

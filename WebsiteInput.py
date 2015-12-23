@@ -63,9 +63,10 @@ def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'li
 def _getTerm(term_str: str) -> 'constant from Term':
 	"""
 	For argument string from file input, returns corresponding Term constant.
+	Assumes term_str has already been stripped of leading and trailing whitespace.
 	If invalid term_str, raises ValueError.
 	"""
-	term_str_processed = term_str.strip().lower()
+	term_str_processed = term_str.lower()
 	if term_str_processed == 'fall':
 		return Term.FALL
 	elif term_str_processed == 'winter':
