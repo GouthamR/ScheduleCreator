@@ -3,7 +3,7 @@ from Course import *
 from Schedule import *
 from ScheduleInput import *
 from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
-from WebsiteInput import _getFileName, Term, _getTerm, _getDept
+from WebsiteInput import _getFileName, Term, _getTerm, _getDept, _getCourseName
 class ClassTests(unittest.TestCase):
 
     def setUp(self):
@@ -352,6 +352,18 @@ class WebsiteInputTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             _getDept("")
             _getDept("\n\n")
+
+    def test_getCourseName(self):
+        """
+        _getCourseName should return correct value or raise exception for invalid input.
+        """
+        self.assertEqual(_getCourseName("I&C SCI\nICS 32\n36600-36623"), "ICS 32")
+        self.assertEqual(_getCourseName("I&C SCI\nICS 32"), "ICS 32")
+        with self.assertRaises(ValueError):
+            _getCourseName("I&C SCI")
+            _getCourseName("I&C SCI\n")
+            _getCourseName("")
+            _getCourseName("\n\n")
 
 if __name__ == "__main__":
     unittest.main()
