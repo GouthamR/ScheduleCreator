@@ -76,6 +76,16 @@ def _getTerm(term_str: str) -> 'constant from Term':
 	else:
 		raise ValueError("Invalid term string.")
 
+def _getDept(course_str: str) -> str:
+	"""
+	For argument course string from file input, returns department of course.
+	If invalid course string, raises ValueError.
+	"""
+	if len(course_str) == 0:
+		raise ValueError("Invalid course string.")
+	else:
+		return course_str.split('\n')[0]
+
 def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
 													'courseNames = list of str', 'courseCodes = list of str'):
 	"""
