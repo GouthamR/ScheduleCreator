@@ -3,8 +3,7 @@ from Course import *
 from Schedule import *
 from ScheduleInput import *
 from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
-from WebsiteInput import _getFileName
-
+from WebsiteInput import _getFileName, Term, _getTerm
 class ClassTests(unittest.TestCase):
 
     def setUp(self):
@@ -331,6 +330,18 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertEqual(_getFileName("ICS32"), "ics32.txt")
         self.assertEqual(_getFileName("IcS 32"), "ics32.txt")
         self.assertEqual(_getFileName("ics32"), "ics32.txt")
+
+    def test_getTerm(self):
+        """
+        _getTerm should return correct value or raise exception for invalid input.
+        """
+        self.assertEqual(_getTerm("FALL"), Term.FALL)
+        self.assertEqual(_getTerm("fall"), Term.FALL)
+        self.assertEqual(_getTerm("FaLl"), Term.FALL)
+        self.assertEqual(_getTerm("  \tFALL\n"), Term.FALL)
+        with self.assertRaises(ValueError):
+            _getTerm("hello")
+            _getTerm("   \t\nhello\t\n\n")
 
 if __name__ == "__main__":
     unittest.main()

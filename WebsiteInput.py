@@ -60,6 +60,21 @@ def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'li
 	for i in range(len(depts)):
 		writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
 
+def _getTerm(term_str: str) -> 'constant from Term':
+	"""
+	For argument string from file input, returns corresponding Term constant.
+	If invalid term_str, raises ValueError.
+	"""
+	term_str_processed = term_str.strip().lower()
+	if term_str_processed == 'fall':
+		return Term.FALL
+	elif term_str_processed == 'winter':
+		return Term.WINTER
+	elif term_str_processed == 'spring':
+		return Term.SPRING
+	else:
+		raise ValueError("Invalid term string.")
+
 def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
 													'courseNames = list of str', 'courseCodes = list of str'):
 	"""
@@ -74,6 +89,9 @@ def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'ye
 	courseCodes
 
 	dept2
+	courseName2
+	courseCodes2
+
 	...etc...
 	"""
 	with open(fileName, 'r') as f:
