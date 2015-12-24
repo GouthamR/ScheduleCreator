@@ -79,25 +79,25 @@ def _getTerm(term_str: str) -> 'constant from Term':
 def _getDept(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns department of course.
-	Assumes argument has already been stripped of leading and trailing whitespace.
 	If invalid course string, raises ValueError.
 	"""
-	if len(course_str) == 0:
+	splitCourseStr = course_str.split('\n')
+	firstElement = splitCourseStr[0].strip() # Note: guaranteed to be at least one element, so no need to check number of elements.
+	if firstElement == "":
 		raise ValueError("Invalid course string.")
 	else:
-		return course_str.split('\n')[0]
+		return firstElement
 
 def _getCourseName(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns course name.
-	Assumes argument has already been stripped of leading and trailing whitespace.
 	If invalid course string, raises ValueError.
 	"""
 	splitCourseStr = course_str.split('\n')
-	if len(splitCourseStr) < 2:
+	if len(splitCourseStr) < 2 or splitCourseStr[1].strip() == '':
 		raise ValueError("Invalid course string.")
 	else:
-		return splitCourseStr[1]
+		return splitCourseStr[1].strip()
 
 def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
 													'courseNames = list of str', 'courseCodes = list of str'):

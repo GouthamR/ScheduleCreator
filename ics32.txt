@@ -1,5 +1,5 @@
 			UC Irvine Office of the Registrar
-		      Schedule of Classes    Monday, December 21, 2015
+		      Schedule of Classes    Thursday, December 24, 2015
 
 Search Criteria:
     Department: I&C SCI
@@ -69,14 +69,14 @@ Winter Quarter, 2016      Term starts on Monday, January 4, 2016
 
 I&C Sci  32        PROG SOFTWARE LIBR
     CCode Typ Sec Unt Instructor   Time              Place    Final                    Max     Enr     WL Req Rstr Status 
-    36600 LEC A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 236/300    n/a 323 A    FULL   
+    36600 LEC A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 238/300    n/a 319 A    FULL   
       ~ Same as 16100 (CSE 42, Lec A);  and 36100 (CSE 42, Lec A).
-    36605 LEC B   4   THORNTON, A. TuTh  6:30- 7:50p ELH 100  TBA                      296 263/296    n/a 282 A    FULL   
+    36605 LEC B   4   THORNTON, A. TuTh  6:30- 7:50p ELH 100  TBA                      296 264/296    n/a 284 A    FULL   
       ~ Same as 16105 (CSE 42, Lec B);  and 36105 (CSE 42, Lec B).
-    36610 LAB 1   0   STAFF        MWF   8:00- 9:50  ICS 189                            44   38/44    n/a  30 A    FULL   
+    36610 LAB 1   0   STAFF        MWF   8:00- 9:50  ICS 189                            44   38/44    n/a  28 A    FULL   
                       THORNTON, A.                                                                                        
       ~ Same as 16110 (CSE 42, Lab 1);  and 36110 (CSE 42, Lab 1).
-    36611 LAB 2   0   STAFF        MWF  10:00-11:50  ICS 189                            44   39/44    n/a  41 A    FULL   
+    36611 LAB 2   0   STAFF        MWF  10:00-11:50  ICS 189                            44   39/44    n/a  40 A    FULL   
                       THORNTON, A.                                                                                        
       ~ Same as 16111 (CSE 42, Lab 2);  and 36111 (CSE 42, Lab 2).
     36612 LAB 3   0   STAFF        MWF  12:00- 1:50p ICS 189                            44   38/44    n/a  45 A    FULL   
@@ -85,10 +85,10 @@ I&C Sci  32        PROG SOFTWARE LIBR
     36613 LAB 4   0   STAFF        MWF   2:00- 3:50p ICS 189                            44   36/44    n/a  46 A    FULL   
                       THORNTON, A.                                                                                        
       ~ Same as 16113 (CSE 42, Lab 4);  and 36113 (CSE 42, Lab 4).
-    36614 LAB 5   0   STAFF        MWF   4:00- 5:50p ICS 189                            44   33/44    n/a  34 A    FULL   
+    36614 LAB 5   0   STAFF        MWF   4:00- 5:50p ICS 189                            44   34/44    n/a  34 A    FULL   
                       THORNTON, A.                                                                                        
       ~ Same as 16114 (CSE 42, Lab 5);  and 36114 (CSE 42, Lab 5).
-    36615 LAB 6   0   STAFF        MWF   6:00- 7:50p ICS 189                            44   38/44    n/a  30 A    FULL   
+    36615 LAB 6   0   STAFF        MWF   6:00- 7:50p ICS 189                            44   40/44    n/a  31 A    FULL   
                       THORNTON, A.                                                                                        
       ~ Same as 16115 (CSE 42, Lab 6);  and 36115 (CSE 42, Lab 6).
     36616 LAB 7   0   STAFF        MWF  12:00- 1:50p ICS 183                            40   31/40    n/a  30 A    FULL   
@@ -103,7 +103,7 @@ I&C Sci  32        PROG SOFTWARE LIBR
     36619 LAB 10  0   STAFF        MWF   2:00- 3:50p ICS 192                            40   38/40    n/a  38 A    FULL   
                       THORNTON, A.                                                                                        
       ~ Same as 16119 (CSE 42, Lab 10);  and 36119 (CSE 42, Lab 10).
-    36620 LAB 11  0   STAFF        MWF   8:00- 9:50  ICS 364A                           40   33/40    n/a  27 A    FULL   
+    36620 LAB 11  0   STAFF        MWF   8:00- 9:50  ICS 364A                           40   33/40    n/a  26 A    FULL   
                       THORNTON, A.                                                                                        
       ~ Same as 16120 (CSE 42, Lab 11);  and 36120 (CSE 42, Lab 11).
       ~ Laptop only section. Enrolled students are required to bring their
@@ -126,7 +126,7 @@ I&C Sci  32        PROG SOFTWARE LIBR
 
 
 *** Total Classes Displayed: 16
-    Values in the "Enr" column like "236/300" show "section / joint" enrollment
+    Values in the "Enr" column like "238/300" show "section / joint" enrollment
 	totals for cross-listed courses.
     Course "New-Only Reservations" (NOR) for new students have been turned off for this term.
     The column headings above are defined at:
