@@ -348,10 +348,8 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertEqual(_getDept("I&C SCI\nICS 32\n36600-36623"), "I&C SCI")
         self.assertEqual(_getDept("I&C SCI\nICS 32"), "I&C SCI")
         self.assertEqual(_getDept("I&C SCI"), "I&C SCI")
-        self.assertEqual(_getDept("I&C SCI\n"), "I&C SCI")
         with self.assertRaises(ValueError):
             _getDept("")
-            _getDept("\n\n")
 
     def test_getCourseName(self):
         """
@@ -361,9 +359,7 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertEqual(_getCourseName("I&C SCI\nICS 32"), "ICS 32")
         with self.assertRaises(ValueError):
             _getCourseName("I&C SCI")
-            _getCourseName("I&C SCI\n")
             _getCourseName("")
-            _getCourseName("\n\n")
 
 if __name__ == "__main__":
     unittest.main()

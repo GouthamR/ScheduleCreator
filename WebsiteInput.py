@@ -79,6 +79,7 @@ def _getTerm(term_str: str) -> 'constant from Term':
 def _getDept(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns department of course.
+	Assumes term_str has already been stripped of leading and trailing whitespace.
 	If invalid course string, raises ValueError.
 	"""
 	if len(course_str) == 0:
@@ -89,6 +90,7 @@ def _getDept(course_str: str) -> str:
 def _getCourseName(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns course name.
+	Assumes term_str has already been stripped of leading and trailing whitespace.
 	If invalid course string, raises ValueError.
 	"""
 	splitCourseStr = course_str.split('\n')
