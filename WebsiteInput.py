@@ -63,7 +63,7 @@ def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'li
 def _getTerm(term_str: str) -> 'constant from Term':
 	"""
 	For argument string from file input, returns corresponding Term constant.
-	Assumes term_str has already been stripped of leading and trailing whitespace.
+	Assumes argument has already been stripped of leading and trailing whitespace.
 	If invalid term_str, raises ValueError.
 	"""
 	term_str_processed = term_str.lower()
@@ -79,7 +79,7 @@ def _getTerm(term_str: str) -> 'constant from Term':
 def _getDept(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns department of course.
-	Assumes term_str has already been stripped of leading and trailing whitespace.
+	Assumes argument has already been stripped of leading and trailing whitespace.
 	If invalid course string, raises ValueError.
 	"""
 	if len(course_str) == 0:
@@ -90,7 +90,7 @@ def _getDept(course_str: str) -> str:
 def _getCourseName(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns course name.
-	Assumes term_str has already been stripped of leading and trailing whitespace.
+	Assumes argument has already been stripped of leading and trailing whitespace.
 	If invalid course string, raises ValueError.
 	"""
 	splitCourseStr = course_str.split('\n')
