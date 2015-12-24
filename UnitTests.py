@@ -111,9 +111,8 @@ class ClassTimeTests(unittest.TestCase):
         self.assertEqual(ClassTime(raw5).end, Time("10:00p"))
         self.assertEqual(ClassTime(raw6).start, Time("10:00p"))
         self.assertEqual(ClassTime(raw6).end, Time("11:59p"))
-        with self.assertRaises(RuntimeError):
-            ClassTime(raw7)
-            ClassTime(raw8)
+        self.assertRaises(RuntimeError, ClassTime, raw7)
+        self.assertRaises(RuntimeError, ClassTime, raw8)
 
 class CourseTests(unittest.TestCase):
 
@@ -290,9 +289,8 @@ class ScheduleInputFunctionTests(unittest.TestCase):
         self.assertFalse(_isConnected( [[lec], [lab], [lec]] ))
         self.assertFalse(_isConnected( [[lec, lec], [lab], [lec]] ))
         self.assertTrue(_isConnected( [[lec], [lab]] ))
-        with self.assertRaises(ValueError):
-            _isConnected( [[lec], [lab], [lec, lec], [lab]] )
-            _isConnected( [[lec], [lab], [lab, lab], [lab]] )
+        self.assertRaises(ValueError, _isConnected, [[lec], [lab], [lec, lec], [lab]] )
+        self.assertRaises(ValueError, _isConnected, [[lec], [lab], [lab, lab], [lab]] )
 
     def test_convertToClassesByType(self):
         """
@@ -338,8 +336,7 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertEqual(_getTerm("FALL"), Term.FALL)
         self.assertEqual(_getTerm("fall"), Term.FALL)
         self.assertEqual(_getTerm("FaLl"), Term.FALL)
-        with self.assertRaises(ValueError):
-            _getTerm("hello")
+        self.assertRaises(ValueError, _getTerm, "hello")
 
     def test_getDept(self):
         """
@@ -348,8 +345,7 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertEqual(_getDept("I&C SCI\nICS 32\n36600-36623"), "I&C SCI")
         self.assertEqual(_getDept("I&C SCI\nICS 32"), "I&C SCI")
         self.assertEqual(_getDept("I&C SCI"), "I&C SCI")
-        with self.assertRaises(ValueError):
-            _getDept("")
+        self.assertRaises(ValueError, _getDept, "")
 
     def test_getCourseName(self):
         """
@@ -357,9 +353,8 @@ class WebsiteInputTests(unittest.TestCase):
         """
         self.assertEqual(_getCourseName("I&C SCI\nICS 32\n36600-36623"), "ICS 32")
         self.assertEqual(_getCourseName("I&C SCI\nICS 32"), "ICS 32")
-        with self.assertRaises(ValueError):
-            _getCourseName("I&C SCI")
-            _getCourseName("")
+        self.assertRaises(ValueError, _getCourseName, "I&C SCI")
+        self.assertRaises(ValueError, _getCourseName, "")
 
 if __name__ == "__main__":
     unittest.main()
