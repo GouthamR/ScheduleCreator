@@ -79,7 +79,7 @@ def _getTerm(term_str: str) -> 'constant from Term':
 def _getDept(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns department of course.
-	If invalid course string, raises ValueError.
+	If invalid department or department not found in argument, raises ValueError.
 	"""
 	splitCourseStr = course_str.split('\n')
 	firstElement = splitCourseStr[0].strip() # Note: guaranteed to be at least one element, so no need to check number of elements.
@@ -91,7 +91,8 @@ def _getDept(course_str: str) -> str:
 def _getCourseName(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns course name.
-	If invalid course string, raises ValueError.
+	Assumes department is found in argument.
+	If invalid course name or course name not found in argument, raises ValueError.
 	"""
 	splitCourseStr = course_str.split('\n')
 	if len(splitCourseStr) < 2 or splitCourseStr[1].strip() == '':
@@ -102,7 +103,8 @@ def _getCourseName(course_str: str) -> str:
 def _getCourseCodes(course_str: str) -> str:
 	"""
 	For argument course string from file input, returns course codes if any.
-	If invalid course string, raises ValueError.
+	Assumes department and course name are found in argument.
+	If too many course fields in argument, raises ValueError.
 	"""
 	splitCourseStr = course_str.split('\n')
 	numElements = len(splitCourseStr)
