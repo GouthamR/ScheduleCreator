@@ -99,6 +99,20 @@ def _getCourseName(course_str: str) -> str:
 	else:
 		return splitCourseStr[1].strip()
 
+def _getCourseCodes(course_str: str) -> str:
+	"""
+	For argument course string from file input, returns course codes if any.
+	If invalid course string, raises ValueError.
+	"""
+	splitCourseStr = course_str.split('\n')
+	numElements = len(splitCourseStr)
+	if numElements > 3:
+		raise ValueError("Invalid course string.")
+	elif numElements == 3:
+		return splitCourseStr[-1].strip()
+	else: # has 2 elements, assuming numElements >= 2
+		return ""
+
 def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
 													'courseNames = list of str', 'courseCodes = list of str'):
 	"""
