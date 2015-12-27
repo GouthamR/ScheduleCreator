@@ -1,5 +1,5 @@
 			UC Irvine Office of the Registrar
-		      Schedule of Classes    Thursday, December 24, 2015
+		      Schedule of Classes    Sunday, December 27, 2015
 
 Search Criteria:
     Department: I&C SCI
@@ -69,7 +69,7 @@ Winter Quarter, 2016      Term starts on Monday, January 4, 2016
 
 I&C Sci  32        PROG SOFTWARE LIBR
     CCode Typ Sec Unt Instructor   Time              Place    Final                    Max     Enr     WL Req Rstr Status 
-    36600 LEC A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 238/300    n/a 319 A    FULL   
+    36600 LEC A   4   THORNTON, A. TuTh  5:00- 6:20p ELH 100  Thu, Mar 17, 4:00-6:00pm 300 238/300    n/a 320 A    FULL   
       ~ Same as 16100 (CSE 42, Lec A);  and 36100 (CSE 42, Lec A).
     36605 LEC B   4   THORNTON, A. TuTh  6:30- 7:50p ELH 100  TBA                      296 264/296    n/a 284 A    FULL   
       ~ Same as 16105 (CSE 42, Lec B);  and 36105 (CSE 42, Lec B).

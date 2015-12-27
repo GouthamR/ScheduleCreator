@@ -151,13 +151,7 @@ def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'ye
 	return term, year, depts, courseNames, coursesCodes
 
 def main():
-	term = Term.WINTER
-	year = 2016
-	depts = ["I&C SCI", "HUMAN", "I&C SCI"]
-	courseNames = ["ICS 32", "HUMAN 1B", "ICS 6B"]
-	courseCodes = ["36600-36623", "28100-28126", ""]
-	writeCoursesWebDataToFiles(term, year, depts, courseNames, courseCodes)
-	getCoursesParamsFromFile("web_input.txt")
+	writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
 
 if __name__ == '__main__':
 	main()

@@ -1,5 +1,5 @@
 			UC Irvine Office of the Registrar
-		      Schedule of Classes    Thursday, December 24, 2015
+		      Schedule of Classes    Sunday, December 27, 2015
 
 Search Criteria:
     Department: I&C SCI
@@ -68,10 +68,10 @@ Winter Quarter, 2016      Term starts on Monday, January 4, 2016
 
 I&C Sci  6B        BOOLEAN ALG & LOGIC
     CCode Typ Sec Unt Instructor Time              Place   Final                    Max Enr      WL Req Rstr Status 
-    36520 LEC A   4   REGAN, A.  TuTh  3:30- 4:50p ELH 100 Tue, Mar 15, 4:00-6:00pm 292 291      42 504      Waitl  
-    36521 DIS 1   0   STAFF      MW    8:00- 8:50  SSL 270                          100 100      16 123      FULL   
+    36520 LEC A   4   REGAN, A.  TuTh  3:30- 4:50p ELH 100 Tue, Mar 15, 4:00-6:00pm 292 291      42 505      Waitl  
+    36521 DIS 1   0   STAFF      MW    8:00- 8:50  SSL 270                          100 100      15 123      FULL   
                       REGAN, A.                                                                                     
-    36522 DIS 2   0   STAFF      MW    9:00- 9:50  SSL 270                          100 100      15 132      FULL   
+    36522 DIS 2   0   STAFF      MW    9:00- 9:50  SSL 270                          100 100      16 133      FULL   
                       REGAN, A.                                                                                     
     36524 DIS 4   0   STAFF      MW    5:00- 5:50p SSL 270                           92  92      14  94      FULL   
                       REGAN, A.                                                                                     
