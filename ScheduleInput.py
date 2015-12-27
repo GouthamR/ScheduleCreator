@@ -155,16 +155,12 @@ def readCourseFilesToCourseData(fileNames: 'list of str', courseNames: 'list of 
             connectedClassDict.update(currDict)
     return subCourses, connectedClassDict
 
-def fileInputCourses(inFile: str) -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
+def fileInputCourses(fileNames: 'list of str') -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
     """
-    Reads course data from multiple course files as specified in inFile.
+    Reads course data from argument course files.
     Returns sub-courses and dict of connected class data.
     If no connected courses, returns sub-courses and None.
     """
-    fileNames = []
-    with open(inFile, 'r') as f:
-        for line in f:
-            fileNames.append(line.strip())
     courseNames = [fName.replace(".txt", "") for fName in fileNames]
     return readCourseFilesToCourseData(fileNames, courseNames)
 
