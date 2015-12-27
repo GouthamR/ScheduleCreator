@@ -5,7 +5,7 @@ class Term:
 	WINTER = "03"
 	SPRING = "14"
 
-def getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName: str, courseCodes: str) -> str:
+def _getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName: str, courseCodes: str) -> str:
 	"""
 	Returns a string of website's data for the classes specified by arguments.
 	"""
@@ -33,13 +33,13 @@ def getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName:
 	data = response.read().decode(response.headers.get_content_charset())
 	return data
 
-def writeCourseWebDataToFile(term: 'constant from Term', year: int, dept: str,
+def _writeCourseWebDataToFile(term: 'constant from Term', year: int, dept: str,
 								courseName: str, courseCodes: str, fileName: str) -> None:
 	"""
 	Writes website data for the classes specified by arguments to a file with fileName.
 	"""
 	with open(fileName, 'w') as f:
-		f.write(getWebsiteData(term, year, dept, courseName, courseCodes))
+		f.write(_getWebsiteData(term, year, dept, courseName, courseCodes))
 
 def _getFileName(courseName: str) -> str:
 	"""
@@ -59,7 +59,7 @@ def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'li
 	"""
 	fileNames = [_getFileName(name) for name in courseNames]
 	for i in range(len(depts)):
-		writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
+		_writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
 	return fileNames
 
 def _getTerm(term_str: str) -> 'constant from Term':
