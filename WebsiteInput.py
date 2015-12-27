@@ -49,9 +49,10 @@ def _getFileName(courseName: str) -> str:
 	return courseName.lower().replace(" ", "") + ".txt"
 
 def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'list of str',
-								courseNames: 'list of str', courseCodes: 'list of str') -> None:
+								courseNames: 'list of str', courseCodes: 'list of str') -> 'list of str':
 	"""
 	Writes website data for the courses specified by arguments to files corresponding to course names.
+	Returns file names.
 	The files will be text files with the name corresponding to the lowercased course name without spaces.
 	All list arguments should have same length and have corresponding elements.
 	Assumes all courses in same term and year.
@@ -59,6 +60,7 @@ def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'li
 	fileNames = [_getFileName(name) for name in courseNames]
 	for i in range(len(depts)):
 		writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
+	return fileNames
 
 def _getTerm(term_str: str) -> 'constant from Term':
 	"""
@@ -151,7 +153,8 @@ def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'ye
 	return term, year, depts, courseNames, coursesCodes
 
 def main():
-	writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
+	fileNames = writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
+	print(fileNames)
 
 if __name__ == '__main__':
 	main()
