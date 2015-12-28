@@ -14,7 +14,7 @@ INPUT_FILE_NAME = "web_input.txt"
 REDZONE_FILE_NAME = "red_zones.txt"
 MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
 
-def main():
+def runProgram():
     print("CREATED BY GOUTHAM RAJEEV")
     print("Copyright 2016 Goutham Rajeev.  All rights reserved.")
     courseFileNames = writeCoursesWebDataToFiles(*getCoursesParamsFromFile(INPUT_FILE_NAME))
@@ -32,6 +32,14 @@ def main():
         schedule = schedules[i]
         print("%s: %s = %s" % (i, schedule.getClassCodes(), schedule.calculatePreferenceScore(*preferenceParams)))
     ScheduleGUI(schedules)
+
+def main():
+    try:
+        runProgram()
+    except Exception as e:
+        stars = "*" * 80
+        print("\n{0}\nEXCEPTION. Check input files, especially column_names.txt. Details follow:\n{0}\n".format(stars))
+        raise
 
 if __name__ == '__main__':
     main()
