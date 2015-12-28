@@ -1,3 +1,0 @@
-human.txt
-ics6b.txt
-ics32.txt
