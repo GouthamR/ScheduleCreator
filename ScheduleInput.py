@@ -2,7 +2,16 @@ from Course import *
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
 
-_COLUMN_NAMES = ("CCode", "Typ", "Sec", "Unt", "Instructor", "Time", "Place", "Final", "Max", "Enr", "WL", "Req", "Nor", "Rstr", "Status ")
+def _getColumnNames(fileName: str) -> 'tuple of str':
+    """
+    Reads and returns column names from argument file.
+    Assumes file in following format:
+    col1\tcol2\tcol3 ... etc ...
+    """
+    with open(fileName, 'r') as f:
+        return tuple(f.read().strip().split())
+
+_COLUMN_NAMES = _getColumnNames("column_names.txt")
 
 def _isInt(input: str) -> int:
     """ Checks if input str contains an integer. """
