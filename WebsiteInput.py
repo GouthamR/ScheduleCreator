@@ -1,4 +1,5 @@
 from urllib import parse, request
+import os.path
 
 _COURSENAMES_SAVEFILE_NAME = "coursefilenames.txt"
 
@@ -163,7 +164,14 @@ def readSavedCourseFileNames() -> "list of str":
 	with open(_COURSENAMES_SAVEFILE_NAME, 'r') as f:
 		return [line.strip() for line in f]
 
+def savedCourseFileExists() -> bool:
+	"""
+	Returns True if course names save file, _COURSENAMES_SAVEFILE_NAME, exists.
+	"""
+	return os.path.isfile(_COURSENAMES_SAVEFILE_NAME)
+
 def main():
+	print(savedCourseFileExists())
 	writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
 	print(readSavedCourseFileNames())
 
