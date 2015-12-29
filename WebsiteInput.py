@@ -1,5 +1,7 @@
 from urllib import parse, request
 
+_COURSENAMES_SAVEFILE_NAME = "coursefilenames.txt"
+
 class Term:
 	FALL   = "92"
 	WINTER = "03"
@@ -49,18 +51,20 @@ def _getFileName(courseName: str) -> str:
 	return courseName.lower().replace(" ", "") + ".txt"
 
 def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'list of str',
-								courseNames: 'list of str', courseCodes: 'list of str') -> 'list of str':
+								courseNames: 'list of str', courseCodes: 'list of str') -> None:
 	"""
 	Writes website data for the courses specified by arguments to files corresponding to course names.
-	Returns file names.
-	The files will be text files with the name corresponding to the lowercased course name without spaces.
+	Also writes course file names to save file specified by _COURSENAMES_SAVEFILE_NAME.
+	The course files will be text files with the name corresponding to the lowercased course name without spaces.
 	All list arguments should have same length and have corresponding elements.
 	Assumes all courses in same term and year.
 	"""
 	fileNames = [_getFileName(name) for name in courseNames]
 	for i in range(len(depts)):
 		_writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
-	return fileNames
+	with open(_COURSENAMES_SAVEFILE_NAME, 'w') as f:
+		for name in fileNames:
+			f.write(name + '\n')
 
 def _getTerm(term_str: str) -> 'constant from Term':
 	"""
