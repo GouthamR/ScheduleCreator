@@ -17,7 +17,8 @@ MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
 def runProgram():
     print("CREATED BY GOUTHAM RAJEEV")
     print("Copyright 2016 Goutham Rajeev.  All rights reserved.")
-    courseFileNames = writeCoursesWebDataToFiles(*getCoursesParamsFromFile(INPUT_FILE_NAME))
+    writeCoursesWebDataToFiles(*getCoursesParamsFromFile(INPUT_FILE_NAME))
+    courseFileNames = readSavedCourseFileNames()
     courses, connectedClassDict = fileInputCourses(courseFileNames)
     print("Starting schedule generation...")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
