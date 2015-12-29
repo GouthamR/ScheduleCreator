@@ -164,8 +164,8 @@ def readSavedCourseFileNames() -> "list of str":
 		return [line.strip() for line in f]
 
 def main():
-	fileNames = writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
-	print(fileNames)
+	writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
+	print(readSavedCourseFileNames())
 
 if __name__ == '__main__':
 	main()
