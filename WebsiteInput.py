@@ -156,6 +156,13 @@ def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'ye
 		coursesCodes.append(_getCourseCodes(course_str))
 	return term, year, depts, courseNames, coursesCodes
 
+def readSavedCourseFileNames() -> "list of str":
+	"""
+	Reads and returns course file names from save file, _COURSENAMES_SAVEFILE_NAME.
+	"""
+	with open(_COURSENAMES_SAVEFILE_NAME, 'r') as f:
+		return [line.strip() for line in f]
+
 def main():
 	fileNames = writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
 	print(fileNames)
