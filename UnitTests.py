@@ -225,7 +225,7 @@ class FileInputTests(unittest.TestCase):
         """
         Connected courses should be read in properly by readCourseFileToCourseData.
         """
-        courses, connectedClassDict = readCourseFileToCourseData("unit_test_input_2.txt", "")
+        courses, connectedClassDict = readCourseFileToCourseData("unit_test_files/unit_test_input_2.txt", "")
 
         self.assertEqual(len(courses), 2)
         self.assertEqual([i.code for i in courses[0].classes], [10010, 20010, 30010])
@@ -240,7 +240,7 @@ class FileInputTests(unittest.TestCase):
         """
         Non-connected courses should be read in properly by readCourseFileToCourseData.
         """
-        courses, connectedClassDict = readCourseFileToCourseData("unit_test_input_4.txt", "")
+        courses, connectedClassDict = readCourseFileToCourseData("unit_test_files/unit_test_input_4.txt", "")
 
         self.assertEqual(len(courses), 2)
         self.assertEqual([i.code for i in courses[0].classes], [10010, 20010])
@@ -251,7 +251,7 @@ class FileInputTests(unittest.TestCase):
         """
         fileInputRedZones should return correct values.
         """
-        zones = fileInputRedZones("unit_test_red_zones.txt")
+        zones = fileInputRedZones("unit_test_files/unit_test_red_zones.txt")
         self.assertEqual(len(zones), 3)
         self.assertEqual(zones[0].start, Time("1:00"))
         self.assertEqual(zones[0].end, Time("9:00"))
@@ -380,11 +380,11 @@ class WebsiteInputTests(unittest.TestCase):
         Particularly tests if returns correct course codes.
         """
         firstParams = (Term.WINTER, 2016, ["I&C SCI", "HUMAN", "I&C SCI"], ["ICS 32", "HUMAN 1B", "ICS 6B"])
-        self.assertEqual(getCoursesParamsFromFile("unit_test_web_input_1.txt"), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_web_input_3.txt"), firstParams + (["", "28100-28126", "49100-49130"], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_web_input_4.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_web_input_5.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_web_input_7.txt"), firstParams + (["", "", ""], ))
+        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_1.txt"), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
+        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_3.txt"), firstParams + (["", "28100-28126", "49100-49130"], ))
+        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_4.txt"), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_5.txt"), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_7.txt"), firstParams + (["", "", ""], ))
 
 if __name__ == "__main__":
     unittest.main()
