@@ -10,9 +10,9 @@ from ScheduleInput import *
 from ScheduleGUI import *
 from WebsiteInput import *
 
-INPUT_FILE_NAME = "web_input.txt"
-REDZONE_FILE_NAME = "red_zones.txt"
-MINUTESBETWEEN_FILE_NAME = "minutes_between_classes.txt"
+INPUT_FILE_NAME = "config/web_input.txt"
+REDZONE_FILE_NAME = "config/red_zones.txt"
+MINUTESBETWEEN_FILE_NAME = "config/minutes_between_classes.txt"
 
 def runProgram():
     print("CREATED BY GOUTHAM RAJEEV")
@@ -43,7 +43,7 @@ def main():
         runProgram()
     except Exception as e:
         stars = "*" * 80
-        print("\n{0}\nEXCEPTION. Check input files, especially column_names.txt. Details follow:\n{0}\n".format(stars))
+        print("\n{0}\nEXCEPTION. Check input files, especially config/column_names.txt. Details follow:\n{0}\n".format(stars))
         raise
 
 if __name__ == '__main__':

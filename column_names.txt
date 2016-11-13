@@ -1,1 +1,0 @@
-CCode	Typ	Sec	Unt	Instructor	Time	Place	Final	Max	Enr	WL	Req	Rstr	Status

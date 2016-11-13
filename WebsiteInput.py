@@ -1,7 +1,7 @@
 from urllib import parse, request
 import os.path
 
-_COURSENAMES_SAVEFILE_NAME = "coursefilenames.txt"
+_COURSENAMES_SAVEFILE_NAME = "config/coursefilenames.txt"
 
 class Term:
 	FALL   = "92"
@@ -49,7 +49,7 @@ def _getFileName(courseName: str) -> str:
 	Returns file name corresponding to courseName.
 	File name is the lowercased course name without spaces, with a .txt extension.
 	"""
-	return courseName.lower().replace(" ", "") + ".txt"
+	return 'config/' + courseName.lower().replace(" ", "") + ".txt"
 
 def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'list of str',
 								courseNames: 'list of str', courseCodes: 'list of str') -> None:
@@ -172,7 +172,7 @@ def savedCourseFileExists() -> bool:
 
 def main():
 	print(savedCourseFileExists())
-	writeCoursesWebDataToFiles(*getCoursesParamsFromFile("web_input.txt"))
+	writeCoursesWebDataToFiles(*getCoursesParamsFromFile("config/web_input.txt"))
 	print(readSavedCourseFileNames())
 
 if __name__ == '__main__':

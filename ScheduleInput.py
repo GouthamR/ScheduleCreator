@@ -11,7 +11,7 @@ def _getColumnNames(fileName: str) -> 'tuple of str':
     with open(fileName, 'r') as f:
         return tuple(f.read().strip().split())
 
-_COLUMN_NAMES = _getColumnNames("column_names.txt")
+_COLUMN_NAMES = _getColumnNames("config/column_names.txt")
 
 def _isInt(input: str) -> int:
     """ Checks if input str contains an integer. """
@@ -168,13 +168,16 @@ def readCourseFilesToCourseData(fileNames: 'list of str', courseNames: 'list of 
             connectedClassDict.update(currDict)
     return subCourses, connectedClassDict
 
+def _convertFileNamesToCourseNames(fileNames: 'list of str') -> 'list of str':
+    return [fName.replace(".txt", "").replace("config/", "") for fName in fileNames]
+
 def fileInputCourses(fileNames: 'list of str') -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
     """
     Reads course data from argument course files.
     Returns sub-courses and dict of connected class data.
     If no connected courses, returns sub-courses and None.
     """
-    courseNames = [fName.replace(".txt", "") for fName in fileNames]
+    courseNames = _convertFileNamesToCourseNames(fileNames)
     return readCourseFilesToCourseData(fileNames, courseNames)
 
 def fileInputRedZones(fileName):

@@ -325,10 +325,10 @@ class WebsiteInputTests(unittest.TestCase):
         """
         _getFileName should returns correct values.
         """
-        self.assertEqual(_getFileName("ICS 32"), "ics32.txt")
-        self.assertEqual(_getFileName("ICS32"), "ics32.txt")
-        self.assertEqual(_getFileName("IcS 32"), "ics32.txt")
-        self.assertEqual(_getFileName("ics32"), "ics32.txt")
+        self.assertEqual(_getFileName("ICS 32"), "config/ics32.txt")
+        self.assertEqual(_getFileName("ICS32"), "config/ics32.txt")
+        self.assertEqual(_getFileName("IcS 32"), "config/ics32.txt")
+        self.assertEqual(_getFileName("ics32"), "config/ics32.txt")
 
     def test_getTerm(self):
         """
