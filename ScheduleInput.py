@@ -99,13 +99,17 @@ def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list o
     classes = []
     prevType = None
     for tup in tuples:
-        currClass = Class(courseName, tup)
-        currType = currClass.type
-        if currType != prevType:
-            classes.append([currClass])
-            prevType = currType
+        try:
+            currClass = Class(courseName, tup)
+        except ValueError:
+            print("SKIPPING INVALID CLASS: {}".format(tup))
         else:
-            classes[-1].append(currClass)
+            currType = currClass.type
+            if currType != prevType:
+                classes.append([currClass])
+                prevType = currType
+            else:
+                classes[-1].append(currClass)
     return classes
 
 def _convertConnectedSplitClassesToCourseData(splitClasses: 'list of list of Class',
