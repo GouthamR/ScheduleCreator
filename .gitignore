@@ -1,4 +1,11 @@
 # Byte-compiled files
 __pycache__/
+
 # Distribution / packaging
 dist/
+
+# Course-specific config files
+config/*
+!config/minutes_between_classes.txt
+!config/red_zones.txt
+!config/web_input.txt
