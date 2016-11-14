@@ -4,7 +4,7 @@ __pycache__/
 # Distribution / packaging
 dist/
 
-# Course-specific config files
+# Course-specific config files, but still include web_input.txt
 config/*
 !config/minutes_between_classes.txt
 !config/red_zones.txt
