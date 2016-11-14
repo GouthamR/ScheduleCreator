@@ -43,7 +43,7 @@ def main():
         runProgram()
     except Exception as e:
         stars = "*" * 80
-        print("\n{0}\nEXCEPTION. Check input files, especially config/column_names.txt. Details follow:\n{0}\n".format(stars))
+        print("\n{0}\nEXCEPTION. Check config files. Details follow:\n{0}\n".format(stars))
         raise
 
 if __name__ == '__main__':
