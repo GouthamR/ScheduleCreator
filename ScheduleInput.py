@@ -2,16 +2,7 @@ from Course import *
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
 
-def _getColumnNames(fileName: str) -> 'tuple of str':
-    """
-    Reads and returns column names from argument file.
-    Assumes file in following format:
-    col1\tcol2\tcol3 ... etc ...
-    """
-    with open(fileName, 'r') as f:
-        return tuple(f.read().strip().split())
-
-_COLUMN_NAMES = _getColumnNames("config/column_names.txt")
+_HEADER_START = "CCode"
 
 def _isInt(input: str) -> int:
     """ Checks if input str contains an integer. """
@@ -23,10 +14,9 @@ def _isInt(input: str) -> int:
 
 def _isTableHeader(line: str) -> bool:
     """
-    Returns True if line is in format of course table header, with column
-    names (as in _COLUMN_NAMES).
+    Returns True if line is in format of course table header.
     """
-    return line.strip().startswith(_COLUMN_NAMES[0])
+    return line.strip().startswith(_HEADER_START)
 
 def _isClassFormat(line: str) -> bool:
     """
@@ -36,14 +26,15 @@ def _isClassFormat(line: str) -> bool:
 
 def _getColumnIndices(line: str) -> 'list of (tuple of int)':
     """
-    Returns list representing position of each column, from _COLUMN_NAMES, in line.
+    Returns list representing position of each column in line.
     Each element is a tuple of form (start index, end index), except for
     last element which is of form (start index, None).
     """
     column_indices = []
-    for i in range(len(_COLUMN_NAMES) - 1):
-        column_indices.append( (line.index(_COLUMN_NAMES[i]), line.index(_COLUMN_NAMES[i+1])) )
-    column_indices.append( (line.index(_COLUMN_NAMES[-1]), None) )
+    column_names = line.split()
+    for i in range(len(column_names) - 1):
+        column_indices.append( (line.index(column_names[i]), line.index(column_names[i+1])) )
+    column_indices.append( (line.index(column_names[-1]), None) )
     return column_indices
 
 def _getClassTuple(line: str, column_indices: 'list of (tuple of int)') -> 'tuple of str':
