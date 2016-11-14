@@ -1,3 +1,0 @@
-config/ics32.txt
-config/human1b.txt
-config/ics6b.txt
