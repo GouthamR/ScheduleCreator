@@ -4,7 +4,7 @@ from Schedule import *
 from ScheduleInput import *
 from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
 from WebsiteInput import *
-from WebsiteInput import _getFileName, Term, _getTerm, _getDept, _getCourseName, _getCourseCodes
+from WebsiteInput import _getFileName, Term, _getTerm, _getDept, _getCourseName, _getCourseCodes, _parseCoursesParamsFromConfigFile
 class ClassTests(unittest.TestCase):
 
     def setUp(self):
@@ -376,15 +376,15 @@ class WebsiteInputTests(unittest.TestCase):
 
     def test_parseCoursesParamsFromConfigFile(self):
         """
-        parseCoursesParamsFromConfigFile should return correct values.
+        _parseCoursesParamsFromConfigFile should return correct values.
         Particularly tests if returns correct course codes.
         """
         firstParams = (Term.WINTER, 2016, ["I&C SCI", "HUMAN", "I&C SCI"], ["ICS 32", "HUMAN 1B", "ICS 6B"])
-        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_1.txt"), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_3.txt"), firstParams + (["", "28100-28126", "49100-49130"], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_4.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_5.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_7.txt"), firstParams + (["", "", ""], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_1.txt"), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_3.txt"), firstParams + (["", "28100-28126", "49100-49130"], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_4.txt"), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_5.txt"), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_7.txt"), firstParams + (["", "", ""], ))
 
 if __name__ == "__main__":
     unittest.main()
