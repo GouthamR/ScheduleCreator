@@ -374,17 +374,17 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n   ")
         self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n")
 
-    def test_getCoursesParamsFromFile(self):
+    def test_parseCoursesParamsFromConfigFile(self):
         """
-        getCoursesParamsFromFile should return correct values.
+        parseCoursesParamsFromConfigFile should return correct values.
         Particularly tests if returns correct course codes.
         """
         firstParams = (Term.WINTER, 2016, ["I&C SCI", "HUMAN", "I&C SCI"], ["ICS 32", "HUMAN 1B", "ICS 6B"])
-        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_1.txt"), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_3.txt"), firstParams + (["", "28100-28126", "49100-49130"], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_4.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_5.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(getCoursesParamsFromFile("unit_test_files/unit_test_web_input_7.txt"), firstParams + (["", "", ""], ))
+        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_1.txt"), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
+        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_3.txt"), firstParams + (["", "28100-28126", "49100-49130"], ))
+        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_4.txt"), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_5.txt"), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_7.txt"), firstParams + (["", "", ""], ))
 
 if __name__ == "__main__":
     unittest.main()

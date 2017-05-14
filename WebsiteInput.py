@@ -51,10 +51,11 @@ def _getFileName(courseName: str) -> str:
 	"""
 	return 'config/' + courseName.lower().replace(" ", "") + ".txt"
 
-def writeCoursesWebDataToFiles(term: 'constant from Term', year: int, depts: 'list of str',
-								courseNames: 'list of str', courseCodes: 'list of str') -> None:
+def scrapeCoursesDataFromWebsiteAndSaveToFiles(term: 'constant from Term', year: int, depts: 'list of str',
+												courseNames: 'list of str', courseCodes: 'list of str') -> None:
 	"""
-	Writes website data for the courses specified by arguments to files corresponding to course names.
+	Scrapes website data for the courses specified by arguments.
+	Then saves the data to files corresponding to course names.
 	Also writes course file names to save file specified by _COURSENAMES_SAVEFILE_NAME.
 	The course files will be text files with the name corresponding to the lowercased course name without spaces.
 	All list arguments should have same length and have corresponding elements.
@@ -122,7 +123,7 @@ def _getCourseCodes(course_str: str) -> str:
 	else: # has 2 elements, assuming numElements >= 2
 		return ""
 
-def getCoursesParamsFromFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
+def parseCoursesParamsFromConfigFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
 													'courseNames = list of str', 'courseCodes = list of str'):
 	"""
 	Parses argument file for and then returns course parameters.
@@ -172,7 +173,7 @@ def savedCourseFileExists() -> bool:
 
 def main():
 	print(savedCourseFileExists())
-	writeCoursesWebDataToFiles(*getCoursesParamsFromFile("config/web_input.txt"))
+	scrapeCoursesDataFromWebsiteAndSaveToFiles(*parseCoursesParamsFromConfigFile("config/web_input.txt"))
 	print(readSavedCourseFileNames())
 
 if __name__ == '__main__':
