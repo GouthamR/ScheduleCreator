@@ -15,7 +15,7 @@ from WebsiteInput import *
 INPUT_FILE = pathlib.Path("config/web_input.txt")
 REDZONE_FILE_NAME = "config/red_zones.txt"
 MINUTESBETWEEN_FILE_NAME = "config/minutes_between_classes.txt"
-COURSEFILES_DIR = pathlib.Path("config/")
+COURSEFILES_DIR = pathlib.Path("coursefiles/")
 
 def runProgram():
     print("CREATED BY GOUTHAM RAJEEV")
