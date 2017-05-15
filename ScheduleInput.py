@@ -1,4 +1,5 @@
 from Course import *
+from CourseDataParser import *
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
 

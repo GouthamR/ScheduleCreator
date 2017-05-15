@@ -1,5 +1,6 @@
 import unittest
 from Course import *
+from CourseDataParser import *
 from Schedule import *
 from ScheduleInput import *
 from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
