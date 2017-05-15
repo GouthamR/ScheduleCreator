@@ -1,5 +1,5 @@
 from Course import *
-from CourseDataParser import *
+import CourseDataParser
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
 
@@ -92,7 +92,7 @@ def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list o
     prevType = None
     for tup in tuples:
         try:
-            currClass = ClassDataParser.toClass(courseName, tup)
+            currClass = CourseDataParser.toClass(courseName, tup)
         except ValueError:
             print("SKIPPING INVALID CLASS: {}".format(tup))
         else:
@@ -176,7 +176,7 @@ def fileInputRedZones(fileName):
     redZones = []
     with open(fileName, 'r') as f:
         for line in f:
-            redZones.append(ClassTimeDataParser.toClassTime(line.strip()))
+            redZones.append(CourseDataParser.toClassTime(line.strip()))
     return redZones
 
 def fileInputMinutesBetween(fileName):
