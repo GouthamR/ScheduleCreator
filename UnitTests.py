@@ -25,29 +25,29 @@ class ClassTests(unittest.TestCase):
         class1 = Class("", self._classRawTuple1)
         self.assertEqual(class1.code, 36610)
         self.assertEqual(class1.days.days, [0, 2, 4])
-        self.assertEqual(class1.classTime.start, Time("8:00"))
-        self.assertEqual(class1.classTime.end, Time("9:50"))
+        self.assertEqual(class1.classTime.start, TimeDataParser.toTime("8:00"))
+        self.assertEqual(class1.classTime.end, TimeDataParser.toTime("9:50"))
         self.assertEqual(class1.type, "LAB")
 
 class TimeTests(unittest.TestCase):
 
-    def test_time_hour_construction(self):
+    def test_time_hour_parse(self):
         """
-        Time should correctly interpret hour from input.
+        TimeDataParser should correctly interpret hour from input.
         """
-        self.assertEqual(Time("11:00").hour, 11)
-        self.assertEqual(Time("12:00p").hour, 12)
-        self.assertEqual(Time("3:00p").hour, 15)
-        self.assertEqual(Time("12:00").hour, 0)
+        self.assertEqual(TimeDataParser.toTime("11:00").hour, 11)
+        self.assertEqual(TimeDataParser.toTime("12:00p").hour, 12)
+        self.assertEqual(TimeDataParser.toTime("3:00p").hour, 15)
+        self.assertEqual(TimeDataParser.toTime("12:00").hour, 0)
 
     def test_time_comparison(self):
         """
         Time should correctly compare with other Times.
         """
-        time1 = Time("8:00")
-        time2 = Time("9:00")
-        time3 = Time("9:00p")
-        time4 = Time("10:00p")
+        time1 = Time(8, 0)
+        time2 = Time(9, 0)
+        time3 = Time(21, 0)
+        time4 = Time(22, 0)
         self.assertTrue(time1 < time2)
         self.assertTrue(time1 < time3)
         self.assertTrue(time2 < time3)
@@ -100,18 +100,18 @@ class ClassTimeTests(unittest.TestCase):
         raw7 = "10:00- 12:01"
         raw8 = "10:00- 1:01"
 
-        self.assertEqual(ClassTime(raw1).start, Time("10:00"))
-        self.assertEqual(ClassTime(raw1).end, Time("11:59"))
-        self.assertEqual(ClassTime(raw2).start, Time("10:00"))
-        self.assertEqual(ClassTime(raw2).end, Time("12:59p"))
-        self.assertEqual(ClassTime(raw3).start, Time("12:01p"))
-        self.assertEqual(ClassTime(raw3).end, Time("12:59p"))
-        self.assertEqual(ClassTime(raw4).start, Time("12:01p"))
-        self.assertEqual(ClassTime(raw4).end, Time("1:00p"))
-        self.assertEqual(ClassTime(raw5).start, Time("1:00p"))
-        self.assertEqual(ClassTime(raw5).end, Time("10:00p"))
-        self.assertEqual(ClassTime(raw6).start, Time("10:00p"))
-        self.assertEqual(ClassTime(raw6).end, Time("11:59p"))
+        self.assertEqual(ClassTime(raw1).start, TimeDataParser.toTime("10:00"))
+        self.assertEqual(ClassTime(raw1).end, TimeDataParser.toTime("11:59"))
+        self.assertEqual(ClassTime(raw2).start, TimeDataParser.toTime("10:00"))
+        self.assertEqual(ClassTime(raw2).end, TimeDataParser.toTime("12:59p"))
+        self.assertEqual(ClassTime(raw3).start, TimeDataParser.toTime("12:01p"))
+        self.assertEqual(ClassTime(raw3).end, TimeDataParser.toTime("12:59p"))
+        self.assertEqual(ClassTime(raw4).start, TimeDataParser.toTime("12:01p"))
+        self.assertEqual(ClassTime(raw4).end, TimeDataParser.toTime("1:00p"))
+        self.assertEqual(ClassTime(raw5).start, TimeDataParser.toTime("1:00p"))
+        self.assertEqual(ClassTime(raw5).end, TimeDataParser.toTime("10:00p"))
+        self.assertEqual(ClassTime(raw6).start, TimeDataParser.toTime("10:00p"))
+        self.assertEqual(ClassTime(raw6).end, TimeDataParser.toTime("11:59p"))
         self.assertRaises(RuntimeError, ClassTime, raw7)
         self.assertRaises(RuntimeError, ClassTime, raw8)
 
@@ -253,12 +253,12 @@ class FileInputTests(unittest.TestCase):
         """
         zones = fileInputRedZones("unit_test_files/unit_test_red_zones.txt")
         self.assertEqual(len(zones), 3)
-        self.assertEqual(zones[0].start, Time("1:00"))
-        self.assertEqual(zones[0].end, Time("9:00"))
-        self.assertEqual(zones[1].start, Time("3:00p"))
-        self.assertEqual(zones[1].end, Time("5:00p"))
-        self.assertEqual(zones[2].start, Time("10:00p"))
-        self.assertEqual(zones[2].end, Time("11:00p"))
+        self.assertEqual(zones[0].start, TimeDataParser.toTime("1:00"))
+        self.assertEqual(zones[0].end, TimeDataParser.toTime("9:00"))
+        self.assertEqual(zones[1].start, TimeDataParser.toTime("3:00p"))
+        self.assertEqual(zones[1].end, TimeDataParser.toTime("5:00p"))
+        self.assertEqual(zones[2].start, TimeDataParser.toTime("10:00p"))
+        self.assertEqual(zones[2].end, TimeDataParser.toTime("11:00p"))
 
 class ScheduleInputFunctionTests(unittest.TestCase):
 

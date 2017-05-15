@@ -1,13 +1,16 @@
+# Note: created my own Time and ClassTime classes for the learning experience.
+
 class Time:
-    def __init__(self, rawData: str) -> None:
+    def __init__(self, hour: int, minute: int):
         """
-        Initializes fields.
+        hour parameter should be int on interval [0, 23].
+        minute parameter should be int on interval [0, 50].
         """
-        timeParser = TimeDataParser(rawData)
-        self.hour, self.minute = timeParser.hour, timeParser.minute
-    def getTotalMinutes(self):
+        self.hour = hour
+        self.minute = minute
+    def getTotalMinutes(self) -> int:
         return (self.hour * 60 + self.minute)
-    def getFormatted(self):
+    def getFormatted(self) -> str:
         hour_12 = None
         if self.hour <= 12:
             hour_12 = self.hour
@@ -30,10 +33,10 @@ class Time:
 
 class TimeDataParser:
     """
-    Parses raw input data for a Time class and stores corresponding Time
-    data (hour, minute, etc.) as fields.
+    Parses raw input data to initialize Time objects.
     """
-    def _getHourFromInput(rawHour: str, isPm: bool):
+    @staticmethod
+    def _getHourFromInput(rawHour: str, isPm: bool) -> int:
         """
         Returns hour corresponding to rawHour and if isPm as integer on [0, 24).
         """
@@ -48,13 +51,15 @@ class TimeDataParser:
                 return 0
             else:
                 return rawHourInt
-    def __init__(self, rawData: str) -> None:
+    @staticmethod
+    def toTime(rawData: str) -> Time:
         """
-        Initializes fields.
+        rawData is raw input time string.
         """
         rawHour, rawMinute = rawData.split(":")
-        self.hour = TimeDataParser._getHourFromInput(rawHour, rawMinute.endswith("p"))
-        self.minute = int(rawMinute[:2]) #cuts off p if necessary
+        hour = TimeDataParser._getHourFromInput(rawHour, rawMinute.endswith("p"))
+        minute = int(rawMinute[:2]) #cuts off p if necessary
+        return Time(hour, minute)
 
 class Days:
     def __init__(self, rawData: str) -> None:
@@ -125,12 +130,12 @@ class ClassTimeDataParser:
         Returns start and end times corresponding to parameters.
         Raises error if times are invalid.
         """
-        end = Time(rawSplit[1])
+        end = TimeDataParser.toTime(rawSplit[1])
         timeArgStrs = (rawSplit[0] + "p", rawSplit[0])
 
-        start = Time(timeArgStrs[0]) if endIsPM else Time(timeArgStrs[1])
+        start = TimeDataParser.toTime(timeArgStrs[0]) if endIsPM else TimeDataParser.toTime(timeArgStrs[1])
         if start > end:
-            start = Time(timeArgStrs[1]) if endIsPM else Time(timeArgStrs[0])
+            start = TimeDataParser.toTime(timeArgStrs[1]) if endIsPM else TimeDataParser.toTime(timeArgStrs[0])
             if start > end:
                 raise RuntimeError(ClassTimeDataParser._getDayCrossErrorMessage(rawSplit))
 
