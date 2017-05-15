@@ -62,9 +62,13 @@ class TimeDataParser:
         return Time(hour, minute)
 
 class Days:
-    def __init__(self, rawData: str) -> None:
-        self.days = DaysDataParser(rawData).days
-    def overlapsWith(self, otherDays):
+    def __init__(self, days: [int]) -> None:
+        """
+        days is a list of int where each int corresponds to a day as follows:
+        Monday: 0, Tuesday: 1, ..., Friday: 4
+        """
+        self.days = days
+    def overlapsWith(self, otherDays) -> bool:
         for day in self.days:
             for otherDay in otherDays.days:
                 if day == otherDay:
@@ -79,23 +83,22 @@ class DaysDataParser:
     data as field.
     """
 
-    TUESDAY_REPLACEMENT = 't'
-    THURSDAY_REPLACEMENT = 'T'
-    DAYS_MAP = { 'M': 0,
-                TUESDAY_REPLACEMENT: 1,
+    _TUESDAY_REPLACEMENT = 't'
+    _THURSDAY_REPLACEMENT = 'T'
+    _DAYS_MAP = { 'M': 0,
+                _TUESDAY_REPLACEMENT: 1,
                 'W': 2,
-                THURSDAY_REPLACEMENT : 3,
+                _THURSDAY_REPLACEMENT : 3,
                 'F': 4 }
 
-    def __init__(self, rawData: str) -> None:
-        """
-        Initializes fields.
-        """
-        #Removes spaces, then converts Tuesday and Thursday to corresponding one-character strings to correspond with DAYS_MAP:
+    @staticmethod
+    def toDays(rawData: str) -> Days:
+        #Removes spaces, then converts Tuesday and Thursday to corresponding one-character strings to correspond with _DAYS_MAP:
         replaced_raw_data = rawData.replace(" ", "") \
-                                    .replace("Tu", DaysDataParser.TUESDAY_REPLACEMENT) \
-                                    .replace("Th", DaysDataParser.THURSDAY_REPLACEMENT)
-        self.days = [ DaysDataParser.DAYS_MAP[char] for char in replaced_raw_data ]
+                                    .replace("Tu", DaysDataParser._TUESDAY_REPLACEMENT) \
+                                    .replace("Th", DaysDataParser._THURSDAY_REPLACEMENT)
+        days_nums = [ DaysDataParser._DAYS_MAP[char] for char in replaced_raw_data ]
+        return Days(days_nums)
 
 class ClassTime:
     def __init__(self, rawData: str):
@@ -184,7 +187,7 @@ class ClassDataParser:
         self.type = data[ClassDataParser.TYPE_INDEX]
         day_time = data[ClassDataParser.DAY_TIME_INDEX]
         day_end_index = day_time.index(' ')
-        self.days = Days(day_time[0:day_end_index])
+        self.days = DaysDataParser.toDays(day_time[0:day_end_index])
         self.classTime = ClassTime(day_time[day_end_index:])
 
 class Course:
