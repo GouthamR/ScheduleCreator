@@ -91,7 +91,7 @@ def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list o
     prevType = None
     for tup in tuples:
         try:
-            currClass = Class(courseName, tup)
+            currClass = ClassDataParser.toClass(courseName, tup)
         except ValueError:
             print("SKIPPING INVALID CLASS: {}".format(tup))
         else:

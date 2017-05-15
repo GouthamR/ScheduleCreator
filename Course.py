@@ -1,4 +1,4 @@
-# Note: created my own Time and ClassTime classes for the learning experience.
+# Note: I created my own Time class for the learning experience.
 
 class Time:
     def __init__(self, hour: int, minute: int):
@@ -158,13 +158,16 @@ class ClassTimeDataParser:
 
 class Class:
     """
-    Note: name = name of course, e.g. ICS 31. Does NOT include course type.
+    name: name of course, e.g. ICS 31. Does NOT include course type.
+    code: integer class code, e.g. 50713
+    type_param: string class type, e.g. "lecture", "discussion"
     """
-    def __init__(self, name: str, rawData: 'tuple of str') -> None:
+    def __init__(self, name: str, code: int, days: Days, classTime: ClassTime, type_param: str):
         self.name = name
-        parsed = ClassDataParser(rawData)
-        self.code, self.days, self.classTime, self.type = \
-            parsed.code, parsed.days, parsed.classTime, parsed.type
+        self.code = code
+        self.days = days
+        self.classTime = classTime
+        self.type = type_param
     def getFullName(self) -> str:
         """
         Returns full name of class, i.e. name and type.
@@ -174,28 +177,26 @@ class Class:
         return "Class: %s, %s" % (self.days, self.classTime)
 
 class ClassDataParser:
-    """
-    Parses raw input data for a Class class and stores corresponding Class
-    data (days, name, etc.) as fields.
-    """
 
-    CODE_INDEX = 0
-    TYPE_INDEX = 1
-    DAY_TIME_INDEX = 5
+    _CODE_INDEX = 0
+    _TYPE_INDEX = 1
+    _DAY_TIME_INDEX = 5
 
-    def __init__(self, data: 'tuple of str') -> None:
+    @staticmethod
+    def toClass(name: str, data: 'tuple of str') -> Class:
         """
-        Initializes fields based on rawData.
+        data: a tuple of raw data string fields
         """
-        self.code = int(data[ClassDataParser.CODE_INDEX])
-        self.type = data[ClassDataParser.TYPE_INDEX]
-        day_time = data[ClassDataParser.DAY_TIME_INDEX]
+        code = int(data[ClassDataParser._CODE_INDEX])
+        type_param = data[ClassDataParser._TYPE_INDEX]
+        day_time = data[ClassDataParser._DAY_TIME_INDEX]
         day_end_index = day_time.index(' ')
-        self.days = DaysDataParser.toDays(day_time[0:day_end_index])
-        self.classTime = ClassTimeDataParser.toClassTime(day_time[day_end_index:])
+        days = DaysDataParser.toDays(day_time[0:day_end_index])
+        classTime = ClassTimeDataParser.toClassTime(day_time[day_end_index:])
+        return Class(name, code, days, classTime, type_param)
 
 class Course:
-    def __init__(self, name: str, classes: 'list of Class') -> None:
+    def __init__(self, name: str, classes: [Class]) -> None:
         """
         name:       the name of the course.
         classes:    this Course's classes.
