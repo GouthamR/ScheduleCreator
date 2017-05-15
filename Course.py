@@ -101,9 +101,9 @@ class DaysDataParser:
         return Days(days_nums)
 
 class ClassTime:
-    def __init__(self, rawData: str):
-        data = ClassTimeDataParser(rawData)
-        self.start, self.end = data.start, data.end
+    def __init__(self, start: Time, end: Time):
+        self.start = start
+        self.end = end
     def __str__(self):
         return "ClassTime: %s, %s" % (self.start, self.end)
     def overlapsWith(self, otherTime):
@@ -120,14 +120,16 @@ class ClassTimeDataParser:
     data (start, end, etc.) as fields.
     """
 
-    END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
+    _END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
 
+    @staticmethod
     def _getDayCrossErrorMessage(rawSplit: 'list of str') -> str:
         """
         Returns error message mentioning rawSplit data.
         """
-        return "%s: %s" % (ClassTimeDataParser.END_OF_DAY_ERROR_MESSAGE, rawSplit)
+        return "%s: %s" % (ClassTimeDataParser._END_OF_DAY_ERROR_MESSAGE, rawSplit)
 
+    @staticmethod
     def _calculateTimes(rawSplit: 'list of str', endIsPM: bool) -> (Time, Time):
         """
         Returns start and end times corresponding to parameters.
@@ -144,13 +146,15 @@ class ClassTimeDataParser:
 
         return start, end
 
-    def __init__(self, rawData: str) -> None:
+    @staticmethod
+    def toClassTime(rawData: str) -> ClassTime:
         """
         Initializes fields based on rawData.
         """
         rawSplit = rawData.replace(" ", "").split("-") # remove spaces, then split
         endIsPM = rawSplit[1].endswith('p')
-        self.start, self.end = ClassTimeDataParser._calculateTimes(rawSplit, endIsPM)
+        start, end = ClassTimeDataParser._calculateTimes(rawSplit, endIsPM)
+        return ClassTime(start, end)
 
 class Class:
     """
@@ -188,7 +192,7 @@ class ClassDataParser:
         day_time = data[ClassDataParser.DAY_TIME_INDEX]
         day_end_index = day_time.index(' ')
         self.days = DaysDataParser.toDays(day_time[0:day_end_index])
-        self.classTime = ClassTime(day_time[day_end_index:])
+        self.classTime = ClassTimeDataParser.toClassTime(day_time[day_end_index:])
 
 class Course:
     def __init__(self, name: str, classes: 'list of Class') -> None:

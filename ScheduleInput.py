@@ -175,7 +175,7 @@ def fileInputRedZones(fileName):
     redZones = []
     with open(fileName, 'r') as f:
         for line in f:
-            redZones.append(ClassTime(line.strip()))
+            redZones.append(ClassTimeDataParser.toClassTime(line.strip()))
     return redZones
 
 def fileInputMinutesBetween(fileName):

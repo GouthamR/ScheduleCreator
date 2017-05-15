@@ -70,24 +70,24 @@ class ClassTimeTests(unittest.TestCase):
         classTimeRawStr3 = "7:30- 8:30" #overlaps with beginning of 1
         classTimeRawStr4 = "7:30- 7:50" #does not overlap with 1 - before beginning
         classTimeRawStr5 = "9:00- 9:30" #does not overlap with 1 - after end
-        self.assertTrue(ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr1)))
-        self.assertTrue(ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr2)))
-        self.assertTrue(ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr3)))
-        self.assertFalse(ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr4)))
-        self.assertFalse(ClassTime(classTimeRawStr1).overlapsWith(ClassTime(classTimeRawStr5)))
+        self.assertTrue(ClassTimeDataParser.toClassTime(classTimeRawStr1).overlapsWith(ClassTimeDataParser.toClassTime(classTimeRawStr1)))
+        self.assertTrue(ClassTimeDataParser.toClassTime(classTimeRawStr1).overlapsWith(ClassTimeDataParser.toClassTime(classTimeRawStr2)))
+        self.assertTrue(ClassTimeDataParser.toClassTime(classTimeRawStr1).overlapsWith(ClassTimeDataParser.toClassTime(classTimeRawStr3)))
+        self.assertFalse(ClassTimeDataParser.toClassTime(classTimeRawStr1).overlapsWith(ClassTimeDataParser.toClassTime(classTimeRawStr4)))
+        self.assertFalse(ClassTimeDataParser.toClassTime(classTimeRawStr1).overlapsWith(ClassTimeDataParser.toClassTime(classTimeRawStr5)))
 
     def test_isWithin(self):
         """
         ClassTime should correctly check isWithin with other ClassTimes.
         """
-        self.assertTrue(ClassTime("8:00- 8:50").isWithin(ClassTime("7:50- 9:00")))
-        self.assertFalse(ClassTime("8:00- 8:50").isWithin(ClassTime("8:10- 8:40")))
-        self.assertFalse(ClassTime("8:00- 8:50").isWithin(ClassTime("7:50- 8:40")))
-        self.assertFalse(ClassTime("8:00- 8:50").isWithin(ClassTime("8:10- 9:00")))
+        self.assertTrue(ClassTimeDataParser.toClassTime("8:00- 8:50").isWithin(ClassTimeDataParser.toClassTime("7:50- 9:00")))
+        self.assertFalse(ClassTimeDataParser.toClassTime("8:00- 8:50").isWithin(ClassTimeDataParser.toClassTime("8:10- 8:40")))
+        self.assertFalse(ClassTimeDataParser.toClassTime("8:00- 8:50").isWithin(ClassTimeDataParser.toClassTime("7:50- 8:40")))
+        self.assertFalse(ClassTimeDataParser.toClassTime("8:00- 8:50").isWithin(ClassTimeDataParser.toClassTime("8:10- 9:00")))
 
     def test_ampm_construction(self):
         """
-        ClassTime should correctly infer am/pm from constructor argument,
+        ClassTimeDataParser should correctly infer am/pm from constructor argument,
         or raise RuntimeError if invalid argument.
         """
         # Remember that 12:00p is noon, not midnight
@@ -100,20 +100,20 @@ class ClassTimeTests(unittest.TestCase):
         raw7 = "10:00- 12:01"
         raw8 = "10:00- 1:01"
 
-        self.assertEqual(ClassTime(raw1).start, TimeDataParser.toTime("10:00"))
-        self.assertEqual(ClassTime(raw1).end, TimeDataParser.toTime("11:59"))
-        self.assertEqual(ClassTime(raw2).start, TimeDataParser.toTime("10:00"))
-        self.assertEqual(ClassTime(raw2).end, TimeDataParser.toTime("12:59p"))
-        self.assertEqual(ClassTime(raw3).start, TimeDataParser.toTime("12:01p"))
-        self.assertEqual(ClassTime(raw3).end, TimeDataParser.toTime("12:59p"))
-        self.assertEqual(ClassTime(raw4).start, TimeDataParser.toTime("12:01p"))
-        self.assertEqual(ClassTime(raw4).end, TimeDataParser.toTime("1:00p"))
-        self.assertEqual(ClassTime(raw5).start, TimeDataParser.toTime("1:00p"))
-        self.assertEqual(ClassTime(raw5).end, TimeDataParser.toTime("10:00p"))
-        self.assertEqual(ClassTime(raw6).start, TimeDataParser.toTime("10:00p"))
-        self.assertEqual(ClassTime(raw6).end, TimeDataParser.toTime("11:59p"))
-        self.assertRaises(RuntimeError, ClassTime, raw7)
-        self.assertRaises(RuntimeError, ClassTime, raw8)
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw1).start, TimeDataParser.toTime("10:00"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw1).end, TimeDataParser.toTime("11:59"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw2).start, TimeDataParser.toTime("10:00"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw2).end, TimeDataParser.toTime("12:59p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw3).start, TimeDataParser.toTime("12:01p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw3).end, TimeDataParser.toTime("12:59p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw4).start, TimeDataParser.toTime("12:01p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw4).end, TimeDataParser.toTime("1:00p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw5).start, TimeDataParser.toTime("1:00p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw5).end, TimeDataParser.toTime("10:00p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw6).start, TimeDataParser.toTime("10:00p"))
+        self.assertEqual(ClassTimeDataParser.toClassTime(raw6).end, TimeDataParser.toTime("11:59p"))
+        self.assertRaises(RuntimeError, ClassTimeDataParser.toClassTime, raw7)
+        self.assertRaises(RuntimeError, ClassTimeDataParser.toClassTime, raw8)
 
 class CourseTests(unittest.TestCase):
 
@@ -214,7 +214,7 @@ class ScheduleTests(unittest.TestCase):
         schedule1 = Schedule([c1_1, c1_2, c1_3, c1_4, c1_5])
         schedule2 = Schedule([c2_1, c2_2, c2_3, c2_4, c2_5])
         schedules = [schedule1, schedule2]
-        redZones = [ClassTime("1:00- 9:00"), ClassTime("3:00- 5:00p"), ClassTime("10:00- 11:00p")]
+        redZones = [ClassTimeDataParser.toClassTime("1:00- 9:00"), ClassTimeDataParser.toClassTime("3:00- 5:00p"), ClassTimeDataParser.toClassTime("10:00- 11:00p")]
 
         self.assertEqual(schedule1.calculateRedZoneScore(redZones), -6)
         self.assertEqual(schedule2.calculateRedZoneScore(redZones), -4)
