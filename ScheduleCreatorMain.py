@@ -4,28 +4,30 @@
 ##ScheduleCreator
 ##Generates schedules.
 
+import pathlib
+
 from Course import *
 from Schedule import *
 from ScheduleInput import *
 from ScheduleGUI import *
 from WebsiteInput import *
 
-INPUT_FILE_NAME = "config/web_input.txt"
+INPUT_FILE = pathlib.Path("config/web_input.txt")
 REDZONE_FILE_NAME = "config/red_zones.txt"
 MINUTESBETWEEN_FILE_NAME = "config/minutes_between_classes.txt"
-COURSEFILENAMES_FILE_NAME = "config/coursefilenames.txt"
+COURSEFILES_DIR = pathlib.Path("config/")
 
 def runProgram():
     print("CREATED BY GOUTHAM RAJEEV")
     print("Copyright 2016 Goutham Rajeev.  All rights reserved.")
-    websiteInput = WebsiteInput(INPUT_FILE_NAME, COURSEFILENAMES_FILE_NAME)
-    if websiteInput.courseFilenamesConfigFileExists():
+    websiteInput = WebsiteInput(INPUT_FILE, COURSEFILES_DIR)
+    if websiteInput.savedFilesExist():
         print("Loading from saved course file...")
     else:
         print("Loading from website...")
         websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles()
-    courseFileNames = websiteInput.readCourseFilenamesFromConfigFile()
-    courses, connectedClassDict = fileInputCourses(courseFileNames)
+    courseFiles = websiteInput.getSavedCourseFiles()
+    courses, connectedClassDict = fileInputCourses(courseFiles)
     print("Starting schedule generation...")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
     redZones = fileInputRedZones(REDZONE_FILE_NAME)

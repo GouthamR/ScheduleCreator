@@ -1,0 +1,89 @@
+			UC Irvine Office of the Registrar
+		      Schedule of Classes    Sunday, May 14, 2017
+
+Search Criteria:
+    Department: BIO SCI
+    Course Number Range: BIO SCI H90
+    Exclude cancelled courses
+
+
+Fall Quarter, 2017      Registration for term begins on Monday, May 22, 2017
+
+
+   #########################################################################
+   ###                                                                   ###
+   ###         Francisco J. Ayala School of Biological Sciences          ###
+   ###                                                                   ###
+   ###  DROP: The deadline to drop courses in the Francisco J. Ayala     ###
+   ###  School of Biological Sciences is the end of Week 2 by 5:00PM     ###
+   ###  with the exception of Upper-Division Labs, Bio Sci 100, and Bio  ###
+   ###  Sci D170 that have a drop deadline of WEDNESDAY SEPTEMBER 27th   ###
+   ###  at 5 PM. Drops can be made in WebReg.                            ###
+   ###                                                                   ###
+   ###  CHANGE: The deadline to change grade option or variable units is ###
+   ###  the end of Week 2 by 5:00PM. Changes can be made in WebReg.      ###
+   ###                                                                   ###
+   ###  ALL BIOLOGICAL SCIENCE COURSES ARE RESTRICTED UNTIL September    ###
+   ###  5th AT NOON.                                                     ###
+   ###                                                                   ###
+   ###  ADD: The deadline to add courses in the Francisco J. Ayala       ###
+   ###  School of Biological Sciences is the end of Week 2 by 5:00PM.    ###
+   ###  Adds can be made in WebReg. Students are responsible for all     ###
+   ###  materials from the start of the term. Failure to take any exams  ###
+   ###  or quizzes, even those given before you have added the course,   ###
+   ###  will result in a zero score for each quiz or exam.               ###
+   ###                                                                   ###
+   #########################################################################
+
+       _________________________________________________________________
+
+                             Biological Sciences
+
+        REPEATS AND MAJOR RESTRICTIONS: Students who wish to enroll to
+        repeat a course will be restricted from enrolling until 12 Noon
+        on September 5th.
+
+        PREREQUISITES: Students who have completed the equivalent of the
+        prerequisites at another institution may become eligible to
+        enroll in a particular UCI Bio Sci course by completing the form
+        on the Bio Sci Student Affairs website:
+        http://www.bio.uci.edu/students/undergraduates/course-pre-requisite-clearance-form/
+        a minimum of two days before their window opens. Once students
+        have had their prerequisites cleared they will remain eligible
+        for one quarter, with the exception of Bio 199 (clearance
+        remains for the academic year).
+
+        LAB COURSES:
+
+        BIO LAB ENROLLMENT POLICY!!!!
+
+        THERE WILL BE NO DROPS OF ANY BIO SCI UPPER-DIVISION LABS and
+        Bio Sci 100 AFTER September 27th AT 5PM.  This deadline is
+        earlier than the Francisco J. Ayala School of Biological
+        Sciences Week 2 deadline. 
+
+        MINIMUM GRADE POLICY!!!!!
+
+        Beginning Fall 2016, students must earn a grade of "D-" or above
+        to advance to the next Bio core course. For example, you must
+        earn a "D-" or better grade in Bio Sci 94 to move onto Bio Sci
+        97, 98 and 99.
+       _________________________________________________________________
+
+Bio Sci  H90       IDIOM/PRACTICE SCI
+    CCode Typ Sec Unt Instructor Time              Place  Final                    Max Enr     WL Req Nor Rstr Status 
+    05183 LEC A   4   ROSE, M.   TuTh  2:00- 3:20p SH 134 Thu, Dec 14, 1:30-3:30pm  97   0    n/a   0   0 A    OPEN   
+
+
+*** Total Classes Displayed: 1
+    The column headings above are defined at:
+	    https://www.reg.uci.edu/help/WebSoc-Columns.shtml
+    Course textbooks link:
+	    http://uci.bncollege.com
+    Building Abbreviations:
+	    http://www.reg.uci.edu/uci/rooms
+    Campus map:
+	    http://www.uci.edu/campusmap
+
+Restriction Codes from the 'Rst' column above:
+    A: Prerequisite required

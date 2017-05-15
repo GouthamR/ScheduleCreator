@@ -71,7 +71,7 @@ def _overlapRemovalETA(schedules):
     start = time.clock()
     for i in range(5):
         schedule = schedules[int(len(schedules)/2)]
-        if(not schedule.hasOverlaps()):
+        if not schedule.hasOverlaps():
             nonOverlappingSchedules.append(schedule)
     end = time.clock()
 
