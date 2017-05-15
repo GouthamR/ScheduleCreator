@@ -1,3 +1,5 @@
+import pathlib
+
 from Course import *
 import CourseDataParser
 
@@ -49,14 +51,14 @@ def _getClassTuple(line: str, column_indices: 'list of (tuple of int)') -> 'tupl
     new_class.append(line[column_indices[-1][0]:].strip())
     return tuple(new_class)
 
-def readCourseFileToTuples(fileName: str) -> 'list of (tuple of str)':
+def readCourseFileToTuples(courseFile: pathlib.Path) -> 'list of (tuple of str)':
     """
     Reads file for a course and returns list of tuples, with each tuple
     corresponding to each class in file.
     """
     tuples = []
     curr_column_indices = None
-    with open(fileName, 'r') as f:
+    with courseFile.open('r') as f:
         for line in f:
             if _isTableHeader(line):
                 curr_column_indices = _getColumnIndices(line)
@@ -126,14 +128,16 @@ def _convertConnectedSplitClassesToCourseData(splitClasses: 'list of list of Cla
     course2 = Course(courseName, course2Classes)
     return [course1, course2], connectedClassDict
 
-def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
+def readCourseFileToCourseData(courseFile: pathlib.Path) -> ([Course], 'dict of (courseNum:list of Class) OR None'):
     """
-    Reads course data from file.
+    Reads course data from argument file.
     If course is connected, returns sub-courses and dict of connected class data.
     If course is not connected, returns sub-courses and None.
     Assumes only two sub-courses for connected courses.
     """
-    tuples = readCourseFileToTuples(fileName)
+    print("courseFileType is: ")
+    courseName = courseFile.stem
+    tuples = readCourseFileToTuples(courseFile)
     splitClasses = _convertToClassesByType(courseName, tuples)
     if _isConnected(splitClasses):
         return _convertConnectedSplitClassesToCourseData(splitClasses, courseName)
@@ -141,36 +145,22 @@ def readCourseFileToCourseData(fileName: str, courseName: str) -> ('list of Cour
         subCourses = [Course(courseName, subCourseClasses) for subCourseClasses in splitClasses]
         return subCourses, None
 
-def readCourseFilesToCourseData(fileNames: 'list of str', courseNames: 'list of str') -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
+def fileInputCourses(files: [pathlib.Path]) -> ([Course], 'dict of (courseNum:list of Class) OR None'):
     """
-    Reads course data from multiple course files.
+    Reads course data from argument course files.
     Returns sub-courses and dict of connected class data.
     If no connected courses, returns sub-courses and None.
-    courseNames must correspond to fileNames.
-    Assumes only two sub-courses for connected courses.
     """
     subCourses = []
     connectedClassDict = None
-    for i in range(len(fileNames)):
-        currSubCourses, currDict = readCourseFileToCourseData(fileNames[i], courseNames[i])
+    for i in range(len(files)):
+        currSubCourses, currDict = readCourseFileToCourseData(files[i])
         subCourses.extend(currSubCourses)
         if currDict != None:
             if connectedClassDict == None:
                 connectedClassDict = {}
             connectedClassDict.update(currDict)
     return subCourses, connectedClassDict
-
-def _convertFileNamesToCourseNames(fileNames: 'list of str') -> 'list of str':
-    return [fName.replace(".txt", "").replace("config/", "") for fName in fileNames]
-
-def fileInputCourses(fileNames: 'list of str') -> ('list of Course', 'dict of (courseNum:list of Class) OR None'):
-    """
-    Reads course data from argument course files.
-    Returns sub-courses and dict of connected class data.
-    If no connected courses, returns sub-courses and None.
-    """
-    courseNames = _convertFileNamesToCourseNames(fileNames)
-    return readCourseFilesToCourseData(fileNames, courseNames)
 
 def fileInputRedZones(fileName):
     redZones = []

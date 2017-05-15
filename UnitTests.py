@@ -226,7 +226,7 @@ class FileInputTests(unittest.TestCase):
         """
         Connected courses should be read in properly by readCourseFileToCourseData.
         """
-        courses, connectedClassDict = readCourseFileToCourseData("unit_test_files/unit_test_input_2.txt", "")
+        courses, connectedClassDict = readCourseFileToCourseData(pathlib.Path("unit_test_files/unit_test_input_2.txt"))
 
         self.assertEqual(len(courses), 2)
         self.assertEqual([i.code for i in courses[0].classes], [10010, 20010, 30010])
@@ -241,7 +241,7 @@ class FileInputTests(unittest.TestCase):
         """
         Non-connected courses should be read in properly by readCourseFileToCourseData.
         """
-        courses, connectedClassDict = readCourseFileToCourseData("unit_test_files/unit_test_input_4.txt", "")
+        courses, connectedClassDict = readCourseFileToCourseData(pathlib.Path("unit_test_files/unit_test_input_4.txt"))
 
         self.assertEqual(len(courses), 2)
         self.assertEqual([i.code for i in courses[0].classes], [10010, 20010])
@@ -326,10 +326,10 @@ class WebsiteInputTests(unittest.TestCase):
         """
         _getFileName should returns correct values.
         """
-        self.assertEqual(_getFileName("ICS 32"), "config/ics32.txt")
-        self.assertEqual(_getFileName("ICS32"), "config/ics32.txt")
-        self.assertEqual(_getFileName("IcS 32"), "config/ics32.txt")
-        self.assertEqual(_getFileName("ics32"), "config/ics32.txt")
+        self.assertEqual(_getFileName("ICS 32"), "ics32.txt")
+        self.assertEqual(_getFileName("ICS32"), "ics32.txt")
+        self.assertEqual(_getFileName("IcS 32"), "ics32.txt")
+        self.assertEqual(_getFileName("ics32"), "ics32.txt")
 
     def test_getTerm(self):
         """
@@ -381,11 +381,11 @@ class WebsiteInputTests(unittest.TestCase):
         Particularly tests if returns correct course codes.
         """
         firstParams = (Term.WINTER, 2016, ["I&C SCI", "HUMAN", "I&C SCI"], ["ICS 32", "HUMAN 1B", "ICS 6B"])
-        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_1.txt"), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
-        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_3.txt"), firstParams + (["", "28100-28126", "49100-49130"], ))
-        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_4.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_5.txt"), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(_parseCoursesParamsFromConfigFile("unit_test_files/unit_test_web_input_7.txt"), firstParams + (["", "", ""], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_1.txt")), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_3.txt")), firstParams + (["", "28100-28126", "49100-49130"], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_4.txt")), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_5.txt")), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(_parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_7.txt")), firstParams + (["", "", ""], ))
 
 if __name__ == "__main__":
     unittest.main()

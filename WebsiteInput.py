@@ -1,5 +1,6 @@
 from urllib import parse, request
 import os.path
+import pathlib
 
 class Term:
 	FALL   = "92"
@@ -35,11 +36,11 @@ def _getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName
 	return data
 
 def _writeCourseWebDataToFile(term: 'constant from Term', year: int, dept: str,
-								courseName: str, courseCodes: str, fileName: str) -> None:
+								courseName: str, courseCodes: str, courseFile: pathlib.Path) -> None:
 	"""
-	Writes website data for the classes specified by arguments to a file with fileName.
+	Writes website data for the classes specified by arguments to courseFile.
 	"""
-	with open(fileName, 'w') as f:
+	with courseFile.open('w') as f:
 		f.write(_getWebsiteData(term, year, dept, courseName, courseCodes))
 
 def _getFileName(courseName: str) -> str:
@@ -47,25 +48,7 @@ def _getFileName(courseName: str) -> str:
 	Returns file name corresponding to courseName.
 	File name is the lowercased course name without spaces, with a .txt extension.
 	"""
-	return 'config/' + courseName.lower().replace(" ", "") + ".txt"
-
-def _scrapeCoursesDataFromWebsiteAndSaveToFiles(saveFileName: str, term: 'constant from Term', year: int,
-												depts: 'list of str', courseNames: 'list of str',
-												courseCodes: 'list of str') -> None:
-	"""
-	Scrapes website data for the courses specified by arguments.
-	Then saves the data to files corresponding to course names.
-	Also writes course file names to save file with filename saveFileName.
-	The course files will be text files with the name corresponding to the lowercased course name without spaces.
-	All list arguments should have same length and have corresponding elements.
-	Assumes all courses in same term and year.
-	"""
-	fileNames = [_getFileName(name) for name in courseNames]
-	for i in range(len(depts)):
-		_writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], fileNames[i])
-	with open(saveFileName, 'w') as f:
-		for name in fileNames:
-			f.write(name + '\n')
+	return courseName.lower().replace(" ", "") + ".txt"
 
 def _getTerm(term_str: str) -> 'constant from Term':
 	"""
@@ -122,8 +105,8 @@ def _getCourseCodes(course_str: str) -> str:
 	else: # has 2 elements, assuming numElements >= 2
 		return ""
 
-def _parseCoursesParamsFromConfigFile(fileName: str) -> ('term = constant from Term', 'year = int', 'depts = list of str',
-													'courseNames = list of str', 'courseCodes = list of str'):
+def _parseCoursesParamsFromConfigFile(configFile: pathlib.Path) -> ('term = constant from Term', 'year = int', 'depts = list of str',
+																	'courseNames = list of str', 'courseCodes = list of str'):
 	"""
 	Parses argument file for and then returns course parameters.
 
@@ -141,7 +124,7 @@ def _parseCoursesParamsFromConfigFile(fileName: str) -> ('term = constant from T
 
 	...etc...
 	"""
-	with open(fileName, 'r') as f:
+	with configFile.open('r') as f:
 		term_str = f.readline().strip()
 		year_str = f.readline().strip()
 		f.readline() # skip blank line
@@ -158,32 +141,66 @@ def _parseCoursesParamsFromConfigFile(fileName: str) -> ('term = constant from T
 	return term, year, depts, courseNames, coursesCodes
 
 class WebsiteInput:
-	def __init__(self, inputFileName: str, courseFilenamesConfigFileName: str):
-		self._courseFilenamesConfigFile = courseFilenamesConfigFileName
-		self._inputFileName = inputFileName
-	def courseFilenamesConfigFileExists(self) -> bool:
+	_COURSEFILENAMES_FILE_NAME = "coursefilenames.txt"
+	def __init__(self, inputFile: pathlib.Path, courseFilesDir: pathlib.Path):
 		"""
-		Returns True if course filenames config file exists.
+		inputFile: contains the input file containing data for the 
 		"""
-		return os.path.isfile(self._courseFilenamesConfigFile)
-	def readCourseFilenamesFromConfigFile(self) -> "list of str":
+		if not courseFilesDir.is_dir():
+			raise ValueError("courseFilesDir is not a directory")
+
+		if not inputFile.exists():
+			raise ValueError("inputFile does not exist")
+		elif not inputFile.is_file:
+			raise ValueError("inputFile is not a file")
+		
+		self._courseFilesDir = courseFilesDir
+		self._courseFilenamesFile = self._courseFilesDir.joinpath(WebsiteInput._COURSEFILENAMES_FILE_NAME)
+		self._inputFile = inputFile
+	def savedFilesExist(self) -> bool:
 		"""
-		Reads and returns course filenames from course filenames config file.
+		Returns True if previously-saved course files exist.
 		"""
-		with open(self._courseFilenamesConfigFile, 'r') as f:
-			return [line.strip() for line in f]
+		return self._courseFilenamesFile.exists()
+	def getSavedCourseFiles(self) -> [pathlib.Path]:
+		"""
+		Returns the filenames of files containing course data.
+		"""
+		if not self.savedFilesExist():
+			raise ValueError("No saved course files")
+
+		with self._courseFilenamesFile.open('r') as f:
+			return [self._courseFilesDir.joinpath(line.strip()) for line in f]
+	def _scrapeCoursesDataFromWebsiteAndSaveToFiles(self, term: 'constant from Term', year: int,
+													depts: 'list of str', courseNames: 'list of str',
+													courseCodes: 'list of str') -> None:
+		"""
+		Scrapes website data for the courses specified by arguments.
+		Then saves the data to files corresponding to course names.
+		Also writes course file names to course filenames file.
+		The course files will be text files with the name corresponding to the lowercased course name without spaces.
+		All list arguments should have same length and have corresponding elements.
+		Assumes all courses in same term and year.
+		"""
+		courseFiles = [self._courseFilesDir.joinpath(_getFileName(name)) for name in courseNames]
+		
+		for i in range(len(depts)):
+			_writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], courseFiles[i])
+
+		with self._courseFilenamesFile.open('w') as f:
+			for courseFile in courseFiles:
+				f.write(courseFile.name + '\n')
 	def scrapeCoursesDataFromWebsiteAndSaveToFiles(self) -> None:
 		"""
 		Scrapes website data for the courses specified by course filenames config file.
-		Then saves the data for each course to a text file, with filename corresponding to the lowercased course name without spaces.
-		Also writes course filenames to course filenames config file.
+		Then saves the data for each course to course files directory.
 		Assumes all courses in same term and year.
 		"""
-		_scrapeCoursesDataFromWebsiteAndSaveToFiles(self._courseFilenamesConfigFile, *_parseCoursesParamsFromConfigFile(self._inputFileName))
+		self._scrapeCoursesDataFromWebsiteAndSaveToFiles(*_parseCoursesParamsFromConfigFile(self._inputFile))
 
 def main():
 	websiteInput = WebsiteInput("config/web_input.txt")
-	print(websiteInput.courseFilenamesConfigFileExists())
+	print(websiteInput.savedFilesExist())
 	websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles()
 	print(websiteInput.readCourseFilenamesFromConfigFile())
 
