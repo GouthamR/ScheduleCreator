@@ -161,16 +161,3 @@ def fileInputCourses(files: [pathlib.Path]) -> ([Course], 'dict of (courseNum:li
                 connectedClassDict = {}
             connectedClassDict.update(currDict)
     return subCourses, connectedClassDict
-
-def fileInputRedZones(fileName):
-    redZones = []
-    with open(fileName, 'r') as f:
-        for line in f:
-            redZones.append(CourseDataParser.toClassTime(line.strip()))
-    return redZones
-
-def fileInputMinutesBetween(fileName):
-    minutesBetween = None
-    with open(fileName, 'r') as f:
-        minutesBetween = int(f.read().strip())
-    return minutesBetween
