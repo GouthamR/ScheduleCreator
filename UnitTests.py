@@ -256,7 +256,7 @@ class FileInputTests(unittest.TestCase):
         """
         fileInputRedZones should return correct values.
         """
-        zones = fileInputRedZones("unit_test_files/unit_test_red_zones.txt")
+        zones = fileInputRedZones(pathlib.Path("unit_test_files/unit_test_red_zones.txt"))
         self.assertEqual(len(zones), 3)
         self.assertEqual(zones[0].start, CourseDataParser.toTime("1:00"))
         self.assertEqual(zones[0].end, CourseDataParser.toTime("9:00"))
