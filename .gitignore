@@ -4,6 +4,9 @@ __pycache__/
 # Distribution / packaging
 dist/
 
+# Lint
+.pylintrc
+
 # Course-specific config files, but still include web_input.txt
 config/*
 !config/minutes_between_classes.txt

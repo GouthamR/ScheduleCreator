@@ -1,11 +1,6 @@
 from urllib import parse, request
-import os.path
 import pathlib
-
-class Term:
-	FALL   = "92"
-	WINTER = "03"
-	SPRING = "14"
+from Term import Term
 
 def _getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName: str, courseCodes: str) -> str:
 	"""
@@ -50,113 +45,18 @@ def _getFileName(courseName: str) -> str:
 	"""
 	return courseName.lower().replace(" ", "") + ".txt"
 
-def _getTerm(term_str: str) -> 'constant from Term':
-	"""
-	For argument string from file input, returns corresponding Term constant.
-	Assumes argument has already been stripped of leading and trailing whitespace.
-	If invalid term_str, raises ValueError.
-	"""
-	term_str_processed = term_str.lower()
-	if term_str_processed == 'fall':
-		return Term.FALL
-	elif term_str_processed == 'winter':
-		return Term.WINTER
-	elif term_str_processed == 'spring':
-		return Term.SPRING
-	else:
-		raise ValueError("Invalid term string.")
-
-def _getDept(course_str: str) -> str:
-	"""
-	For argument course string from file input, returns department of course.
-	If invalid department or department not found in argument, raises ValueError.
-	"""
-	splitCourseStr = course_str.split('\n')
-	firstElement = splitCourseStr[0].strip() # Note: guaranteed to be at least one element, so no need to check number of elements.
-	if firstElement == "":
-		raise ValueError("Invalid course string.")
-	else:
-		return firstElement
-
-def _getCourseName(course_str: str) -> str:
-	"""
-	For argument course string from file input, returns course name.
-	Assumes department is found in argument.
-	If invalid course name or course name not found in argument, raises ValueError.
-	"""
-	splitCourseStr = course_str.split('\n')
-	if len(splitCourseStr) < 2 or splitCourseStr[1].strip() == '':
-		raise ValueError("Invalid course string.")
-	else:
-		return splitCourseStr[1].strip()
-
-def _getCourseCodes(course_str: str) -> str:
-	"""
-	For argument course string from file input, returns course codes if any.
-	Assumes department and course name are found in argument.
-	If too many course fields in argument, raises ValueError.
-	"""
-	splitCourseStr = course_str.split('\n')
-	numElements = len(splitCourseStr)
-	if numElements > 3:
-		raise ValueError("Invalid course string.")
-	elif numElements == 3:
-		return splitCourseStr[-1].strip()
-	else: # has 2 elements, assuming numElements >= 2
-		return ""
-
-def _parseCoursesParamsFromConfigFile(configFile: pathlib.Path) -> ('term = constant from Term', 'year = int', 'depts = list of str',
-																	'courseNames = list of str', 'courseCodes = list of str'):
-	"""
-	Parses argument file for and then returns course parameters.
-
-	Assumes argument file is in the following format:
-	term
-	year
-
-	dept
-	courseName
-	courseCodes
-
-	dept2
-	courseName2
-	courseCodes2
-
-	...etc...
-	"""
-	with configFile.open('r') as f:
-		term_str = f.readline().strip()
-		year_str = f.readline().strip()
-		f.readline() # skip blank line
-		course_strs = f.read().split('\n\n')
-	term = _getTerm(term_str)
-	year = int(year_str)
-	depts = []
-	courseNames = []
-	coursesCodes = []
-	for course_str in course_strs:
-		depts.append(_getDept(course_str))
-		courseNames.append(_getCourseName(course_str))
-		coursesCodes.append(_getCourseCodes(course_str))
-	return term, year, depts, courseNames, coursesCodes
-
 class WebsiteInput:
 	_COURSEFILENAMES_FILE_NAME = "coursefilenames.txt"
-	def __init__(self, inputFile: pathlib.Path, courseFilesDir: pathlib.Path):
+	def __init__(self, courseFilesDir: pathlib.Path):
 		"""
-		inputFile: contains the input file containing data for the 
+		inputFile: file specifying which courses to scrape.
+		courseFilesDir: directory to store the website input config files.
 		"""
 		if not courseFilesDir.is_dir():
 			raise ValueError("courseFilesDir is not a directory")
 
-		if not inputFile.exists():
-			raise ValueError("inputFile does not exist")
-		elif not inputFile.is_file:
-			raise ValueError("inputFile is not a file")
-		
 		self._courseFilesDir = courseFilesDir
 		self._courseFilenamesFile = self._courseFilesDir.joinpath(WebsiteInput._COURSEFILENAMES_FILE_NAME)
-		self._inputFile = inputFile
 	def savedFilesExist(self) -> bool:
 		"""
 		Returns True if previously-saved course files exist.
@@ -171,38 +71,29 @@ class WebsiteInput:
 
 		with self._courseFilenamesFile.open('r') as f:
 			return [self._courseFilesDir.joinpath(line.strip()) for line in f]
-	def _scrapeCoursesDataFromWebsiteAndSaveToFiles(self, term: 'constant from Term', year: int,
+
+	def scrapeCoursesDataFromWebsiteAndSaveToFiles(self, term: 'constant from Term', year: int,
 													depts: 'list of str', courseNames: 'list of str',
 													courseCodes: 'list of str') -> None:
 		"""
-		Scrapes website data for the courses specified by arguments.
-		Then saves the data to files corresponding to course names.
-		Also writes course file names to course filenames file.
-		The course files will be text files with the name corresponding to the lowercased course name without spaces.
-		All list arguments should have same length and have corresponding elements.
+		Scrapes website data for the courses specified by the arguments.
+		Then saves the data for each course to course files directory.
 		Assumes all courses in same term and year.
 		"""
 		courseFiles = [self._courseFilesDir.joinpath(_getFileName(name)) for name in courseNames]
-		
+
 		for i in range(len(depts)):
 			_writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], courseFiles[i])
 
 		with self._courseFilenamesFile.open('w') as f:
 			for courseFile in courseFiles:
 				f.write(courseFile.name + '\n')
-	def scrapeCoursesDataFromWebsiteAndSaveToFiles(self) -> None:
-		"""
-		Scrapes website data for the courses specified by course filenames config file.
-		Then saves the data for each course to course files directory.
-		Assumes all courses in same term and year.
-		"""
-		self._scrapeCoursesDataFromWebsiteAndSaveToFiles(*_parseCoursesParamsFromConfigFile(self._inputFile))
 
-def main():
-	websiteInput = WebsiteInput("config/web_input.txt")
+def _main():
+	websiteInput = WebsiteInput(pathlib.Path("coursefiles/"))
 	print(websiteInput.savedFilesExist())
-	websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles()
-	print(websiteInput.readCourseFilenamesFromConfigFile())
+	print(websiteInput.getSavedCourseFiles())
+	websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(Term.FALL, 2017, ['COMPSCI'], ['COMPSCI 161'], [''])
 
 if __name__ == '__main__':
-	main()
+	_main()

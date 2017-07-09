@@ -6,11 +6,10 @@
 
 import pathlib
 
-from Course import *
-from Schedule import *
 from ScheduleInput import *
 from ScheduleGUI import *
 from WebsiteInput import *
+from ConfigFileInput import *
 
 INPUT_FILE = pathlib.Path("config/web_input.txt")
 REDZONE_FILE_NAME = "config/red_zones.txt"
@@ -20,12 +19,12 @@ COURSEFILES_DIR = pathlib.Path("coursefiles/")
 def runProgram():
     print("CREATED BY GOUTHAM RAJEEV")
     print("Copyright 2016 Goutham Rajeev.  All rights reserved.")
-    websiteInput = WebsiteInput(INPUT_FILE, COURSEFILES_DIR)
+    websiteInput = WebsiteInput(COURSEFILES_DIR)
     if websiteInput.savedFilesExist():
         print("Loading from saved course file...")
     else:
         print("Loading from website...")
-        websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles()
+        websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(*parseCoursesParamsFromConfigFile(INPUT_FILE))
     courseFiles = websiteInput.getSavedCourseFiles()
     courses, connectedClassDict = fileInputCourses(courseFiles)
     print("Starting schedule generation...")
