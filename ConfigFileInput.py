@@ -92,15 +92,15 @@ def fileInputCourseParams(configFile: pathlib.Path) -> ('term = constant from Te
 		coursesCodes.append(_getCourseCodes(course_str))
 	return term, year, depts, courseNames, coursesCodes
 
-def fileInputRedZones(fileName):
+def fileInputRedZones(file: pathlib.Path):
     redZones = []
-    with open(fileName, 'r') as f:
+    with file.open('r') as f:
         for line in f:
             redZones.append(CourseDataParser.toClassTime(line.strip()))
     return redZones
 
-def fileInputMinutesBetween(fileName):
+def fileInputMinutesBetween(file: pathlib.Path):
     minutesBetween = None
-    with open(fileName, 'r') as f:
+    with file.open('r') as f:
         minutesBetween = int(f.read().strip())
     return minutesBetween

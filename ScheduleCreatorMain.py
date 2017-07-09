@@ -12,8 +12,8 @@ from WebsiteInput import *
 from ConfigFileInput import *
 
 INPUT_FILE = pathlib.Path("config/web_input.txt")
-REDZONE_FILE_NAME = "config/red_zones.txt"
-MINUTESBETWEEN_FILE_NAME = "config/minutes_between_classes.txt"
+REDZONE_FILE = pathlib.Path("config/red_zones.txt")
+MINUTESBETWEEN_FILE = pathlib.Path("config/minutes_between_classes.txt")
 COURSEFILES_DIR = pathlib.Path("coursefiles/")
 
 def runProgram():
@@ -29,8 +29,8 @@ def runProgram():
     courses, connectedClassDict = fileInputCourses(courseFiles)
     print("Starting schedule generation...")
     schedules = generatePossibleSchedules(courses, connectedClassDict)
-    redZones = fileInputRedZones(REDZONE_FILE_NAME)
-    minutesBetweenClasses = fileInputMinutesBetween(MINUTESBETWEEN_FILE_NAME)
+    redZones = fileInputRedZones(REDZONE_FILE)
+    minutesBetweenClasses = fileInputMinutesBetween(MINUTESBETWEEN_FILE)
     print("Number of schedules = " + str(len(schedules)))
     preferenceParams = (redZones, 2, minutesBetweenClasses, 1)
     schedules.sort(key=lambda sched: sched.calculatePreferenceScore(*preferenceParams), reverse=True)
