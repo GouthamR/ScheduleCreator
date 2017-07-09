@@ -1,6 +1,7 @@
 import pathlib
 from Term import Term
 import CourseDataParser
+from CourseInfo import CourseInfo
 
 def _getTerm(term_str: str) -> 'constant from Term':
 	"""
@@ -57,8 +58,8 @@ def _getCourseCodes(course_str: str) -> str:
 	else: # has 2 elements, assuming numElements >= 2
 		return ""
 
-def fileInputCourseParams(configFile: pathlib.Path) -> ('term = constant from Term', 'year = int', 'depts = list of str',
-																	'courseNames = list of str', 'courseCodes = list of str'):
+def fileInputCourseParams(configFile: pathlib.Path) -> ('term: constant from Term', 'year: int',
+														'courseInfos: list of CourseInfo'):
 	"""
 	Parses and returns course parameters from configFile.
 
@@ -83,14 +84,8 @@ def fileInputCourseParams(configFile: pathlib.Path) -> ('term = constant from Te
 		course_strs = f.read().split('\n\n')
 	term = _getTerm(term_str)
 	year = int(year_str)
-	depts = []
-	courseNames = []
-	coursesCodes = []
-	for course_str in course_strs:
-		depts.append(_getDept(course_str))
-		courseNames.append(_getCourseName(course_str))
-		coursesCodes.append(_getCourseCodes(course_str))
-	return term, year, depts, courseNames, coursesCodes
+	courseInfos = [CourseInfo(_getDept(s), _getCourseName(s), _getCourseCodes(s)) for s in course_strs]
+	return term, year, courseInfos
 
 def fileInputRedZones(file: pathlib.Path):
     redZones = []

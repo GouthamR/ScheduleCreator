@@ -379,17 +379,44 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n   ")
         self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n")
 
+    def helperTestFileInputCourseParams(self, testFile: pathlib.Path,
+                                        expected: '(term: constant from Term, year: int, courseInfos: [CourseInfo])'):
+        actual = fileInputCourseParams(testFile)
+        
+        self.assertEqual(actual[0], expected[0])
+        self.assertEqual(actual[1], expected[1])
+        
+        self.assertEqual(len(actual[2]), len(expected[2]))
+        for i in range(len(actual)):
+            self.assertEqual(actual[2][i].dept, expected[2][i].dept)
+            self.assertEqual(actual[2][i].courseName, expected[2][i].courseName)
+            self.assertEqual(actual[2][i].courseCodes, expected[2][i].courseCodes)
+
     def test_fileInputCourseParams(self):
         """
         fileInputCourseParams should return correct values.
         In particular, tests if returns correct course codes.
         """
-        firstParams = (Term.WINTER, 2016, ["I&C SCI", "HUMAN", "I&C SCI"], ["ICS 32", "HUMAN 1B", "ICS 6B"])
-        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_1.txt")), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
-        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_3.txt")), firstParams + (["", "28100-28126", "49100-49130"], ))
-        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_4.txt")), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_5.txt")), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_7.txt")), firstParams + (["", "", ""], ))
+        self.helperTestFileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_1.txt"), 
+                                                (Term.WINTER, 2016, [CourseInfo("I&C SCI", "ICS 32", "36600-36623"),
+                                                                        CourseInfo("HUMAN", "HUMAN 1B", "28100-28126"),
+                                                                        CourseInfo("I&C SCI", "ICS 6B", "49100-49130")]))
+        self.helperTestFileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_3.txt"),
+                                                (Term.WINTER, 2016, [CourseInfo("I&C SCI", "ICS 32", ""),
+                                                                        CourseInfo("HUMAN", "HUMAN 1B", "28100-28126"),
+                                                                        CourseInfo("I&C SCI", "ICS 6B", "49100-49130")]))
+        self.helperTestFileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_4.txt"),
+                                                (Term.WINTER, 2016, [CourseInfo("I&C SCI", "ICS 32", ""),
+                                                                        CourseInfo("HUMAN", "HUMAN 1B", "28100-28126"),
+                                                                        CourseInfo("I&C SCI", "ICS 6B", "")]))
+        self.helperTestFileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_5.txt"),
+                                                (Term.WINTER, 2016, [CourseInfo("I&C SCI", "ICS 32", ""),
+                                                                        CourseInfo("HUMAN", "HUMAN 1B", "28100-28126"),
+                                                                        CourseInfo("I&C SCI", "ICS 6B", "")]))
+        self.helperTestFileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_7.txt"),
+                                                (Term.WINTER, 2016, [CourseInfo("I&C SCI", "ICS 32", ""),
+                                                                        CourseInfo("HUMAN", "HUMAN 1B", ""),
+                                                                        CourseInfo("I&C SCI", "ICS 6B", "")]))
 
 if __name__ == "__main__":
     unittest.main()

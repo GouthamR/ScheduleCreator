@@ -1,8 +1,9 @@
 from urllib import parse, request
 import pathlib
 from Term import Term
+from CourseInfo import CourseInfo
 
-def _getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName: str, courseCodes: str) -> str:
+def _getWebsiteData(term: 'constant from Term', year: int, courseInfo: CourseInfo) -> str:
 	"""
 	Returns a string of website's data for the classes specified by arguments.
 	"""
@@ -12,9 +13,9 @@ def _getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName
 	params_dict = { "Breadth":"ANY",
 				"CancelledCourses":"Exclude",
 				"ClassType":"ALL",
-				"CourseNum":courseName,
-				"CourseCodes":courseCodes,
-				"Dept":dept,
+				"CourseNum":courseInfo.courseName,
+				"CourseCodes":courseInfo.courseCodes,
+				"Dept":courseInfo.dept,
 				"Division":"ANY",
 				"FontSize":"200",
 				"FullCourses":"ANY",
@@ -30,13 +31,13 @@ def _getWebsiteData(term: 'constant from Term', year: int, dept: str, courseName
 	data = response.read().decode(response.headers.get_content_charset())
 	return data
 
-def _writeCourseWebDataToFile(term: 'constant from Term', year: int, dept: str,
-								courseName: str, courseCodes: str, courseFile: pathlib.Path) -> None:
+def _writeCourseWebDataToFile(term: 'constant from Term', year: int, courseInfo: CourseInfo,
+								courseFile: pathlib.Path) -> None:
 	"""
 	Writes website data for the classes specified by arguments to courseFile.
 	"""
 	with courseFile.open('w') as f:
-		f.write(_getWebsiteData(term, year, dept, courseName, courseCodes))
+		f.write(_getWebsiteData(term, year, courseInfo))
 
 def _getFileName(courseName: str) -> str:
 	"""
@@ -73,27 +74,23 @@ class WebsiteInput:
 			return [self._courseFilesDir.joinpath(line.strip()) for line in f]
 
 	def scrapeCoursesDataFromWebsiteAndSaveToFiles(self, term: 'constant from Term', year: int,
-													depts: 'list of str', courseNames: 'list of str',
-													courseCodes: 'list of str') -> None:
+													courseInfos: [CourseInfo]) -> None:
 		"""
 		Scrapes website data for the courses specified by the arguments.
 		Then saves the data for each course to course files directory.
 		Assumes all courses in same term and year.
 		"""
-		courseFiles = [self._courseFilesDir.joinpath(_getFileName(name)) for name in courseNames]
-
-		for i in range(len(depts)):
-			_writeCourseWebDataToFile(term, year, depts[i], courseNames[i], courseCodes[i], courseFiles[i])
-
 		with self._courseFilenamesFile.open('w') as f:
-			for courseFile in courseFiles:
+			for courseInfo in courseInfos:
+				courseFile = self._courseFilesDir.joinpath(_getFileName(courseInfo.courseName))
+				_writeCourseWebDataToFile(term, year, courseInfo, courseFile)
 				f.write(courseFile.name + '\n')
 
 def _main():
 	websiteInput = WebsiteInput(pathlib.Path("coursefiles/"))
 	print(websiteInput.savedFilesExist())
 	print(websiteInput.getSavedCourseFiles())
-	websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(Term.FALL, 2017, ['COMPSCI'], ['COMPSCI 161'], [''])
+	websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(Term.FALL, 2017, [CourseInfo('COMPSCI', 'COMPSCI 161', '')])
 
 if __name__ == '__main__':
 	_main()
