@@ -6,7 +6,8 @@ from ScheduleInput import *
 from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
 from WebsiteInput import *
 from WebsiteInput import _getFileName
-from ConfigFileInput import _getTerm, _getDept, _getCourseName, _getCourseCodes, parseCoursesParamsFromConfigFile
+from ConfigFileInput import *
+from ConfigFileInput import _getTerm, _getDept, _getCourseName, _getCourseCodes
 from Term import Term
 
 class ClassTests(unittest.TestCase):
@@ -378,17 +379,17 @@ class WebsiteInputTests(unittest.TestCase):
         self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n   ")
         self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n")
 
-    def test_parseCoursesParamsFromConfigFile(self):
+    def test_fileInputCourseParams(self):
         """
-        parseCoursesParamsFromConfigFile should return correct values.
+        fileInputCourseParams should return correct values.
         In particular, tests if returns correct course codes.
         """
         firstParams = (Term.WINTER, 2016, ["I&C SCI", "HUMAN", "I&C SCI"], ["ICS 32", "HUMAN 1B", "ICS 6B"])
-        self.assertEqual(parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_1.txt")), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_3.txt")), firstParams + (["", "28100-28126", "49100-49130"], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_4.txt")), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_5.txt")), firstParams + (["", "28100-28126", ""], ))
-        self.assertEqual(parseCoursesParamsFromConfigFile(pathlib.Path("unit_test_files/unit_test_web_input_7.txt")), firstParams + (["", "", ""], ))
+        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_1.txt")), firstParams + (["36600-36623", "28100-28126", "49100-49130"], ))
+        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_3.txt")), firstParams + (["", "28100-28126", "49100-49130"], ))
+        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_4.txt")), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_5.txt")), firstParams + (["", "28100-28126", ""], ))
+        self.assertEqual(fileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_7.txt")), firstParams + (["", "", ""], ))
 
 if __name__ == "__main__":
     unittest.main()

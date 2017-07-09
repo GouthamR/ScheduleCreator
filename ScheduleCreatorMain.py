@@ -24,7 +24,7 @@ def runProgram():
         print("Loading from saved course file...")
     else:
         print("Loading from website...")
-        websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(*parseCoursesParamsFromConfigFile(INPUT_FILE))
+        websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(*fileInputCourseParams(INPUT_FILE))
     courseFiles = websiteInput.getSavedCourseFiles()
     courses, connectedClassDict = fileInputCourses(courseFiles)
     print("Starting schedule generation...")
