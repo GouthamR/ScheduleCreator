@@ -1,6 +1,6 @@
 import pathlib
 
-from course import *
+import course
 import coursedataparser
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
@@ -66,7 +66,7 @@ def readCourseFileToTuples(courseFile: pathlib.Path) -> 'list of (tuple of str)'
                 tuples.append(_getClassTuple(line, curr_column_indices))
     return tuples
 
-def _isConnected(splitClasses: 'list of list of Class') -> bool:
+def _isConnected(splitClasses: 'list of list of course.Class') -> bool:
     """
     Returns if course represented by argument is a connected course.
     If not valid connected course with two-sub-courses, raises ValueError.
@@ -84,9 +84,9 @@ def _isConnected(splitClasses: 'list of list of Class') -> bool:
     # if here, no exception raised:
     return True
 
-def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list of list of Class':
+def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list of list of course.Class':
     """
-    Converts argument list of class-tuples into multiple lists of Class, where
+    Converts argument list of class-tuples into multiple lists of course.Class, where
     each list is made up of the classes of one type in sequence.
     E.g. For [lec, lec, lab, lec], returns [[lec, lec], [lab], [lec]].
     """
@@ -106,8 +106,8 @@ def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list o
                 classes[-1].append(currClass)
     return classes
 
-def _convertConnectedSplitClassesToCourseData(splitClasses: 'list of list of Class',
-                                                courseName: str) -> ('list of Course', 'dict of (courseNum:list of Class)'):
+def _convertConnectedSplitClassesToCourseData(splitClasses: 'list of list of course.Class',
+                                                courseName: str) -> ('list of course.Course', 'dict of (courseNum:list of course.Class)'):
     """
     For connected course data split classes, returns sub-course objects and
     dict of connected class data.
@@ -124,11 +124,11 @@ def _convertConnectedSplitClassesToCourseData(splitClasses: 'list of list of Cla
         for currCourse2Class in splitClasses[i + 1]:
             course2Classes.append(currCourse2Class)
             connectedClassDict[key].append(currCourse2Class)
-    course1 = Course(courseName, course1Classes)
-    course2 = Course(courseName, course2Classes)
+    course1 = course.Course(courseName, course1Classes)
+    course2 = course.Course(courseName, course2Classes)
     return [course1, course2], connectedClassDict
 
-def readCourseFileToCourseData(courseFile: pathlib.Path) -> ([Course], 'dict of (courseNum:list of Class) OR None'):
+def readCourseFileToCourseData(courseFile: pathlib.Path) -> ([course.Course], 'dict of (courseNum:list of course.Class) OR None'):
     """
     Reads course data from argument file.
     If course is connected, returns sub-courses and dict of connected class data.
@@ -142,10 +142,10 @@ def readCourseFileToCourseData(courseFile: pathlib.Path) -> ([Course], 'dict of 
     if _isConnected(splitClasses):
         return _convertConnectedSplitClassesToCourseData(splitClasses, courseName)
     else:
-        subCourses = [Course(courseName, subCourseClasses) for subCourseClasses in splitClasses]
+        subCourses = [course.Course(courseName, subCourseClasses) for subCourseClasses in splitClasses]
         return subCourses, None
 
-def fileInputCourses(files: [pathlib.Path]) -> ([Course], 'dict of (courseNum:list of Class) OR None'):
+def fileInputCourses(files: [pathlib.Path]) -> ([course.Course], 'dict of (courseNum:list of course.Class) OR None'):
     """
     Reads course data from argument course files.
     Returns sub-courses and dict of connected class data.

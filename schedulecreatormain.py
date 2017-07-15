@@ -6,10 +6,11 @@
 
 import pathlib
 
-from scheduleinput import *
-from schedulegui import *
-from websiteinput import *
-from configfileinput import *
+import scheduleinput
+from schedulegui import ScheduleGUI
+from websiteinput import WebsiteInput
+import configfileinput
+import schedule
 
 INPUT_FILE = pathlib.Path("config/web_input.txt")
 REDZONE_FILE = pathlib.Path("config/red_zones.txt")
@@ -24,21 +25,21 @@ def runProgram():
         print("Loading from saved course file...")
     else:
         print("Loading from website...")
-        websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(*fileInputCourseParams(INPUT_FILE))
+        websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(*configfileinput.fileInputCourseParams(INPUT_FILE))
     courseFiles = websiteInput.getSavedCourseFiles()
-    courses, connectedClassDict = fileInputCourses(courseFiles)
+    courses, connectedClassDict = scheduleinput.fileInputCourses(courseFiles)
     print("Starting schedule generation...")
-    schedules = generatePossibleSchedules(courses, connectedClassDict)
-    redZones = fileInputRedZones(REDZONE_FILE)
-    minutesBetweenClasses = fileInputMinutesBetween(MINUTESBETWEEN_FILE)
+    schedules = schedule.generatePossibleSchedules(courses, connectedClassDict)
+    redZones = configfileinput.fileInputRedZones(REDZONE_FILE)
+    minutesBetweenClasses = configfileinput.fileInputMinutesBetween(MINUTESBETWEEN_FILE)
     print("Number of schedules = " + str(len(schedules)))
     preferenceParams = (redZones, 2, minutesBetweenClasses, 1)
     schedules.sort(key=lambda sched: sched.calculatePreferenceScore(*preferenceParams), reverse=True)
     print("Done sorting")
     #print("\n".join([str(i.getClassCodes()) + " = " + str(i.calculatePreferenceScore(*preferenceParams)) for i in schedules]))
     for i in range(len(schedules)):
-        schedule = schedules[i]
-        print("%s: %s = %s" % (i, schedule.getClassCodes(), schedule.calculatePreferenceScore(*preferenceParams)))
+        curr_schedule = schedules[i]
+        print("%s: %s = %s" % (i, curr_schedule.getClassCodes(), curr_schedule.calculatePreferenceScore(*preferenceParams)))
     ScheduleGUI(schedules)
 
 def main():
