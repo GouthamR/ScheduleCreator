@@ -1,6 +1,4 @@
-from tkinter import *
-from schedule import *
-from course import *
+import tkinter as tk
 
 class ScheduleGUI:
     _CANVAS_WIDTH = 600
@@ -20,31 +18,31 @@ class ScheduleGUI:
                 self.scheduleIndex = len(self.schedules) - 1
         self._drawSchedule()
     def _initGUI(self):
-        root = Tk()
+        root = tk.Tk()
         root.protocol('WM_DELETE_WINDOW', root.destroy)
         root.title("Schedule Creator - Schedule Viewer. By Goutham Rajeev")
         # create frame
-        frame = Frame(root, bg="grey", width=400, height=40)
+        frame = tk.Frame(root, bg="grey", width=400, height=40)
         frame.pack(fill='x')
         #create buttons
         def switchForward():
             self._switchSchedule(True)
         def switchBackward():
             self._switchSchedule(False)
-        forwardButton = Button(frame, text="Next", command=switchForward)
+        forwardButton = tk.Button(frame, text="Next", command=switchForward)
         forwardButton.pack(side="right", padx=10)
-        backButton = Button(frame, text="Previous", command=switchBackward)
+        backButton = tk.Button(frame, text="Previous", command=switchBackward)
         backButton.pack(side="right", padx=10)
         #create index label
-        self.indexLabel = Text(frame, height=1, padx=10, width=6)
+        self.indexLabel = tk.Text(frame, height=1, padx=10, width=6)
         self.indexLabel.configure(inactiveselectbackground=self.indexLabel.cget("selectbackground"))
         self.indexLabel.pack(side="left")
         #create code label
-        self.codeLabel = Text(frame, height=1, padx=10, borderwidth=0)
+        self.codeLabel = tk.Text(frame, height=1, padx=10, borderwidth=0)
         self.codeLabel.configure(inactiveselectbackground=self.codeLabel.cget("selectbackground"))
         self.codeLabel.pack(side="left")
         # invoke canvas
-        self.canvas = Canvas(root, width=ScheduleGUI._CANVAS_WIDTH, height=ScheduleGUI._CANVAS_HEIGHT)
+        self.canvas = tk.Canvas(root, width=ScheduleGUI._CANVAS_WIDTH, height=ScheduleGUI._CANVAS_HEIGHT)
         self.canvas.pack()
     def _getCanvasY(minutes, minMinutes, maxMinutes):
         return (minutes - minMinutes) / (maxMinutes - minMinutes) * ScheduleGUI._CANVAS_HEIGHT
@@ -87,4 +85,4 @@ class ScheduleGUI:
         self.scheduleIndex = 0
         self._initGUI()
         self._drawSchedule()
-        mainloop()
+        tk.mainloop()

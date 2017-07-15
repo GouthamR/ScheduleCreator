@@ -1,14 +1,14 @@
 import unittest
-from course import *
+import pathlib
+
+import course
 import coursedataparser
-from schedule import *
-from scheduleinput import *
-from scheduleinput import _isInt, _isConnected, _convertToClassesByType
-from websiteinput import *
-from websiteinput import _getFileName
-from configfileinput import *
-from configfileinput import _getTerm, _getDept, _getCourseName, _getCourseCodes
+import schedule
+import scheduleinput
+import websiteinput
+import configfileinput
 from term import Term
+from courseinputinfo import CourseInputInfo
 
 class ClassTests(unittest.TestCase):
 
@@ -47,12 +47,12 @@ class TimeTests(unittest.TestCase):
 
     def test_time_comparison(self):
         """
-        Time should correctly compare with other Times.
+        course.Time should correctly compare with other Times.
         """
-        time1 = Time(8, 0)
-        time2 = Time(9, 0)
-        time3 = Time(21, 0)
-        time4 = Time(22, 0)
+        time1 = course.Time(8, 0)
+        time2 = course.Time(9, 0)
+        time3 = course.Time(21, 0)
+        time4 = course.Time(22, 0)
         self.assertTrue(time1 < time2)
         self.assertTrue(time1 < time3)
         self.assertTrue(time2 < time3)
@@ -126,19 +126,19 @@ class CourseTests(unittest.TestCase):
 
     def test_course_name(self):
         """
-        Course should correctly store name argument.
+        course.Course should correctly store name argument.
         """
-        c1 = Course(self.NAME, [])
+        c1 = course.Course(self.NAME, [])
         self.assertEqual(c1.name, self.NAME)
 
     def test_course_classes(self):
         """
-        Course should correctly store classes argument.
+        course.Course should correctly store classes argument.
         """
         classRawTuple1 = ("10000", "LEC", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
         classRawTuple2 = ("20000", "LEC", "2", "0", "STAFF", "MWF   1:00- 2:50p", "ICS 180", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
         classes = [coursedataparser.toClass(self.NAME, classRawTuple1), coursedataparser.toClass(self.NAME, classRawTuple2)]
-        c1 = Course(self.NAME, classes)
+        c1 = course.Course(self.NAME, classes)
         self.assertEqual(c1.classes, classes)
 
 class ScheduleTests(unittest.TestCase):
@@ -149,29 +149,29 @@ class ScheduleTests(unittest.TestCase):
         """
         classRawTuple1 = ("10000", "LEC", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
         classRawTuple2 = ("20000", "LEC", "2", "0", "STAFF", "MWF   1:00- 2:50p", "ICS 180", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
-        sched = Schedule([coursedataparser.toClass("", classRawTuple1), coursedataparser.toClass("", classRawTuple2)])
+        sched = schedule.Schedule([coursedataparser.toClass("", classRawTuple1), coursedataparser.toClass("", classRawTuple2)])
         self.assertEqual(sched.getClassCodes(), [10000, 20000])
 
     def test_generatePossibleSchedules(self):
         """
-        generatePossibleSchedules should return correct values.
+        schedule.generatePossibleSchedules should return correct values.
         """
 
         class_2_1 = coursedataparser.toClass("", ("21000", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         class_2_2 = coursedataparser.toClass("", ("22000", "LEC", "1", "0", "STAFF", "MWF   4:00- 5:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        course2 = Course("", [class_2_1, class_2_2])
+        course2 = course.Course("", [class_2_1, class_2_2])
         class_3_1 = coursedataparser.toClass("", ("31000", "LEC", "1", "0", "STAFF", "TuTh   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         class_3_2 = coursedataparser.toClass("", ("32000", "LEC", "1", "0", "STAFF", "MW   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        course3 = Course("", [class_3_1, class_3_2])
+        course3 = course.Course("", [class_3_1, class_3_2])
         class_4_1 = coursedataparser.toClass("", ("41000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 11:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        course4 = Course("", [class_4_1])
+        course4 = course.Course("", [class_4_1])
         class_5_1 = coursedataparser.toClass("", ("51000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 10:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        course5 = Course("", [class_5_1])
+        course5 = course.Course("", [class_5_1])
 
-        scheds_1 = generatePossibleSchedules([course2], {})
-        scheds_2 = generatePossibleSchedules([course2, course4], {})
-        scheds_3 = generatePossibleSchedules([course2, course3], {})
-        scheds_4 = generatePossibleSchedules([course4, course5], {})
+        scheds_1 = schedule.generatePossibleSchedules([course2], {})
+        scheds_2 = schedule.generatePossibleSchedules([course2, course4], {})
+        scheds_3 = schedule.generatePossibleSchedules([course2, course3], {})
+        scheds_4 = schedule.generatePossibleSchedules([course4, course5], {})
 
         self.assertEqual([s.classes for s in scheds_1], [(class_2_1, ), (class_2_2, )])
         self.assertEqual([s.classes for s in scheds_2], [(class_2_1, class_4_1), (class_2_2, class_4_1)])
@@ -195,12 +195,12 @@ class ScheduleTests(unittest.TestCase):
         c4_class1 = coursedataparser.toClass("", ("42111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         connectedClassDict = { 10010:[c3_class1, c3_class2], 20010:[c3_class3, c3_class4, c3_class5], 30010:[c3_class6] }
 
-        self.assertTrue(Schedule([c2_class1, c3_class1, c1_class1]).hasValidConnections(connectedClassDict))
-        self.assertFalse(Schedule([c2_class1, c3_class3]).hasValidConnections(connectedClassDict))
-        self.assertTrue(Schedule([c2_class3, c3_class6]).hasValidConnections(connectedClassDict))
-        self.assertFalse(Schedule([c2_class3, c3_class5]).hasValidConnections(connectedClassDict))
-        self.assertTrue(Schedule([c1_class1, c4_class1]).hasValidConnections(connectedClassDict))
-        self.assertTrue(Schedule([c3_class1, c3_class5]).hasValidConnections(connectedClassDict)) # True because connection is one-way, lec to lab
+        self.assertTrue(schedule.Schedule([c2_class1, c3_class1, c1_class1]).hasValidConnections(connectedClassDict))
+        self.assertFalse(schedule.Schedule([c2_class1, c3_class3]).hasValidConnections(connectedClassDict))
+        self.assertTrue(schedule.Schedule([c2_class3, c3_class6]).hasValidConnections(connectedClassDict))
+        self.assertFalse(schedule.Schedule([c2_class3, c3_class5]).hasValidConnections(connectedClassDict))
+        self.assertTrue(schedule.Schedule([c1_class1, c4_class1]).hasValidConnections(connectedClassDict))
+        self.assertTrue(schedule.Schedule([c3_class1, c3_class5]).hasValidConnections(connectedClassDict)) # True because connection is one-way, lec to lab
 
     def test_calculateRedZoneScore(self):
         """
@@ -216,8 +216,8 @@ class ScheduleTests(unittest.TestCase):
         c2_3 = coursedataparser.toClass("", ("11112", "RedIn", "1", "0", "STAFF", "MWF   3:10- 4:00p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         c2_4 = coursedataparser.toClass("", ("20010", "RedOv", "1", "0", "STAFF", "MWF   4:10- 5:10p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         c2_5 = coursedataparser.toClass("", ("42111", "RedOv", "1", "0", "STAFF", "TuTh   9:10- 10:30p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        schedule1 = Schedule([c1_1, c1_2, c1_3, c1_4, c1_5])
-        schedule2 = Schedule([c2_1, c2_2, c2_3, c2_4, c2_5])
+        schedule1 = schedule.Schedule([c1_1, c1_2, c1_3, c1_4, c1_5])
+        schedule2 = schedule.Schedule([c2_1, c2_2, c2_3, c2_4, c2_5])
         schedules = [schedule1, schedule2]
         redZones = [coursedataparser.toClassTime("1:00- 9:00"), coursedataparser.toClassTime("3:00- 5:00p"), coursedataparser.toClassTime("10:00- 11:00p")]
 
@@ -228,9 +228,9 @@ class FileInputTests(unittest.TestCase):
 
     def test_connected_course_input(self):
         """
-        Connected courses should be read in properly by readCourseFileToCourseData.
+        Connected courses should be read in properly by scheduleinput.readCourseFileToCourseData.
         """
-        courses, connectedClassDict = readCourseFileToCourseData(pathlib.Path("unit_test_files/unit_test_input_2.txt"))
+        courses, connectedClassDict = scheduleinput.readCourseFileToCourseData(pathlib.Path("unit_test_files/unit_test_input_2.txt"))
 
         self.assertEqual(len(courses), 2)
         self.assertEqual([i.code for i in courses[0].classes], [10010, 20010, 30010])
@@ -243,9 +243,9 @@ class FileInputTests(unittest.TestCase):
 
     def test_nonconnected_course_input(self):
         """
-        Non-connected courses should be read in properly by readCourseFileToCourseData.
+        Non-connected courses should be read in properly by scheduleinput.readCourseFileToCourseData.
         """
-        courses, connectedClassDict = readCourseFileToCourseData(pathlib.Path("unit_test_files/unit_test_input_4.txt"))
+        courses, connectedClassDict = scheduleinput.readCourseFileToCourseData(pathlib.Path("unit_test_files/unit_test_input_4.txt"))
 
         self.assertEqual(len(courses), 2)
         self.assertEqual([i.code for i in courses[0].classes], [10010, 20010])
@@ -254,9 +254,9 @@ class FileInputTests(unittest.TestCase):
 
     def test_fileInputRedZones(self):
         """
-        fileInputRedZones should return correct values.
+        configfileinput.fileInputRedZones should return correct values.
         """
-        zones = fileInputRedZones(pathlib.Path("unit_test_files/unit_test_red_zones.txt"))
+        zones = configfileinput.fileInputRedZones(pathlib.Path("unit_test_files/unit_test_red_zones.txt"))
         self.assertEqual(len(zones), 3)
         self.assertEqual(zones[0].start, coursedataparser.toTime("1:00"))
         self.assertEqual(zones[0].end, coursedataparser.toTime("9:00"))
@@ -269,19 +269,19 @@ class ScheduleInputFunctionTests(unittest.TestCase):
 
     def test_isInt(self):
         """
-        _isInt should return correct values.
+        scheduleinput._isInt should return correct values.
         """
-        self.assertTrue(_isInt('534'))
-        self.assertTrue(_isInt('-534'))
-        self.assertTrue(_isInt('0'))
-        self.assertTrue(_isInt('-0'))
-        self.assertFalse(_isInt('a0'))
-        self.assertFalse(_isInt('0a'))
-        self.assertFalse(_isInt('asdf'))
+        self.assertTrue(scheduleinput._isInt('534'))
+        self.assertTrue(scheduleinput._isInt('-534'))
+        self.assertTrue(scheduleinput._isInt('0'))
+        self.assertTrue(scheduleinput._isInt('-0'))
+        self.assertFalse(scheduleinput._isInt('a0'))
+        self.assertFalse(scheduleinput._isInt('0a'))
+        self.assertFalse(scheduleinput._isInt('asdf'))
 
     def test_isConnected(self):
         """
-        _isConnected should return correct values and raise exceptions if necessary.
+        scheduleinput._isConnected should return correct values and raise exceptions if necessary.
         """
         lecType = "LEC"
         labType = "LAB"
@@ -289,18 +289,18 @@ class ScheduleInputFunctionTests(unittest.TestCase):
         labTup = ("28100", labType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
         lec = coursedataparser.toClass(lecType, lecTup)
         lab = coursedataparser.toClass(labType, labTup)
-        self.assertFalse(_isConnected( [] ))
-        self.assertFalse(_isConnected( [ [lec] ] ))
-        self.assertFalse(_isConnected( [[lec, lec]] ))
-        self.assertFalse(_isConnected( [[lec], [lab], [lec]] ))
-        self.assertFalse(_isConnected( [[lec, lec], [lab], [lec]] ))
-        self.assertTrue(_isConnected( [[lec], [lab]] ))
-        self.assertRaises(ValueError, _isConnected, [[lec], [lab], [lec, lec], [lab]] )
-        self.assertRaises(ValueError, _isConnected, [[lec], [lab], [lab, lab], [lab]] )
+        self.assertFalse(scheduleinput._isConnected( [] ))
+        self.assertFalse(scheduleinput._isConnected( [ [lec] ] ))
+        self.assertFalse(scheduleinput._isConnected( [[lec, lec]] ))
+        self.assertFalse(scheduleinput._isConnected( [[lec], [lab], [lec]] ))
+        self.assertFalse(scheduleinput._isConnected( [[lec, lec], [lab], [lec]] ))
+        self.assertTrue(scheduleinput._isConnected( [[lec], [lab]] ))
+        self.assertRaises(ValueError, scheduleinput._isConnected, [[lec], [lab], [lec, lec], [lab]] )
+        self.assertRaises(ValueError, scheduleinput._isConnected, [[lec], [lab], [lab, lab], [lab]] )
 
     def test_convertToClassesByType(self):
         """
-        _convertToClassesByType should return correct values.
+        scheduleinput._convertToClassesByType should return correct values.
         """
         lecType = "LEC"
         labType = "LAB"
@@ -317,71 +317,71 @@ class ScheduleInputFunctionTests(unittest.TestCase):
                 result.append(newL)
             return result
 
-        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [])), [])
-        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup])), [[lecType]])
-        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, lecTup])), [[lecType, lecType]])
-        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup])), [[lecType], [labType]])
-        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, lecTup, labTup, labTup])), [[lecType, lecType], [labType, labType]])
-        self.assertEqual(convertToTypeList(_convertToClassesByType(NAME, [lecTup, labTup, lecTup, labTup])), [[lecType], [labType], [lecType], [labType]])
+        self.assertEqual(convertToTypeList(scheduleinput._convertToClassesByType(NAME, [])), [])
+        self.assertEqual(convertToTypeList(scheduleinput._convertToClassesByType(NAME, [lecTup])), [[lecType]])
+        self.assertEqual(convertToTypeList(scheduleinput._convertToClassesByType(NAME, [lecTup, lecTup])), [[lecType, lecType]])
+        self.assertEqual(convertToTypeList(scheduleinput._convertToClassesByType(NAME, [lecTup, labTup])), [[lecType], [labType]])
+        self.assertEqual(convertToTypeList(scheduleinput._convertToClassesByType(NAME, [lecTup, lecTup, labTup, labTup])), [[lecType, lecType], [labType, labType]])
+        self.assertEqual(convertToTypeList(scheduleinput._convertToClassesByType(NAME, [lecTup, labTup, lecTup, labTup])), [[lecType], [labType], [lecType], [labType]])
 
 class WebsiteInputTests(unittest.TestCase):
 
     def test_getFileName(self):
         """
-        _getFileName should returns correct values.
+        websiteinput._getFileName should returns correct values.
         """
-        self.assertEqual(_getFileName("ICS 32"), "ics32.txt")
-        self.assertEqual(_getFileName("ICS32"), "ics32.txt")
-        self.assertEqual(_getFileName("IcS 32"), "ics32.txt")
-        self.assertEqual(_getFileName("ics32"), "ics32.txt")
+        self.assertEqual(websiteinput._getFileName("ICS 32"), "ics32.txt")
+        self.assertEqual(websiteinput._getFileName("ICS32"), "ics32.txt")
+        self.assertEqual(websiteinput._getFileName("IcS 32"), "ics32.txt")
+        self.assertEqual(websiteinput._getFileName("ics32"), "ics32.txt")
 
     def test_getTerm(self):
         """
-        _getTerm should return correct value or raise exception for invalid input.
+        configfileinput._getTerm should return correct value or raise exception for invalid input.
         """
-        self.assertEqual(_getTerm("FALL"), Term.FALL)
-        self.assertEqual(_getTerm("fall"), Term.FALL)
-        self.assertEqual(_getTerm("FaLl"), Term.FALL)
-        self.assertRaises(ValueError, _getTerm, "hello")
+        self.assertEqual(configfileinput._getTerm("FALL"), Term.FALL)
+        self.assertEqual(configfileinput._getTerm("fall"), Term.FALL)
+        self.assertEqual(configfileinput._getTerm("FaLl"), Term.FALL)
+        self.assertRaises(ValueError, configfileinput._getTerm, "hello")
 
     def test_getDept(self):
         """
-        _getDept should return correct value or raise exception for invalid input.
+        configfileinput._getDept should return correct value or raise exception for invalid input.
         """
-        self.assertEqual(_getDept("I&C SCI\nICS 32\n36600-36623"), "I&C SCI")
-        self.assertEqual(_getDept("I&C SCI\nICS 32"), "I&C SCI")
-        self.assertEqual(_getDept("I&C SCI"), "I&C SCI")
-        self.assertRaises(ValueError, _getDept, "   \nICS 32")
-        self.assertRaises(ValueError, _getDept, "\nICS 32")
-        self.assertRaises(ValueError, _getDept, "   \n")
-        self.assertRaises(ValueError, _getDept, "   ")
-        self.assertRaises(ValueError, _getDept, "")
+        self.assertEqual(configfileinput._getDept("I&C SCI\nICS 32\n36600-36623"), "I&C SCI")
+        self.assertEqual(configfileinput._getDept("I&C SCI\nICS 32"), "I&C SCI")
+        self.assertEqual(configfileinput._getDept("I&C SCI"), "I&C SCI")
+        self.assertRaises(ValueError, configfileinput._getDept, "   \nICS 32")
+        self.assertRaises(ValueError, configfileinput._getDept, "\nICS 32")
+        self.assertRaises(ValueError, configfileinput._getDept, "   \n")
+        self.assertRaises(ValueError, configfileinput._getDept, "   ")
+        self.assertRaises(ValueError, configfileinput._getDept, "")
 
     def test_getCourseName(self):
         """
-        _getCourseName should return correct value or raise exception for invalid input.
+        configfileinput._getCourseName should return correct value or raise exception for invalid input.
         """
-        self.assertEqual(_getCourseName("I&C SCI\nICS 32\n36600-36623"), "ICS 32")
-        self.assertEqual(_getCourseName("I&C SCI\nICS 32"), "ICS 32")
-        self.assertRaises(ValueError, _getCourseName, "I&C SCI")
-        self.assertRaises(ValueError, _getCourseName, "I&C SCI\n")
-        self.assertRaises(ValueError, _getCourseName, "I&C SCI\n   ")
-        self.assertRaises(ValueError, _getCourseName, "")
+        self.assertEqual(configfileinput._getCourseName("I&C SCI\nICS 32\n36600-36623"), "ICS 32")
+        self.assertEqual(configfileinput._getCourseName("I&C SCI\nICS 32"), "ICS 32")
+        self.assertRaises(ValueError, configfileinput._getCourseName, "I&C SCI")
+        self.assertRaises(ValueError, configfileinput._getCourseName, "I&C SCI\n")
+        self.assertRaises(ValueError, configfileinput._getCourseName, "I&C SCI\n   ")
+        self.assertRaises(ValueError, configfileinput._getCourseName, "")
 
     def test_getCourseCodes(self):
         """
-        _getCourseCodes should return correct value or raise exception for invalid input..
+        configfileinput._getCourseCodes should return correct value or raise exception for invalid input..
         """
-        self.assertEqual(_getCourseCodes("I&C SCI\nICS 32\n36600-36623"), "36600-36623")
-        self.assertEqual(_getCourseCodes("I&C SCI\nICS 32\n"), "")
-        self.assertEqual(_getCourseCodes("I&C SCI\nICS 32"), "")
-        self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\nasdf")
-        self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n   ")
-        self.assertRaises(ValueError, _getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n")
+        self.assertEqual(configfileinput._getCourseCodes("I&C SCI\nICS 32\n36600-36623"), "36600-36623")
+        self.assertEqual(configfileinput._getCourseCodes("I&C SCI\nICS 32\n"), "")
+        self.assertEqual(configfileinput._getCourseCodes("I&C SCI\nICS 32"), "")
+        self.assertRaises(ValueError, configfileinput._getCourseCodes, "I&C SCI\nICS 32\n36600-36623\nasdf")
+        self.assertRaises(ValueError, configfileinput._getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n   ")
+        self.assertRaises(ValueError, configfileinput._getCourseCodes, "I&C SCI\nICS 32\n36600-36623\n")
 
     def helperTestFileInputCourseParams(self, testFile: pathlib.Path,
                                         expected: '(term: constant from Term, year: int, courseInputInfos: [CourseInputInfo])'):
-        actual = fileInputCourseParams(testFile)
+        actual = configfileinput.fileInputCourseParams(testFile)
         
         self.assertEqual(actual[0], expected[0])
         self.assertEqual(actual[1], expected[1])
@@ -394,7 +394,7 @@ class WebsiteInputTests(unittest.TestCase):
 
     def test_fileInputCourseParams(self):
         """
-        fileInputCourseParams should return correct values.
+        configfileinput.fileInputCourseParams should return correct values.
         In particular, tests if returns correct course codes.
         """
         self.helperTestFileInputCourseParams(pathlib.Path("unit_test_files/unit_test_web_input_1.txt"), 

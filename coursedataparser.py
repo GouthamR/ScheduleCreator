@@ -1,4 +1,4 @@
-from course import *
+import course
 
 def _getHourFromInput(rawHour: str, isPm: bool) -> int:
     """
@@ -16,16 +16,16 @@ def _getHourFromInput(rawHour: str, isPm: bool) -> int:
         else:
             return rawHourInt
 
-def toTime(rawData: str) -> Time:
+def toTime(rawData: str) -> course.Time:
     """
     rawData is raw input time string.
     """
     rawHour, rawMinute = rawData.split(":")
     hour = _getHourFromInput(rawHour, rawMinute.endswith("p"))
     minute = int(rawMinute[:2]) #cuts off p if necessary
-    return Time(hour, minute)
+    return course.Time(hour, minute)
 
-def toDays(rawData: str) -> Days:
+def toDays(rawData: str) -> course.Days:
     _TUESDAY_REPLACEMENT = 't'
     _THURSDAY_REPLACEMENT = 'T'
     _DAYS_MAP = { 'M': 0,
@@ -39,17 +39,17 @@ def toDays(rawData: str) -> Days:
                                 .replace("Tu", _TUESDAY_REPLACEMENT) \
                                 .replace("Th", _THURSDAY_REPLACEMENT)
     days_nums = [ _DAYS_MAP[char] for char in replaced_raw_data ]
-    return Days(days_nums)
+    return course.Days(days_nums)
 
 
 def _getDayCrossErrorMessage(rawSplit: 'list of str') -> str:
     """
     Returns error message mentioning rawSplit data.
     """
-    _END_OF_DAY_ERROR_MESSAGE = "ClassTime crosses end of day"
+    _END_OF_DAY_ERROR_MESSAGE = "course.ClassTime crosses end of day"
     return "%s: %s" % (_END_OF_DAY_ERROR_MESSAGE, rawSplit)
 
-def _calculateTimes(rawSplit: 'list of str', endIsPM: bool) -> (Time, Time):
+def _calculateTimes(rawSplit: 'list of str', endIsPM: bool) -> (course.Time, course.Time):
     """
     Returns start and end times corresponding to parameters.
     Raises error if times are invalid.
@@ -65,13 +65,13 @@ def _calculateTimes(rawSplit: 'list of str', endIsPM: bool) -> (Time, Time):
 
     return start, end
 
-def toClassTime(rawData: str) -> ClassTime:
+def toClassTime(rawData: str) -> course.ClassTime:
     rawSplit = rawData.replace(" ", "").split("-") # remove spaces, then split
     endIsPM = rawSplit[1].endswith('p')
     start, end = _calculateTimes(rawSplit, endIsPM)
-    return ClassTime(start, end)
+    return course.ClassTime(start, end)
 
-def toClass(name: str, data: 'tuple of str') -> Class:
+def toClass(name: str, data: 'tuple of str') -> course.Class:
     """
     data: a tuple of raw data string fields
     """
@@ -86,4 +86,4 @@ def toClass(name: str, data: 'tuple of str') -> Class:
     days = toDays(day_time[0:day_end_index])
     classTime = toClassTime(day_time[day_end_index:])
     
-    return Class(name, code, days, classTime, type_param)
+    return course.Class(name, code, days, classTime, type_param)

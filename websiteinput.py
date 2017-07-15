@@ -1,4 +1,4 @@
-from urllib import parse, request
+import urllib
 import pathlib
 from term import Term
 from courseinputinfo import CourseInputInfo
@@ -24,9 +24,9 @@ def _getWebsiteData(term: 'constant from Term', year: int, courseInputInfo: Cour
 				"Submit":"Display Text Results",
 				"YearTerm": term_param}
 	headers = { }
-	params = parse.urlencode(params_dict)
-	req = request.Request(URL, params.encode('ascii'), headers)
-	response = request.urlopen(req)
+	params = urllib.parse.urlencode(params_dict)
+	req = urllib.request.Request(URL, params.encode('ascii'), headers)
+	response = urllib.request.urlopen(req)
 	print(response.status, response.reason)
 	data = response.read().decode(response.headers.get_content_charset())
 	return data
