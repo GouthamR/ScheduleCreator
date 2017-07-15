@@ -1,5 +1,5 @@
 			UC Irvine Office of the Registrar
-		      Schedule of Classes    Sunday, July 9, 2017
+		      Schedule of Classes    Saturday, July 15, 2017
 
 Search Criteria:
     Department: BIO SCI
@@ -72,7 +72,7 @@ Fall Quarter, 2017      Registration for term ends on Friday, September 15, 2017
 
 Bio Sci  H90       IDIOM/PRACTICE SCI
     CCode Typ Sec Unt Instructor Time              Place  Final                    Max Enr     WL Req Nor Rstr Status 
-    05183 LEC A   4   ROSE, M.   TuTh  2:00- 3:20p SH 134 Thu, Dec 14, 1:30-3:30pm  97  57    n/a  74   0 A    OPEN   
+    05183 LEC A   4   ROSE, M.   TuTh  2:00- 3:20p SH 134 Thu, Dec 14, 1:30-3:30pm  97  56    n/a  76   0 A    OPEN   
 
 
 *** Total Classes Displayed: 1
