@@ -1,5 +1,5 @@
 			UC Irvine Office of the Registrar
-		      Schedule of Classes    Sunday, July 9, 2017
+		      Schedule of Classes    Saturday, July 15, 2017
 
 Search Criteria:
     Department: COMPSCI
@@ -73,18 +73,18 @@ Fall Quarter, 2017      Registration for term ends on Friday, September 15, 2017
 
 CompSci  161       DES&ANALYS OF ALGOR
     CCode Typ Sec Unt Instructor      Time              Place    Final                    Max     Enr      WL Req Nor Rstr Status 
-    34190 LEC A   4   DILLENCOURT, M. MWF   3:00- 3:50p SSLH 100 Mon, Dec 11, 4:00-6:00pm 356 333/356      65 508   0 A&N  Waitl  
+    34190 LEC A   4   DILLENCOURT, M. MWF   3:00- 3:50p SSLH 100 Mon, Dec 11, 4:00-6:00pm 356 333/356      68 510   0 A&N  Waitl  
       ~ Same as 16320 (CSE 161, Lec A);  and 36400 (CSE 161, Lec A).
-    34191 DIS 1   0   STAFF           TuTh  5:00- 5:50p SH 128                             78   73/78      37 128   0 A&N  Waitl  
+    34191 DIS 1   0   STAFF           TuTh  5:00- 5:50p SH 128                             78   73/78      38 130   0 A&N  Waitl  
                       DILLENCOURT, M.                                                                                             
       ~ Same as 16321 (CSE 161, Dis 1);  and 36401 (CSE 161, Dis 1).
     34192 DIS 2   0   STAFF           TuTh  6:00- 6:50p SH 134                             78   71/78      26 103   0 A&N  Waitl  
                       DILLENCOURT, M.                                                                                             
       ~ Same as 16322 (CSE 161, Dis 2);  and 36402 (CSE 161, Dis 2).
-    34193 DIS 3   0   STAFF           TuTh  7:00- 7:50p SSL 270                           100  93/100      10 109   0 A&N  Waitl  
+    34193 DIS 3   0   STAFF           TuTh  7:00- 7:50p SSL 270                           100  93/100      11 109   0 A&N  Waitl  
                       DILLENCOURT, M.                                                                                             
       ~ Same as 16323 (CSE 161, Dis 3);  and 36403 (CSE 161, Dis 3).
-    34194 DIS 4   0   STAFF           TuTh  8:00- 8:50p SSL 270                           100  96/100      10 115   0 A&N  Waitl  
+    34194 DIS 4   0   STAFF           TuTh  8:00- 8:50p SSL 270                           100  96/100      11 115   0 A&N  Waitl  
                       DILLENCOURT, M.                                                                                             
       ~ Same as 16324 (CSE 161, Dis 4);  and 36404 (CSE 161, Dis 4).
 

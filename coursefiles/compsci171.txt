@@ -1,5 +1,5 @@
 			UC Irvine Office of the Registrar
-		      Schedule of Classes    Sunday, July 9, 2017
+		      Schedule of Classes    Saturday, July 15, 2017
 
 Search Criteria:
     Department: COMPSCI
@@ -73,12 +73,12 @@ Fall Quarter, 2017      Registration for term ends on Friday, September 15, 2017
 
 CompSci  171       INTRO ARTIFCL INTEL
     CCode Typ Sec Unt Instructor  Time              Place   Final                      Max Enr      WL Req Nor Rstr Status 
-    34210 LEC A   4   LATHROP, R. TuTh 12:30- 1:50p HIB 100 Fri, Dec 15, 10:30-12:30pm 344 344      35 492   0 A&N  Waitl  
+    34210 LEC A   4   LATHROP, R. TuTh 12:30- 1:50p HIB 100 Fri, Dec 15, 10:30-12:30pm 344 344      34 494   0 A&N  Waitl  
     34211 DIS 1   0   STAFF       F     8:00- 8:50  ICS 174                             86  86       7 104   0 A&N  Waitl  
                       LATHROP, R.                                                                                          
     34212 DIS 2   0   STAFF       F    10:00-10:50  ICS 174                             86  86       9 105   0 A&N  Waitl  
                       LATHROP, R.                                                                                          
-    34213 DIS 3   0   STAFF       F     1:00- 1:50p ICS 174                             86  86      10 107   0 A&N  Waitl  
+    34213 DIS 3   0   STAFF       F     1:00- 1:50p ICS 174                             86  86       9 107   0 A&N  Waitl  
                       LATHROP, R.                                                                                          
     34214 DIS 4   0   STAFF       F     2:00- 2:50p ICS 174                             86  86      13 105   0 A&N  Waitl  
                       LATHROP, R.                                                                                          
