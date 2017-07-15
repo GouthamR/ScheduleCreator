@@ -6,10 +6,10 @@
 
 import pathlib
 
-from ScheduleInput import *
-from ScheduleGUI import *
-from WebsiteInput import *
-from ConfigFileInput import *
+from scheduleinput import *
+from schedulegui import *
+from websiteinput import *
+from configfileinput import *
 
 INPUT_FILE = pathlib.Path("config/web_input.txt")
 REDZONE_FILE = pathlib.Path("config/red_zones.txt")

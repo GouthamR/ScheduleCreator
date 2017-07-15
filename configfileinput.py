@@ -1,7 +1,7 @@
 import pathlib
-from Term import Term
-import CourseDataParser
-from CourseInputInfo import CourseInputInfo
+from term import Term
+import coursedataparser
+from courseinputinfo import CourseInputInfo
 
 def _getTerm(term_str: str) -> 'constant from Term':
 	"""
@@ -91,7 +91,7 @@ def fileInputRedZones(file: pathlib.Path):
     redZones = []
     with file.open('r') as f:
         for line in f:
-            redZones.append(CourseDataParser.toClassTime(line.strip()))
+            redZones.append(coursedataparser.toClassTime(line.strip()))
     return redZones
 
 def fileInputMinutesBetween(file: pathlib.Path):

@@ -1,14 +1,14 @@
 import unittest
-from Course import *
-import CourseDataParser
-from Schedule import *
-from ScheduleInput import *
-from ScheduleInput import _isInt, _isConnected, _convertToClassesByType
-from WebsiteInput import *
-from WebsiteInput import _getFileName
-from ConfigFileInput import *
-from ConfigFileInput import _getTerm, _getDept, _getCourseName, _getCourseCodes
-from Term import Term
+from course import *
+import coursedataparser
+from schedule import *
+from scheduleinput import *
+from scheduleinput import _isInt, _isConnected, _convertToClassesByType
+from websiteinput import *
+from websiteinput import _getFileName
+from configfileinput import *
+from configfileinput import _getTerm, _getDept, _getCourseName, _getCourseCodes
+from term import Term
 
 class ClassTests(unittest.TestCase):
 
@@ -20,30 +20,30 @@ class ClassTests(unittest.TestCase):
         Class should correctly store name argument.
         """
         name = "ClassName"
-        class1 = CourseDataParser.toClass(name, self._classRawTuple1)
+        class1 = coursedataparser.toClass(name, self._classRawTuple1)
         self.assertEqual(class1.name, name)
 
     def test_class_parse(self):
         """
-        CourseDataParser.toClass should correctly parse tuples.
+        coursedataparser.toClass should correctly parse tuples.
         """
-        class1 = CourseDataParser.toClass("", self._classRawTuple1)
+        class1 = coursedataparser.toClass("", self._classRawTuple1)
         self.assertEqual(class1.code, 36610)
         self.assertEqual(class1.days.days, [0, 2, 4])
-        self.assertEqual(class1.classTime.start, CourseDataParser.toTime("8:00"))
-        self.assertEqual(class1.classTime.end, CourseDataParser.toTime("9:50"))
+        self.assertEqual(class1.classTime.start, coursedataparser.toTime("8:00"))
+        self.assertEqual(class1.classTime.end, coursedataparser.toTime("9:50"))
         self.assertEqual(class1.type, "LAB")
 
 class TimeTests(unittest.TestCase):
 
     def test_time_hour_parse(self):
         """
-        CourseDataParser.toTime should correctly interpret hour from input.
+        coursedataparser.toTime should correctly interpret hour from input.
         """
-        self.assertEqual(CourseDataParser.toTime("11:00").hour, 11)
-        self.assertEqual(CourseDataParser.toTime("12:00p").hour, 12)
-        self.assertEqual(CourseDataParser.toTime("3:00p").hour, 15)
-        self.assertEqual(CourseDataParser.toTime("12:00").hour, 0)
+        self.assertEqual(coursedataparser.toTime("11:00").hour, 11)
+        self.assertEqual(coursedataparser.toTime("12:00p").hour, 12)
+        self.assertEqual(coursedataparser.toTime("3:00p").hour, 15)
+        self.assertEqual(coursedataparser.toTime("12:00").hour, 0)
 
     def test_time_comparison(self):
         """
@@ -75,24 +75,24 @@ class ClassTimeTests(unittest.TestCase):
         classTimeRawStr3 = "7:30- 8:30" #overlaps with beginning of 1
         classTimeRawStr4 = "7:30- 7:50" #does not overlap with 1 - before beginning
         classTimeRawStr5 = "9:00- 9:30" #does not overlap with 1 - after end
-        self.assertTrue(CourseDataParser.toClassTime(classTimeRawStr1).overlapsWith(CourseDataParser.toClassTime(classTimeRawStr1)))
-        self.assertTrue(CourseDataParser.toClassTime(classTimeRawStr1).overlapsWith(CourseDataParser.toClassTime(classTimeRawStr2)))
-        self.assertTrue(CourseDataParser.toClassTime(classTimeRawStr1).overlapsWith(CourseDataParser.toClassTime(classTimeRawStr3)))
-        self.assertFalse(CourseDataParser.toClassTime(classTimeRawStr1).overlapsWith(CourseDataParser.toClassTime(classTimeRawStr4)))
-        self.assertFalse(CourseDataParser.toClassTime(classTimeRawStr1).overlapsWith(CourseDataParser.toClassTime(classTimeRawStr5)))
+        self.assertTrue(coursedataparser.toClassTime(classTimeRawStr1).overlapsWith(coursedataparser.toClassTime(classTimeRawStr1)))
+        self.assertTrue(coursedataparser.toClassTime(classTimeRawStr1).overlapsWith(coursedataparser.toClassTime(classTimeRawStr2)))
+        self.assertTrue(coursedataparser.toClassTime(classTimeRawStr1).overlapsWith(coursedataparser.toClassTime(classTimeRawStr3)))
+        self.assertFalse(coursedataparser.toClassTime(classTimeRawStr1).overlapsWith(coursedataparser.toClassTime(classTimeRawStr4)))
+        self.assertFalse(coursedataparser.toClassTime(classTimeRawStr1).overlapsWith(coursedataparser.toClassTime(classTimeRawStr5)))
 
     def test_isWithin(self):
         """
         ClassTime should correctly check isWithin with other ClassTimes.
         """
-        self.assertTrue(CourseDataParser.toClassTime("8:00- 8:50").isWithin(CourseDataParser.toClassTime("7:50- 9:00")))
-        self.assertFalse(CourseDataParser.toClassTime("8:00- 8:50").isWithin(CourseDataParser.toClassTime("8:10- 8:40")))
-        self.assertFalse(CourseDataParser.toClassTime("8:00- 8:50").isWithin(CourseDataParser.toClassTime("7:50- 8:40")))
-        self.assertFalse(CourseDataParser.toClassTime("8:00- 8:50").isWithin(CourseDataParser.toClassTime("8:10- 9:00")))
+        self.assertTrue(coursedataparser.toClassTime("8:00- 8:50").isWithin(coursedataparser.toClassTime("7:50- 9:00")))
+        self.assertFalse(coursedataparser.toClassTime("8:00- 8:50").isWithin(coursedataparser.toClassTime("8:10- 8:40")))
+        self.assertFalse(coursedataparser.toClassTime("8:00- 8:50").isWithin(coursedataparser.toClassTime("7:50- 8:40")))
+        self.assertFalse(coursedataparser.toClassTime("8:00- 8:50").isWithin(coursedataparser.toClassTime("8:10- 9:00")))
 
     def test_ampm_construction(self):
         """
-        CourseDataParser.toClassTime should correctly infer am/pm from constructor argument,
+        coursedataparser.toClassTime should correctly infer am/pm from constructor argument,
         or raise RuntimeError if invalid argument.
         """
         # Remember that 12:00p is noon, not midnight
@@ -105,20 +105,20 @@ class ClassTimeTests(unittest.TestCase):
         raw7 = "10:00- 12:01"
         raw8 = "10:00- 1:01"
 
-        self.assertEqual(CourseDataParser.toClassTime(raw1).start, CourseDataParser.toTime("10:00"))
-        self.assertEqual(CourseDataParser.toClassTime(raw1).end, CourseDataParser.toTime("11:59"))
-        self.assertEqual(CourseDataParser.toClassTime(raw2).start, CourseDataParser.toTime("10:00"))
-        self.assertEqual(CourseDataParser.toClassTime(raw2).end, CourseDataParser.toTime("12:59p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw3).start, CourseDataParser.toTime("12:01p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw3).end, CourseDataParser.toTime("12:59p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw4).start, CourseDataParser.toTime("12:01p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw4).end, CourseDataParser.toTime("1:00p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw5).start, CourseDataParser.toTime("1:00p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw5).end, CourseDataParser.toTime("10:00p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw6).start, CourseDataParser.toTime("10:00p"))
-        self.assertEqual(CourseDataParser.toClassTime(raw6).end, CourseDataParser.toTime("11:59p"))
-        self.assertRaises(RuntimeError, CourseDataParser.toClassTime, raw7)
-        self.assertRaises(RuntimeError, CourseDataParser.toClassTime, raw8)
+        self.assertEqual(coursedataparser.toClassTime(raw1).start, coursedataparser.toTime("10:00"))
+        self.assertEqual(coursedataparser.toClassTime(raw1).end, coursedataparser.toTime("11:59"))
+        self.assertEqual(coursedataparser.toClassTime(raw2).start, coursedataparser.toTime("10:00"))
+        self.assertEqual(coursedataparser.toClassTime(raw2).end, coursedataparser.toTime("12:59p"))
+        self.assertEqual(coursedataparser.toClassTime(raw3).start, coursedataparser.toTime("12:01p"))
+        self.assertEqual(coursedataparser.toClassTime(raw3).end, coursedataparser.toTime("12:59p"))
+        self.assertEqual(coursedataparser.toClassTime(raw4).start, coursedataparser.toTime("12:01p"))
+        self.assertEqual(coursedataparser.toClassTime(raw4).end, coursedataparser.toTime("1:00p"))
+        self.assertEqual(coursedataparser.toClassTime(raw5).start, coursedataparser.toTime("1:00p"))
+        self.assertEqual(coursedataparser.toClassTime(raw5).end, coursedataparser.toTime("10:00p"))
+        self.assertEqual(coursedataparser.toClassTime(raw6).start, coursedataparser.toTime("10:00p"))
+        self.assertEqual(coursedataparser.toClassTime(raw6).end, coursedataparser.toTime("11:59p"))
+        self.assertRaises(RuntimeError, coursedataparser.toClassTime, raw7)
+        self.assertRaises(RuntimeError, coursedataparser.toClassTime, raw8)
 
 class CourseTests(unittest.TestCase):
 
@@ -137,7 +137,7 @@ class CourseTests(unittest.TestCase):
         """
         classRawTuple1 = ("10000", "LEC", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
         classRawTuple2 = ("20000", "LEC", "2", "0", "STAFF", "MWF   1:00- 2:50p", "ICS 180", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
-        classes = [CourseDataParser.toClass(self.NAME, classRawTuple1), CourseDataParser.toClass(self.NAME, classRawTuple2)]
+        classes = [coursedataparser.toClass(self.NAME, classRawTuple1), coursedataparser.toClass(self.NAME, classRawTuple2)]
         c1 = Course(self.NAME, classes)
         self.assertEqual(c1.classes, classes)
 
@@ -149,7 +149,7 @@ class ScheduleTests(unittest.TestCase):
         """
         classRawTuple1 = ("10000", "LEC", "1", "0", "STAFF", "MWF   8:00- 9:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
         classRawTuple2 = ("20000", "LEC", "2", "0", "STAFF", "MWF   1:00- 2:50p", "ICS 180", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN")
-        sched = Schedule([CourseDataParser.toClass("", classRawTuple1), CourseDataParser.toClass("", classRawTuple2)])
+        sched = Schedule([coursedataparser.toClass("", classRawTuple1), coursedataparser.toClass("", classRawTuple2)])
         self.assertEqual(sched.getClassCodes(), [10000, 20000])
 
     def test_generatePossibleSchedules(self):
@@ -157,15 +157,15 @@ class ScheduleTests(unittest.TestCase):
         generatePossibleSchedules should return correct values.
         """
 
-        class_2_1 = CourseDataParser.toClass("", ("21000", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        class_2_2 = CourseDataParser.toClass("", ("22000", "LEC", "1", "0", "STAFF", "MWF   4:00- 5:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_2_1 = coursedataparser.toClass("", ("21000", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_2_2 = coursedataparser.toClass("", ("22000", "LEC", "1", "0", "STAFF", "MWF   4:00- 5:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         course2 = Course("", [class_2_1, class_2_2])
-        class_3_1 = CourseDataParser.toClass("", ("31000", "LEC", "1", "0", "STAFF", "TuTh   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        class_3_2 = CourseDataParser.toClass("", ("32000", "LEC", "1", "0", "STAFF", "MW   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_3_1 = coursedataparser.toClass("", ("31000", "LEC", "1", "0", "STAFF", "TuTh   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_3_2 = coursedataparser.toClass("", ("32000", "LEC", "1", "0", "STAFF", "MW   7:00- 8:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         course3 = Course("", [class_3_1, class_3_2])
-        class_4_1 = CourseDataParser.toClass("", ("41000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 11:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_4_1 = coursedataparser.toClass("", ("41000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 11:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         course4 = Course("", [class_4_1])
-        class_5_1 = CourseDataParser.toClass("", ("51000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 10:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        class_5_1 = coursedataparser.toClass("", ("51000", "LEC", "1", "0", "STAFF", "TuTh   10:00- 10:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         course5 = Course("", [class_5_1])
 
         scheds_1 = generatePossibleSchedules([course2], {})
@@ -182,17 +182,17 @@ class ScheduleTests(unittest.TestCase):
         """
         hasValidConnections should return correct value.
         """
-        c1_class1 = CourseDataParser.toClass("", ("52111", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_class1 = CourseDataParser.toClass("", ("10010", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_class2 = CourseDataParser.toClass("", ("20010", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_class3 = CourseDataParser.toClass("", ("30010", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c3_class1 = CourseDataParser.toClass("", ("11111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c3_class2 = CourseDataParser.toClass("", ("11112", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c3_class3 = CourseDataParser.toClass("", ("21111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c3_class4 = CourseDataParser.toClass("", ("21112", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c3_class5 = CourseDataParser.toClass("", ("21113", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c3_class6 = CourseDataParser.toClass("", ("31111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c4_class1 = CourseDataParser.toClass("", ("42111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_class1 = coursedataparser.toClass("", ("52111", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_class1 = coursedataparser.toClass("", ("10010", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_class2 = coursedataparser.toClass("", ("20010", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_class3 = coursedataparser.toClass("", ("30010", "LEC", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c3_class1 = coursedataparser.toClass("", ("11111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c3_class2 = coursedataparser.toClass("", ("11112", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c3_class3 = coursedataparser.toClass("", ("21111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c3_class4 = coursedataparser.toClass("", ("21112", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c3_class5 = coursedataparser.toClass("", ("21113", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c3_class6 = coursedataparser.toClass("", ("31111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c4_class1 = coursedataparser.toClass("", ("42111", "LAB", "1", "0", "STAFF", "MWF   3:00- 3:50", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         connectedClassDict = { 10010:[c3_class1, c3_class2], 20010:[c3_class3, c3_class4, c3_class5], 30010:[c3_class6] }
 
         self.assertTrue(Schedule([c2_class1, c3_class1, c1_class1]).hasValidConnections(connectedClassDict))
@@ -206,20 +206,20 @@ class ScheduleTests(unittest.TestCase):
         """
         calculateRedZoneScore should return correct value.
         """
-        c1_1 = CourseDataParser.toClass("", ("52111", "RedIn", "1", "0", "STAFF", "TuTh   6:10- 7:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c1_2 = CourseDataParser.toClass("", ("10010", "OK", "1", "0", "STAFF", "MWF   9:10- 10:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c1_3 = CourseDataParser.toClass("", ("11112", "RedIn", "1", "0", "STAFF", "MWF   3:10- 4:00p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c1_4 = CourseDataParser.toClass("", ("20010", "RedOv", "1", "0", "STAFF", "MWF   4:10- 5:10p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c1_5 = CourseDataParser.toClass("", ("42111", "RedOv", "1", "0", "STAFF", "TuTh   9:10- 10:30p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_1 = CourseDataParser.toClass("", ("52111", "OK", "1", "0", "STAFF", "TuTh   10:10- 11:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_2 = CourseDataParser.toClass("", ("10010", "OK", "1", "0", "STAFF", "MWF   9:10- 10:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_3 = CourseDataParser.toClass("", ("11112", "RedIn", "1", "0", "STAFF", "MWF   3:10- 4:00p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_4 = CourseDataParser.toClass("", ("20010", "RedOv", "1", "0", "STAFF", "MWF   4:10- 5:10p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
-        c2_5 = CourseDataParser.toClass("", ("42111", "RedOv", "1", "0", "STAFF", "TuTh   9:10- 10:30p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_1 = coursedataparser.toClass("", ("52111", "RedIn", "1", "0", "STAFF", "TuTh   6:10- 7:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_2 = coursedataparser.toClass("", ("10010", "OK", "1", "0", "STAFF", "MWF   9:10- 10:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_3 = coursedataparser.toClass("", ("11112", "RedIn", "1", "0", "STAFF", "MWF   3:10- 4:00p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_4 = coursedataparser.toClass("", ("20010", "RedOv", "1", "0", "STAFF", "MWF   4:10- 5:10p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c1_5 = coursedataparser.toClass("", ("42111", "RedOv", "1", "0", "STAFF", "TuTh   9:10- 10:30p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_1 = coursedataparser.toClass("", ("52111", "OK", "1", "0", "STAFF", "TuTh   10:10- 11:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_2 = coursedataparser.toClass("", ("10010", "OK", "1", "0", "STAFF", "MWF   9:10- 10:00", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_3 = coursedataparser.toClass("", ("11112", "RedIn", "1", "0", "STAFF", "MWF   3:10- 4:00p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_4 = coursedataparser.toClass("", ("20010", "RedOv", "1", "0", "STAFF", "MWF   4:10- 5:10p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
+        c2_5 = coursedataparser.toClass("", ("42111", "RedOv", "1", "0", "STAFF", "TuTh   9:10- 10:30p", "ICS 189", "", "44", "10/15", "n/a", "9", "0","A&N", "OPEN"))
         schedule1 = Schedule([c1_1, c1_2, c1_3, c1_4, c1_5])
         schedule2 = Schedule([c2_1, c2_2, c2_3, c2_4, c2_5])
         schedules = [schedule1, schedule2]
-        redZones = [CourseDataParser.toClassTime("1:00- 9:00"), CourseDataParser.toClassTime("3:00- 5:00p"), CourseDataParser.toClassTime("10:00- 11:00p")]
+        redZones = [coursedataparser.toClassTime("1:00- 9:00"), coursedataparser.toClassTime("3:00- 5:00p"), coursedataparser.toClassTime("10:00- 11:00p")]
 
         self.assertEqual(schedule1.calculateRedZoneScore(redZones), -6)
         self.assertEqual(schedule2.calculateRedZoneScore(redZones), -4)
@@ -258,12 +258,12 @@ class FileInputTests(unittest.TestCase):
         """
         zones = fileInputRedZones(pathlib.Path("unit_test_files/unit_test_red_zones.txt"))
         self.assertEqual(len(zones), 3)
-        self.assertEqual(zones[0].start, CourseDataParser.toTime("1:00"))
-        self.assertEqual(zones[0].end, CourseDataParser.toTime("9:00"))
-        self.assertEqual(zones[1].start, CourseDataParser.toTime("3:00p"))
-        self.assertEqual(zones[1].end, CourseDataParser.toTime("5:00p"))
-        self.assertEqual(zones[2].start, CourseDataParser.toTime("10:00p"))
-        self.assertEqual(zones[2].end, CourseDataParser.toTime("11:00p"))
+        self.assertEqual(zones[0].start, coursedataparser.toTime("1:00"))
+        self.assertEqual(zones[0].end, coursedataparser.toTime("9:00"))
+        self.assertEqual(zones[1].start, coursedataparser.toTime("3:00p"))
+        self.assertEqual(zones[1].end, coursedataparser.toTime("5:00p"))
+        self.assertEqual(zones[2].start, coursedataparser.toTime("10:00p"))
+        self.assertEqual(zones[2].end, coursedataparser.toTime("11:00p"))
 
 class ScheduleInputFunctionTests(unittest.TestCase):
 
@@ -287,8 +287,8 @@ class ScheduleInputFunctionTests(unittest.TestCase):
         labType = "LAB"
         lecTup = ("28100", lecType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
         labTup = ("28100", labType, "HA",  "4",   "STAFF", "MWF   9:00- 9:50",  "BS3 1200", "Wed, Mar 16, 8:00-10:00am", "64", "53", "n/a", "57", "0","", "OPEN")
-        lec = CourseDataParser.toClass(lecType, lecTup)
-        lab = CourseDataParser.toClass(labType, labTup)
+        lec = coursedataparser.toClass(lecType, lecTup)
+        lab = coursedataparser.toClass(labType, labTup)
         self.assertFalse(_isConnected( [] ))
         self.assertFalse(_isConnected( [ [lec] ] ))
         self.assertFalse(_isConnected( [[lec, lec]] ))
