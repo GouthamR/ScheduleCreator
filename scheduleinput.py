@@ -1,7 +1,7 @@
 import pathlib
 
-from Course import *
-import CourseDataParser
+from course import *
+import coursedataparser
 
 # Note: sub-course is all the classes of a single type within a course. E.g. sub-course of ICS31 is ICS31 Lec.
 
@@ -94,7 +94,7 @@ def _convertToClassesByType(courseName: str, tuples: 'list of tuple') -> 'list o
     prevType = None
     for tup in tuples:
         try:
-            currClass = CourseDataParser.toClass(courseName, tup)
+            currClass = coursedataparser.toClass(courseName, tup)
         except ValueError:
             print("SKIPPING INVALID CLASS: {}".format(tup))
         else:

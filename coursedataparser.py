@@ -1,4 +1,4 @@
-from Course import *
+from course import *
 
 def _getHourFromInput(rawHour: str, isPm: bool) -> int:
     """

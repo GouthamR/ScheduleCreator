@@ -1,7 +1,7 @@
 from urllib import parse, request
 import pathlib
-from Term import Term
-from CourseInputInfo import CourseInputInfo
+from term import Term
+from courseinputinfo import CourseInputInfo
 
 def _getWebsiteData(term: 'constant from Term', year: int, courseInputInfo: CourseInputInfo) -> str:
 	"""

@@ -1,6 +1,6 @@
 from tkinter import *
-from Schedule import *
-from Course import *
+from schedule import *
+from course import *
 
 class ScheduleGUI:
     _CANVAS_WIDTH = 600
