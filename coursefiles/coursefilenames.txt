@@ -1,3 +1,0 @@
-compsci161.txt
-compsci171.txt
-bioscih90.txt

@@ -7,8 +7,4 @@ dist/
 # Lint
 .pylintrc
 
-# Course-specific config files, but still include web_input.txt
-config/*
-!config/minutes_between_classes.txt
-!config/red_zones.txt
-!config/web_input.txt
+coursefiles/*
