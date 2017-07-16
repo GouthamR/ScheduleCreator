@@ -1,5 +1,7 @@
 import urllib.request
 import pathlib
+import os
+
 from term import Term
 from courseinputinfo import CourseInputInfo
 
@@ -72,6 +74,12 @@ class WebsiteInput:
 
 		with self._courseFilenamesFile.open('r') as f:
 			return [self._courseFilesDir.joinpath(line.strip()) for line in f]
+
+	def deleteSavedFiles(self):
+		for dirpath, dirnames, filenames in os.walk(str(self._courseFilesDir)):
+			for filename in filenames:
+				os.remove(os.path.join(dirpath, filename))
+			# no need to delete subdirectories, since there aren't any
 
 	def scrapeCoursesDataFromWebsiteAndSaveToFiles(self, term: 'constant from Term', year: int,
 													courseInputInfos: [CourseInputInfo]) -> None:

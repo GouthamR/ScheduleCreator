@@ -21,10 +21,11 @@ COURSEFILES_DIR = pathlib.Path("coursefiles/")
 
 def _initSchedules(scheduleGUI: ScheduleGUI):
     websiteInput = WebsiteInput(COURSEFILES_DIR)
-    if websiteInput.savedFilesExist():
-        print("Loading from saved course file...")
+    if websiteInput.savedFilesExist() and scheduleGUI.promptForLoadFiles():
+        print("Loading from saved course files...")
     else:
         print("Loading from website...")
+        websiteInput.deleteSavedFiles()
         websiteInput.scrapeCoursesDataFromWebsiteAndSaveToFiles(*configfileinput.fileInputCourseParams(INPUT_FILE))
     
     courseFiles = websiteInput.getSavedCourseFiles()

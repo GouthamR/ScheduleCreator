@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox
 import schedule
 
 class ScheduleGUI:
@@ -102,6 +103,9 @@ class ScheduleGUI:
 
         self._drawSchedule()
     
+    def promptForLoadFiles(self) -> bool:
+        return tkinter.messagebox.askyesno("Schedule Creator", "Load saved course files?")
+
     def __init__(self, root: tk.Tk):
         self.isSchedulesInit = False
         self.schedules = []
