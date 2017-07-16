@@ -1,4 +1,4 @@
-import urllib
+import urllib.request
 import pathlib
 from term import Term
 from courseinputinfo import CourseInputInfo

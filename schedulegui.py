@@ -1,4 +1,5 @@
 import tkinter as tk
+import schedule
 
 class ScheduleGUI:
     _CANVAS_WIDTH = 600
@@ -7,7 +8,11 @@ class ScheduleGUI:
     _TIME_LABEL_WIDTH = _CANVAS_WIDTH / (_NUMBER_OF_DAYS + 1) / 2
     _BLOCK_WIDTH = (_CANVAS_WIDTH - _TIME_LABEL_WIDTH) / _NUMBER_OF_DAYS
     _BLOCK_COLORS = ("white", "orange red", "pale green", "dodger blue", "turquoise", "goldenrod", "violet", "steelblue1")
+    
     def _switchSchedule(self, forward):
+        if not self.isSchedulesInit:
+            raise ValueError("ScheduleGUI._switchSchedule: schedules not init")
+
         if forward:
             self.scheduleIndex += 1
             if self.scheduleIndex == len(self.schedules):
@@ -17,10 +22,8 @@ class ScheduleGUI:
             if self.scheduleIndex == -1:
                 self.scheduleIndex = len(self.schedules) - 1
         self._drawSchedule()
-    def _initGUI(self):
-        root = tk.Tk()
-        root.protocol('WM_DELETE_WINDOW', root.destroy)
-        root.title("Schedule Creator - Schedule Viewer. By Goutham Rajeev")
+    
+    def _initEmptyGUI(self, root: tk.Tk):
         # create frame
         frame = tk.Frame(root, bg="grey", width=400, height=40)
         frame.pack(fill='x')
@@ -29,10 +32,12 @@ class ScheduleGUI:
             self._switchSchedule(True)
         def switchBackward():
             self._switchSchedule(False)
-        forwardButton = tk.Button(frame, text="Next", command=switchForward)
-        forwardButton.pack(side="right", padx=10)
-        backButton = tk.Button(frame, text="Previous", command=switchBackward)
-        backButton.pack(side="right", padx=10)
+        self._forwardButton = tk.Button(frame, text="Next", command=switchForward)
+        self._forwardButton.pack(side="right", padx=10)
+        self._forwardButton.config(state='disabled')
+        self._backButton = tk.Button(frame, text="Previous", command=switchBackward)
+        self._backButton.pack(side="right", padx=10)
+        self._backButton.config(state='disabled')
         #create index label
         self.indexLabel = tk.Text(frame, height=1, padx=10, width=6)
         self.indexLabel.configure(inactiveselectbackground=self.indexLabel.cget("selectbackground"))
@@ -44,9 +49,15 @@ class ScheduleGUI:
         # invoke canvas
         self.canvas = tk.Canvas(root, width=ScheduleGUI._CANVAS_WIDTH, height=ScheduleGUI._CANVAS_HEIGHT)
         self.canvas.pack()
+    
+    @staticmethod
     def _getCanvasY(minutes, minMinutes, maxMinutes):
         return (minutes - minMinutes) / (maxMinutes - minMinutes) * ScheduleGUI._CANVAS_HEIGHT
+    
     def _drawSchedule(self):
+        if not self.isSchedulesInit:
+            raise ValueError("ScheduleGUI._drawSchedule: schedules not init")
+
         self.canvas.delete("all")
 
         classes = self.schedules[self.scheduleIndex].classes
@@ -80,9 +91,19 @@ class ScheduleGUI:
         self.indexLabel.delete(1.0, 'end')
         self.indexLabel.insert('end', self.scheduleIndex)
         self.indexLabel.config(state='disabled')
-    def __init__(self, schedules):
+    
+    def initSchedules(self, schedules: [schedule.Schedule]):
+        self.isSchedulesInit = True
         self.schedules = schedules
         self.scheduleIndex = 0
-        self._initGUI()
+
+        self._forwardButton.config(state='normal')
+        self._backButton.config(state='normal')
+
         self._drawSchedule()
-        tk.mainloop()
+    
+    def __init__(self, root: tk.Tk):
+        self.isSchedulesInit = False
+        self.schedules = []
+        self.scheduleIndex = 0
+        self._initEmptyGUI(root)
